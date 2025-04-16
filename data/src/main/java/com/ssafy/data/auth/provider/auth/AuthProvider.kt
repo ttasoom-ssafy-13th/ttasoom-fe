@@ -1,4 +1,4 @@
-package com.ssafy.data.auth.provider
+package com.ssafy.data.auth.provider.auth
 
 import com.ssafy.data.auth.model.UserDto
 
