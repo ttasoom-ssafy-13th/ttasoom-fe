@@ -1,7 +1,7 @@
-package com.ssafy.domain.repository
+package com.ssafy.domain.auth.repository
 
-import com.ssafy.domain.model.AuthProviderType
-import com.ssafy.domain.model.User
+import com.ssafy.domain.auth.model.AuthProviderType
+import com.ssafy.domain.auth.model.User
 
 interface AuthRepository {
     suspend fun login(type: AuthProviderType, token: String?): Result<User>
