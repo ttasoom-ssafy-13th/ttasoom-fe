@@ -1,5 +1,4 @@
 
-
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -7,10 +6,8 @@ plugins {
     kotlin("kapt")
 }
 
-
-
 android {
-    namespace = "com.ssafy.domain"
+    namespace = "com.ssafy.data"
     compileSdk = 34
 
     defaultConfig {
@@ -40,8 +37,21 @@ android {
 
 
 }
-dependencies{
+dependencies {
     implementation(project(":domain"))
+
+    // ✅ Retrofit 직접 명시
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+
+    // ✅ Hilt
     implementation("com.google.dagger:hilt-android:2.48")
     kapt("com.google.dagger:hilt-compiler:2.48")
+
+    // ✅ 테스트
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
 }
+
