@@ -18,7 +18,7 @@ class BoilerRepositoryImpl @Inject constructor(
             operateMethod = "자동",
             fuel = "가스",
             authStartDay = "2024-01-01"
-        )
+        ) //일단 서버 없으니까
 
         val list= mutableListOf<Boiler>()
         list.add(fakeDto)
