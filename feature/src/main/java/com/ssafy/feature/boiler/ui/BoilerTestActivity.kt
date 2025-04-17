@@ -38,5 +38,20 @@ class BoilerTestActivity : AppCompatActivity() {
         binding.button.setOnClickListener {
             viewModel.fetchBoilers()
         }
+
+        binding.filterButton.setOnClickListener {
+            val company = binding.etCompanyName.text.toString().ifBlank { null }
+            val cert = binding.etCertificationType.text.toString().ifBlank { null }
+            val circ = binding.etCirculationType.text.toString().ifBlank { null }
+            val fuel = binding.etFuelType.text.toString().ifBlank { null }
+
+            viewModel.fetchFilteredBoilers(
+                companyName = company,
+                certificationType = cert,
+                circulationType = circ,
+                fuelType = fuel
+            )
+        }
+
     }
 }
