@@ -1,6 +1,6 @@
-package com.ssafy.domain.model
+package com.ssafy.data.auth.model
 
-data class Boiler (
+data class BoilerDto (
     val boilerImg : String?,
     val companyName : String,
     val boilerName : String,

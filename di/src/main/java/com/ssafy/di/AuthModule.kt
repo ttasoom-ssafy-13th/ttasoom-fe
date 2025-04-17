@@ -1,8 +1,8 @@
 package com.ssafy.di
 
-import com.ssafy.data.auth.provider.auth.AuthProvider
-import com.ssafy.data.auth.provider.auth.EmailAuthProvider
-import com.ssafy.data.auth.provider.auth.GoogleAuthProvider
+import com.ssafy.data.auth.provider.AuthProvider
+import com.ssafy.data.auth.provider.EmailAuthProvider
+import com.ssafy.data.auth.provider.GoogleAuthProvider
 import com.ssafy.data.auth.repository.AuthRepositoryImpl
 import com.ssafy.domain.model.AuthProviderType
 import com.ssafy.domain.repository.AuthRepository

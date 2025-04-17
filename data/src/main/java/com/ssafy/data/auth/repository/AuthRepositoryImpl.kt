@@ -2,7 +2,7 @@ package com.ssafy.data.auth.repository
 
 
 import com.ssafy.data.auth.mapper.toDomain
-import com.ssafy.data.auth.provider.auth.AuthProvider
+import com.ssafy.data.auth.provider.AuthProvider
 import com.ssafy.domain.model.AuthProviderType
 import com.ssafy.domain.model.User
 import com.ssafy.domain.repository.AuthRepository
