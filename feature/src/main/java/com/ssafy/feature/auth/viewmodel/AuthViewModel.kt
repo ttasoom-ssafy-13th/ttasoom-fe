@@ -4,13 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ssafy.domain.model.AuthProviderType
-import com.ssafy.domain.model.User
-import com.ssafy.domain.usecase.LoginUseCase
+import com.ssafy.domain.auth.model.AuthProviderType
+import com.ssafy.domain.auth.model.User
+import com.ssafy.domain.auth.usecase.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.text.Typography.dagger
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(

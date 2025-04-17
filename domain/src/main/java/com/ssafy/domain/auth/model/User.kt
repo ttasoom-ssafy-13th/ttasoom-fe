@@ -1,4 +1,4 @@
-package com.ssafy.domain.model
+package com.ssafy.domain.auth.model
 
 data class User(
     val uid: String,
