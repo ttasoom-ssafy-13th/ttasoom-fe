@@ -27,7 +27,6 @@ class TestActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val list= mutableListOf<Boiler>()
-        val adapter =
 
     }
 }
