@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- 필터 조건 입력 -->
+        <EditText
+            android:id="@+id/etCompanyName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="회사명" />
+
+        <EditText
+            android:id="@+id/etCertificationType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="인증종류" />
+
+        <EditText
+            android:id="@+id/etCirculationType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="순환방식" />
+
+        <EditText
+            android:id="@+id/etFuelType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="사용연료" />
+
+        <!-- 전체 조회 버튼 -->
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="전체 보일러 조회" />
+
+        <!-- 필터 조회 버튼 -->
+        <Button
+            android:id="@+id/filterButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="필터 조건으로 조회" />
+
+        <!-- 결과 출력 -->
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="결과가 여기에 표시됩니다"
+            android:paddingTop="16dp" />
+    </LinearLayout>
+</ScrollView>
