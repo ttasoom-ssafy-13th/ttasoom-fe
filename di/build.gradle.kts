@@ -43,17 +43,14 @@ dependencies {
     implementation(libs.material)
     testImplementation(libs.junit)
     // Hilt
-    implementation("com.google.dagger:hilt-android:2.48")
-    kapt("com.google.dagger:hilt-compiler:2.48")
-
-
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 
-    implementation("com.google.dagger:hilt-android:2.48")
-    kapt("com.google.dagger:hilt-compiler:2.48")
+
 }

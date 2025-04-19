@@ -41,13 +41,13 @@ dependencies {
     implementation(project(":domain"))
 
     // ✅ Retrofit 직접 명시
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
 
     // ✅ Hilt
-    implementation("com.google.dagger:hilt-android:2.48")
-    kapt("com.google.dagger:hilt-compiler:2.48")
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 
     // ✅ 테스트
     testImplementation(libs.junit)

@@ -1,6 +1,6 @@
 package com.ssafy.data.auth.model
 
-import com.ssafy.domain.model.AuthProviderType
+import com.ssafy.domain.login.model.AuthProviderType
 
 data class UserDto(
     val uid: String?,
