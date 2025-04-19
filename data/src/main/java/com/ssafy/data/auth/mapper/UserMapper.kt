@@ -1,7 +1,7 @@
 package com.ssafy.data.auth.mapper
 
 import com.ssafy.data.auth.model.UserDto
-import com.ssafy.domain.model.User
+import com.ssafy.domain.login.model.User
 
 
 fun UserDto.toDomain(): User = User(

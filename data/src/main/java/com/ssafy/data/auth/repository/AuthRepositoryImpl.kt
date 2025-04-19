@@ -3,9 +3,9 @@ package com.ssafy.data.auth.repository
 
 import com.ssafy.data.auth.mapper.toDomain
 import com.ssafy.data.auth.provider.AuthProvider
-import com.ssafy.domain.model.AuthProviderType
-import com.ssafy.domain.model.User
-import com.ssafy.domain.repository.AuthRepository
+import com.ssafy.domain.login.model.AuthProviderType
+import com.ssafy.domain.login.model.User
+import com.ssafy.domain.login.repository.AuthRepository
 
 class AuthRepositoryImpl(
     private val providers: Map<AuthProviderType, AuthProvider>

@@ -1,7 +1,7 @@
 package com.ssafy.data.auth.provider
 
 import com.ssafy.data.auth.model.UserDto
-import com.ssafy.domain.model.AuthProviderType
+import com.ssafy.domain.login.model.AuthProviderType
 import javax.inject.Inject
 
 

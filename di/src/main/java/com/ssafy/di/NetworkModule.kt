@@ -1,6 +1,5 @@
 package com.ssafy.di
 
-import com.ssafy.data.auth.api.boilerApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,14 +30,5 @@ object NetworkModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
-
-
-    @Provides
-    @Singleton
-    fun provideBoilerApi(retrofit: Retrofit): boilerApi {
-        return retrofit.create(boilerApi::class.java)
-    }
-
-
 
 }
