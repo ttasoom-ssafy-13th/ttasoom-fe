@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".userInfo.UserInfoActivity">
+
+    <TextView
+        android:id="@+id/userInfo_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NAME"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="10dp"/>
+
+    <TextView
+        android:id="@+id/userInfo_mileage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MILEAGE"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userInfo_name"
+        android:padding="10dp"/>
+
+    <TextView
+        android:id="@+id/userInfo_level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LEVEL"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userInfo_mileage"
+        android:padding="10dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userInfo_level">
+
+        <Button
+            android:id="@+id/userInfo_get"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GET"
+            android:textSize="22sp"
+            android:layout_marginEnd="20dp"/>
+
+        <Button
+            android:id="@+id/userInfo_post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="POST"
+            android:textSize="22sp" />
+
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

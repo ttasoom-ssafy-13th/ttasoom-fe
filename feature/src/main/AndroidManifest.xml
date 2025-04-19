@@ -12,10 +12,6 @@
         android:theme="@style/Theme.Ttasoom">
 
         <activity
-            android:name=".auth.ui.TestActivity"
-            android:exported="false" />
-
-        <activity
             android:name=".auth.ui.LoginActivity"
             android:exported="true">
             <intent-filter>
@@ -26,8 +22,13 @@
 
         <activity
             android:name=".boiler.ui.BoilerTestActivity"
-            android:exported="true" />
+            android:exported="false" />
 
+        <activity
+            android:name=".userInfo.UserInfoActivity"
+            android:exported="false">
+
+        </activity>
     </application>
 </manifest>
 
