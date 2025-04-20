@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.ssafy.domain.userInfo.model.UserInfo
 import com.ssafy.feature.R
 import com.ssafy.feature.databinding.ActivityUserInfoBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,7 +48,7 @@ class UserInfoActivity : AppCompatActivity() {
         }
 
         binding.userInfoPost.setOnClickListener {
-            viewModel.fetchPost(3)
+            viewModel.fetchPut(UserInfo("최윤석",26,12))
         }
 
 

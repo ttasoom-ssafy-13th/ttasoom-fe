@@ -2,8 +2,6 @@ package com.ssafy.data.userInfo.mapper
 
 
 import com.ssafy.data.userInfo.model.UserInfoDto
-import com.ssafy.domain.boiler.model.Boiler
-import com.ssafy.domain.login.model.User
 import com.ssafy.domain.userInfo.model.UserInfo
 
 fun UserInfoDto.toDomain(): UserInfo{
@@ -14,4 +12,12 @@ fun UserInfoDto.toDomain(): UserInfo{
         level = level
     )
 
+}
+
+fun UserInfo.toDto() : UserInfoDto{
+    return UserInfoDto(
+        username=this.username,
+        mileage = this.mileage,
+        level=this.level
+    )
 }

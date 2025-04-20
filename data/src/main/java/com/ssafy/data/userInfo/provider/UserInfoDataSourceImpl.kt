@@ -11,17 +11,17 @@ class UserInfoDataSourceImpl(private val api: UserInfoApiService) :
     override suspend fun getUserInfo(): Result<UserInfoDto> {
         return try {
             val response = api.getUserInfo()
-            Result.success(response.data)
+            Result.success(response)
         } catch (e: Exception) {
             Result.failure(e)
         }
     }
 
-    override suspend fun postUserInfo(mileageType: Int): Result<UserInfoDto> {
+    override suspend fun putUserInfo(userInfo: UserInfoDto): Result<UserInfoDto> {
 
         return try {
-            val response = api.postUserInfo(mileageType)
-            Result.success(response.data)
+            val response = api.putUserInfo(userInfo)
+            Result.success(response)
         } catch (e: Exception) {
             Result.failure(e)
         }

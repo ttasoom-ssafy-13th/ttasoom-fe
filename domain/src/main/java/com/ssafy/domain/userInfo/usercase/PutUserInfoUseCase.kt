@@ -4,10 +4,10 @@ import com.ssafy.domain.userInfo.model.UserInfo
 import com.ssafy.domain.userInfo.repository.UserInfoRepository
 import javax.inject.Inject
 
-class PostUserInfoUseCase @Inject constructor(
+class PutUserInfoUseCase @Inject constructor(
     private val repository: UserInfoRepository
 ) {
-    suspend operator fun invoke(mileageType: Int): Result<UserInfo> {
-        return repository.postUserInfo(mileageType)
+    suspend operator fun invoke(userInfo: UserInfo): Result<UserInfo> {
+        return repository.putUserInfo(userInfo)
     }
 }

@@ -1,20 +1,19 @@
 package com.ssafy.data.userInfo.provider
 
 import com.ssafy.data.userInfo.model.UserInfoDto
-import com.ssafy.data.userInfo.model.UserInfoResponseDto
-import retrofit2.http.GET
+import retrofit2.http.Body
 import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.PUT
 
 interface UserInfoApiService {
     //Header에 토큰값 필수일듯
 
     @POST("/userInfo")
-    suspend fun postUserInfo(
-        @Query("mileageType") mileageType: Int
-    ): UserInfoResponseDto
+    suspend fun putUserInfo(
+       @Body request : UserInfoDto
+    ): UserInfoDto
 
-    @GET("/userInfo")
-    suspend fun getUserInfo() :UserInfoResponseDto
+    @PUT("/userInfo")
+    suspend fun getUserInfo() :UserInfoDto
 
 }

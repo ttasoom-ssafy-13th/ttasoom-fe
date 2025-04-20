@@ -1,6 +1,8 @@
 package com.ssafy.data.userInfo.repository
 
 import com.ssafy.data.userInfo.mapper.toDomain
+import com.ssafy.data.userInfo.mapper.toDto
+import com.ssafy.data.userInfo.model.UserInfoDto
 import com.ssafy.data.userInfo.provider.UserInfoDataSource
 import com.ssafy.domain.userInfo.model.UserInfo
 import com.ssafy.domain.userInfo.repository.UserInfoRepository
@@ -14,8 +16,8 @@ class UserInfoRepositoryImpl(
         }
     }
 
-    override suspend fun postUserInfo(mileageType: Int): Result<UserInfo> {
-        return remote.postUserInfo(mileageType).map{
+    override suspend fun putUserInfo(userInfo: UserInfo): Result<UserInfo> {
+        return remote.putUserInfo(userInfo.toDto()).map{
             it.toDomain()
         }
     }

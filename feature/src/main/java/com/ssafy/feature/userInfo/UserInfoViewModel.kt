@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ssafy.domain.userInfo.model.UserInfo
 import com.ssafy.domain.userInfo.usercase.GetUserInfoUseCase
-import com.ssafy.domain.userInfo.usercase.PostUserInfoUseCase
+import com.ssafy.domain.userInfo.usercase.PutUserInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -14,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class UserInfoViewModel @Inject  constructor(
     private val getUserInfoUseCase: GetUserInfoUseCase,
-    private val postUserInfoUseCase: PostUserInfoUseCase
+    private val putUserInfoUseCase: PutUserInfoUseCase
 ) : ViewModel(){
     private val _userInfoResult = MutableLiveData<Result<UserInfo>>()
 
@@ -27,11 +27,11 @@ class UserInfoViewModel @Inject  constructor(
         }
     }
 
-    fun fetchPost(
-        mileageType : Int
+    fun fetchPut(
+        userInfo : UserInfo
     ){
         viewModelScope.launch {
-            val result=postUserInfoUseCase(mileageType)
+            val result=putUserInfoUseCase(userInfo)
             _userInfoResult.value=result
         }
     }

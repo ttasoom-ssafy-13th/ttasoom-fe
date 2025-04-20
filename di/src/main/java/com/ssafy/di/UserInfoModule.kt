@@ -1,13 +1,11 @@
 package com.ssafy.di
 
-import com.ssafy.data.userInfo.model.UserInfoDto
 import com.ssafy.data.userInfo.provider.FakeUserInfoDataSourceImpl
 import com.ssafy.data.userInfo.provider.UserInfoDataSource
 import com.ssafy.data.userInfo.repository.UserInfoRepositoryImpl
-import com.ssafy.domain.userInfo.model.UserInfo
 import com.ssafy.domain.userInfo.repository.UserInfoRepository
 import com.ssafy.domain.userInfo.usercase.GetUserInfoUseCase
-import com.ssafy.domain.userInfo.usercase.PostUserInfoUseCase
+import com.ssafy.domain.userInfo.usercase.PutUserInfoUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,8 +31,8 @@ object UserInfoModule {
     }
 
     @Provides
-    fun providePostUserInfoUseCase(repo : UserInfoRepository) : PostUserInfoUseCase {
-        return PostUserInfoUseCase(repo)
+    fun providePutUserInfoUseCase(repo : UserInfoRepository) : PutUserInfoUseCase {
+        return PutUserInfoUseCase(repo)
     }
 
 

@@ -1,11 +1,7 @@
 package com.ssafy.domain.userInfo.model
 
 data class UserInfo(
-    val username : String,
-    val mileage : Int,
-    val level : Int,
+    val username : String, //이름
+    val mileage : Int, //마일리지 양
+    val level : Int, //등급
 )
-
-enum class mileageType {
-    ATTEND, REGISTER, CHAT
-}
