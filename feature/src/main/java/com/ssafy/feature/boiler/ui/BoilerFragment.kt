@@ -149,7 +149,7 @@ class BoilerFragment : Fragment() {
 
     val companyNameMap = mapOf(
         "경동나비엔" to "KYUNG_DONG",
-        "귀뚜라미" to "KITURAMI",
+        "귀뚜라미" to "(주)귀뚜라미",
         "대성쎌틱" to "DAESUNG",
         "린나이" to "RINNAI"
     )
