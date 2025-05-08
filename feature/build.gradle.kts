@@ -34,12 +34,14 @@ android {
         jvmTarget = "1.8"
     }
 
+    viewBinding {
+        enable = true
+    }
 
 }
 
 dependencies {
     implementation(project(":domain"))
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -57,5 +59,10 @@ dependencies {
     // Hilt
     implementation("com.google.dagger:hilt-android:2.48")
     kapt("com.google.dagger:hilt-compiler:2.48")
+
+    implementation("androidx.fragment:fragment-ktx:1.6.1") // 최신 버전 확인 필요
+
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    kapt("com.github.bumptech.glide:compiler:4.16.0")
 
 }
