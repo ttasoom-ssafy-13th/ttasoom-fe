@@ -31,5 +31,11 @@
         <item name="checkedIconEnabled">false</item>
     </style>
 
+    <!-- 원형 프사 -->
+    <style name="CircleImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
 
 </resources>
