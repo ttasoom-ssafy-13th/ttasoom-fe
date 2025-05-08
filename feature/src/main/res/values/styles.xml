@@ -1,0 +1,35 @@
+<!-- res/values/styles.xml -->
+<resources>
+    <!-- 큰 제목용 텍스트 스타일 -->
+    <style name="TitleText">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <!-- 일반 본문 텍스트 스타일 -->
+    <style name="BodyText">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="CustomOutlinedButton" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:backgroundTint">@android:color/transparent</item>
+        <item name="strokeColor">@color/my_stroke_color</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="android:textSize">16sp</item> <!-- ✅ 이게 올바른 속성 -->
+        <item name="android:textColor">@color/black</item>
+        <item name="cornerRadius">8dp</item>
+    </style>
+
+    <style name="CustomChip" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@drawable/chip_selector</item>
+        <item name="chipStrokeWidth">0dp</item>
+        <item name="chipCornerRadius">20dp</item>
+        <item name="android:textColor">#000000</item>
+        <item name="checkedIconEnabled">false</item>
+    </style>
+
+
+</resources>
