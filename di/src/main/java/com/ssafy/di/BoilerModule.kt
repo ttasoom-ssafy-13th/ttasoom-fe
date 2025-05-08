@@ -1,8 +1,9 @@
 package com.ssafy.di
 
-import com.ssafy.data.boiler.repository.BoilerRepositoryImpl
+import com.ssafy.data.boiler.provider.BoilerApiService
 import com.ssafy.data.boiler.provider.BoilerRemoteDataSource
-import com.ssafy.data.boiler.provider.FakeBoilerRemoteDataSourceImpl
+import com.ssafy.data.boiler.provider.BoilerRemoteDataSourceImpl
+import com.ssafy.data.boiler.repository.BoilerRepositoryImpl
 import com.ssafy.domain.boiler.repository.BoilerRepository
 import com.ssafy.domain.boiler.usecase.GetBoilerListUseCase
 import com.ssafy.domain.boiler.usecase.GetFilterBoilerListUseCase
@@ -10,14 +11,27 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object BoilerModule {
 
     @Provides
-    fun provideBoilerRemoteDataSource(): BoilerRemoteDataSource {
-        return FakeBoilerRemoteDataSourceImpl()
+    @Singleton
+    fun provideBoilerApiService(): BoilerApiService {
+        return Retrofit.Builder()
+            .baseUrl("http://3.34.3.125") // ✅ 실제 서버 주소 입력
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(BoilerApiService::class.java)
+    }
+
+    @Provides
+    fun provideBoilerRemoteDataSource(api: BoilerApiService): BoilerRemoteDataSource {
+        return BoilerRemoteDataSourceImpl(api)
     }
 
     @Provides

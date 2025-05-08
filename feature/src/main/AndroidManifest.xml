@@ -18,9 +18,5 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".boiler.ui.BoilerTestActivity"
-            android:exported="true"/>
     </application>
 </manifest>

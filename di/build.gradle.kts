@@ -56,4 +56,6 @@ dependencies {
 
     implementation("com.google.dagger:hilt-android:2.48")
     kapt("com.google.dagger:hilt-compiler:2.48")
+
+    implementation("com.google.android.material:material:1.11.0")
 }
