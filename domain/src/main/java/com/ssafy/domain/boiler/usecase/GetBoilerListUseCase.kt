@@ -4,6 +4,7 @@ import com.ssafy.domain.boiler.model.Boiler
 import com.ssafy.domain.boiler.repository.BoilerRepository
 import javax.inject.Inject
 
+// GetBoilerListUseCase.kt
 class GetBoilerListUseCase @Inject constructor(
     private val repository: BoilerRepository
 ) {
@@ -11,3 +12,5 @@ class GetBoilerListUseCase @Inject constructor(
         return repository.getBoilerList()
     }
 }
+
+
