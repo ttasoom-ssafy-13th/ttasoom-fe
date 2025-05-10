@@ -20,16 +20,6 @@ import javax.inject.Singleton
 object BoilerModule {
 
     @Provides
-    @Singleton
-    fun provideBoilerApiService(): BoilerApiService {
-        return Retrofit.Builder()
-            .baseUrl("http://3.34.3.125") // ✅ 실제 서버 주소 입력
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(BoilerApiService::class.java)
-    }
-
-    @Provides
     fun provideBoilerRemoteDataSource(api: BoilerApiService): BoilerRemoteDataSource {
         return BoilerRemoteDataSourceImpl(api)
     }
