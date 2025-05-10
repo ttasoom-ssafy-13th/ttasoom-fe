@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.ssafy.feature.auth.ui.LoginFragment"
+        android:label="로그인">
+        <action
+            android:id="@+id/action_loginFragment_to_boilerFragment"
+            app:destination="@id/boilerFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/boilerFragment"
+        android:name="com.ssafy.feature.boiler.ui.BoilerFragment"
+        android:label="보일러" />
+
+</navigation>
