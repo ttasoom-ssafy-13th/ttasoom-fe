@@ -1,5 +1,6 @@
 package com.ssafy.feature.boiler.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -35,6 +36,8 @@ class BoilerAdapter : RecyclerView.Adapter<BoilerAdapter.BoilerViewHolder>() {
         fun bind(item: Boiler) {
             binding.tvCompany.text = item.companyName
             binding.tvProduct.text = item.productName
+            Log.d("BoilerAdapter", "회사명: ${item.companyName}, 제품명: ${item.productName}")
+
 
             // 이미지 로딩 (비어 있으면 기본 이미지 사용)
             val imageUrl = item.imageUrl

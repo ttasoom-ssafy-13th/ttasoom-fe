@@ -8,11 +8,14 @@ class GetFilterBoilerListUseCase @Inject constructor(
     private val repository: BoilerRepository
 ) {
     suspend operator fun invoke(
-        companyName: String?,
-        certificationType: String?,
-        circulationType: String?,
-        fuelType: String?
+        companyNames: List<String>? = null,
+        certificationTypes: List<String>? = null,
+        circulationTypes: List<String>? = null,
+        fuelTypes: List<String>? = null
     ): Result<List<Boiler>> {
-        return repository.getFilterBoilerList(companyName, certificationType, circulationType, fuelType)
+        return repository.getFilterBoilerList(
+            companyNames, certificationTypes, circulationTypes, fuelTypes
+        )
     }
 }
+

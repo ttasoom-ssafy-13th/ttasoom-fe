@@ -1,135 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- 타이틀 -->
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Boilers"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp" />
+
+    <!-- 필터 제목 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Filter"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp" />
+
+    <!-- 필터 버튼들 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/CustomOutlinedButton"
+            android:id="@+id/btn_companyName"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="기업명" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/CustomOutlinedButton"
+            android:id="@+id/btn_certificationType"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="인증 종류" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <!-- 타이틀 -->
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Boilers"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp" />
-
-        <!-- 필터 제목 -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Filter"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp" />
-
-        <!-- 필터 버튼들 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/CustomOutlinedButton"
-                android:id="@+id/btn_companyName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:text="Company Name" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/CustomOutlinedButton"
-                android:id="@+id/btn_certificationType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:text="Certification Type" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="16dp">
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/CustomOutlinedButton"
-                android:id="@+id/btn_circulationMethod"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:text="Circulation Method" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/CustomOutlinedButton"
-                android:id="@+id/btn_fuelType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:text="Fuel Type" />
-        </LinearLayout>
-
-        <!-- ✅ ChipGroup: 선택된 필터를 표시 -->
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipGroup_filters"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:chipSpacing="8dp"
-            app:singleLine="false"
-            app:singleSelection="false" />
-
-        <!-- 정렬 -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sort By"
-            android:textStyle="bold"
-            android:layout_marginBottom="4dp" />
-
-        <RadioGroup
-            android:id="@+id/rg_sortGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="16dp">
-
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/rb_usage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/radio_border"
-                android:text="오름차순"
-                android:checked="true" />
-
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/rb_popularity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/radio_border"
-                android:text="내림차순" />
-        </RadioGroup>
+        android:orientation="horizontal"
+        android:layout_marginBottom="8dp">
 
         <com.google.android.material.button.MaterialButton
-            android:layout_gravity="center"
             style="@style/CustomOutlinedButton"
-            android:id="@+id/btn_search"
-            android:layout_width="wrap_content"
+            android:id="@+id/btn_circulationMethod"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:text="조회" />
+            android:text="순환 방식" />
 
-
-        <!-- 보일러 리스트 -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerBoiler"
-            android:layout_width="match_parent"
+        <com.google.android.material.button.MaterialButton
+            style="@style/CustomOutlinedButton"
+            android:id="@+id/btn_fuelType"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:nestedScrollingEnabled="false" />
+            android:layout_margin="4dp"
+            android:text="사용 연료" />
     </LinearLayout>
-</ScrollView>
+
+    <!-- 선택된 필터 Chips -->
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup_filters"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        app:chipSpacing="8dp"
+        app:singleLine="false"
+        app:singleSelection="false" />
+
+    <!-- 정렬 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sort By"
+        android:textStyle="bold"
+        android:layout_marginBottom="4dp" />
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/toggle_sort_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:singleSelection="true"
+        app:selectionRequired="true">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_sort_asc"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="오름차순" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_sort_desc"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="내림차순" />
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_search"
+        style="@style/CustomOutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="8dp"
+        android:text="조회" />
+
+    <!-- 🔽 보일러 리스트 -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerBoiler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:nestedScrollingEnabled="true" />
+
+</LinearLayout>
