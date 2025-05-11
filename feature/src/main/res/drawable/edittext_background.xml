@@ -1,4 +1,4 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="#DDDDDD" /> <!-- 회색 (middleGray 비슷) -->
+    <solid android:color="#EBEBEB" /> <!-- 회색 (middleGray 비슷) -->
     <corners android:radius="12dp" /> <!-- 라운드 정도 -->
 </shape>

@@ -27,4 +27,6 @@ class MainActivity : AppCompatActivity(), Navigator {
         navController.navigate(R.id.action_loginFragment_to_boilerFragment)
     }
 
+
+
 }

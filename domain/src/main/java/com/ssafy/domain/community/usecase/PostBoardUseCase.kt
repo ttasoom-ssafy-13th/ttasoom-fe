@@ -1,10 +1,10 @@
-package com.ssafy.domain.community.usercase
+package com.ssafy.domain.community.usecase
 
 import com.ssafy.domain.community.model.Board
 import com.ssafy.domain.community.repository.CommunityRepository
 import javax.inject.Inject
 
-class PostBoardUserCase @Inject constructor(
+class PostBoardUseCase @Inject constructor(
     private val repo: CommunityRepository
 ) {
 

@@ -20,4 +20,9 @@
         android:name="com.ssafy.feature.boiler.ui.BoilerFragment"
         android:label="보일러" />
 
+    <fragment
+        android:id="@+id/communityFragment"
+        android:name="com.ssafy.feature.community.CommunityFragment"
+        android:label="커뮤니티"/>
+
 </navigation>

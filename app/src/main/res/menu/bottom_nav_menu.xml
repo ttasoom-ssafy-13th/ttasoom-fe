@@ -5,6 +5,11 @@
         android:id="@+id/nav_boiler"
         android:title="Boiler"
         android:icon="@drawable/ic_launcher_foreground" />
+
+    <item
+        android:id="@+id/nav_community"
+        android:title="Community"
+        android:icon="@drawable/ic_launcher_foreground"/>
     <item
         android:id="@+id/nav_profile"
         android:title="Profile"

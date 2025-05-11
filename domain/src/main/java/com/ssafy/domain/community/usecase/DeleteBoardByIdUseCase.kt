@@ -1,9 +1,9 @@
-package com.ssafy.domain.community.usercase
+package com.ssafy.domain.community.usecase
 
 import com.ssafy.domain.community.repository.CommunityRepository
 import javax.inject.Inject
 
-class DeleteBoardByIdUserCase @Inject constructor(
+class DeleteBoardByIdUseCase @Inject constructor(
     private val repo : CommunityRepository
 ) {
 

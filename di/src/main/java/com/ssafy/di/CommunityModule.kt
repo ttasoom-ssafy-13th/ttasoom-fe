@@ -25,4 +25,54 @@ object CommunityModule {
         return CommunityRepositoryImpl(remote)
     }
 
+//    @Provides
+//    fun provideCommunityUseCases(
+//        getBoard: GetBoardUserCase,
+//        deleteBoardById: DeleteBoardByIdUserCase,
+//        postBoard: PostBoardUserCase,
+//        getBoardById: GetBoardByIdUserCase,
+//        postBoardLike: PostBoardLikeUserCase,
+//        putBoard: PutBoardByIdUserCase
+//    ): BoardUserCase {
+//        return BoardUserCase(
+//            getBoard = getBoard,
+//            deleteBoardById = deleteBoardById,
+//            postBoard = postBoard,
+//            getBoardById = getBoardById,
+//            postBoardLike = postBoardLike,
+//            putBoard = putBoard
+//        )
+//    }
+//
+//    // 나머지 UseCase들 제공
+//    @Provides
+//    fun provideGetBoardUserCase(repo: CommunityRepository): GetBoardUserCase {
+//        return GetBoardUserCase(repo)
+//    }
+//
+//    @Provides
+//    fun provideDeleteBoardByIdUserCase(repo: CommunityRepository): DeleteBoardByIdUserCase {
+//        return DeleteBoardByIdUserCase(repo)
+//    }
+//
+//    @Provides
+//    fun providePostBoardUserCase(repo: CommunityRepository): PostBoardUserCase {
+//        return PostBoardUserCase(repo)
+//    }
+//
+//    @Provides
+//    fun provideGetBoardByIdUserCase(repo: CommunityRepository): GetBoardByIdUserCase {
+//        return GetBoardByIdUserCase(repo)
+//    }
+//
+//    @Provides
+//    fun providePostBoardLikeUserCase(repo: CommunityRepository): PostBoardLikeUserCase {
+//        return PostBoardLikeUserCase(repo)
+//    }
+//
+//    @Provides
+//    fun providePutBoardByIdUserCase(repo: CommunityRepository): PutBoardByIdUserCase {
+//        return PutBoardByIdUserCase(repo)
+//    }
+
 }
