@@ -1,10 +1,10 @@
-package com.ssafy.app
+package com.ssafy.ttasoom
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.ssafy.feature.boiler.ui.BoilerFragment
-import com.ssafy.ttasoom.R
+import com.ssafy.feature.mypage.ui.MypageFragment
 import com.ssafy.ttasoom.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNav.setOnItemSelectedListener { item ->
             val fragment: Fragment = when (item.itemId) {
                 R.id.nav_boiler -> BoilerFragment()
-//                R.id.nav_profile -> ProfileFragment()
+                R.id.nav_mypage -> MypageFragment()
                 else -> BoilerFragment()
             }
             supportFragmentManager.beginTransaction()

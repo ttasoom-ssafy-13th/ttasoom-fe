@@ -8,4 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="my_stroke_color">#DFDFDF</color>
+    <color name="green">#55CC77</color>
+    <color name="light_gray">#E0E0E0</color>
+
 </resources>
