@@ -7,25 +7,26 @@
     <string-array name="company_names">
         <item>경동나비엔</item>
         <item>귀뚜라미</item>
+        <item>알토엔대우</item>
+        <item>임코보일러</item>
         <item>대성쎌틱</item>
         <item>린나이</item>
     </string-array>
 
     <string-array name="certificate_types">
-        <item>일반</item>
-        <item>저녹스</item>
-        <item>콘덴싱</item>
+        <item>1종</item>
+        <item>2종</item>
     </string-array>
 
     <string-array name="circulation_types">
-        <item>자연순환식</item>
-        <item>강제순환식</item>
+        <item>개방식</item>
+        <item>차단식</item>
     </string-array>
 
     <string-array name="fuel_types">
-        <item>도시가스</item>
-        <item>기름</item>
+        <item>LNG</item>
         <item>LPG</item>
+        <item>등유</item>
     </string-array>
 
 

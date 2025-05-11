@@ -5,12 +5,14 @@
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
-        android:name="androidx.fragment.app.Fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:navGraph="@navigation/nav_graph"
+        app:defaultNavHost="true" />
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"

@@ -16,18 +16,18 @@ class BoilerRepositoryImpl(
     }
 
     override suspend fun getFilterBoilerList(
-        companyName: String?,
-        certificationType: String?,
-        circulationType: String?,
-        fuelType: String?
+        companyNames: List<String>?,
+        certificationTypes: List<String>?,
+        circulationTypes: List<String>?,
+        fuelTypes: List<String>?
     ): Result<List<Boiler>> {
+        // ✅ 수정된 코드
         return remote.getBoilerList(
-            companyName = companyName,
-            certificationType = certificationType,
-            circulationType = circulationType,
-            fuelType = fuelType
-        ).map { list ->
-            list.map { it.toDomain() }
+            companyNames, certificationTypes, circulationTypes, fuelTypes
+        ).map { dtoList ->
+            dtoList.map { it.toDomain() }
         }
+
     }
+
 }

@@ -41,6 +41,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+    implementation(libs.firebase.auth.ktx)
     testImplementation(libs.junit)
     // Hilt
     implementation("com.google.dagger:hilt-android:2.48")

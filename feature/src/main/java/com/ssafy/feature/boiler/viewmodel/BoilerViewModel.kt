@@ -20,25 +20,37 @@ class BoilerViewModel @Inject constructor(
     private val _boilerListResult = MutableLiveData<Result<List<Boiler>>>()
     val boilerListResult: LiveData<Result<List<Boiler>>> = _boilerListResult
 
-    fun fetchBoilers() {
-        viewModelScope.launch {
-            val result = getBoilerListUseCase()
-            _boilerListResult.value = result
-        }
-    }
+    // ✅ 캐싱용
+    private var cachedBoilers: List<Boiler> = emptyList()
 
     fun fetchFilteredBoilers(
-        companyName: String? = null,
-        certificationType: String? = null,
-        circulationType: String? = null,
-        fuelType: String? = null
+        companyNames: List<String>? = null,
+        certificationTypes: List<String>? = null,
+        circulationTypes: List<String>? = null,
+        fuelTypes: List<String>? = null
     ) {
         viewModelScope.launch {
             val result = getFilterBoilerListUseCase(
-                companyName, certificationType, circulationType, fuelType
+                companyNames, certificationTypes, circulationTypes, fuelTypes
             )
-            _boilerListResult.value = result
+            result.fold(
+                onSuccess = { list ->
+                    cachedBoilers = list
+                    _boilerListResult.value = Result.success(list)
+                },
+                onFailure = { e ->
+                    _boilerListResult.value = Result.failure(e)
+                }
+            )
+        }
+    }
+
+    // ✅ 정렬된 리스트 반환
+    fun getSortedBoilers(ascending: Boolean): List<Boiler> {
+        return if (ascending) {
+            cachedBoilers.sortedBy { it.companyName }
+        } else {
+            cachedBoilers.sortedByDescending { it.companyName }
         }
     }
 }
-
