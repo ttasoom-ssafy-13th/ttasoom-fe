@@ -91,6 +91,7 @@
         android:text="Sort By"
         android:textStyle="bold"
         android:layout_marginBottom="4dp" />
+
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/toggle_sort_group"
         android:layout_width="match_parent"

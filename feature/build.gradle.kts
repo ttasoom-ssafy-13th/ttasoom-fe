@@ -42,6 +42,8 @@ android {
 
 dependencies {
     implementation(project(":domain"))
+    implementation(project(":di"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -55,23 +57,17 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     // ViewModel, LiveData
-    implementation(libs.androidx.lifecycle.livedata.ktx)
-    implementation(libs.androidx.activity.ktx)
-
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
+    implementation("androidx.activity:activity-ktx:1.8.0")
     // Coroutine
-    implementation(libs.kotlinx.coroutines.android)
-
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     // Hilt
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
+    implementation("com.google.dagger:hilt-android:2.48")
+    kapt("com.google.dagger:hilt-compiler:2.48")
 
-    //fragment
-    implementation(libs.androidx.fragment.ktx)
-
-    //glide
-    implementation(libs.glide)
-    kapt(libs.compiler)
-
-    implementation (libs.material)
+    implementation("androidx.fragment:fragment-ktx:1.6.1") // 최신 버전 확인 필요
+    implementation ("androidx.navigation:navigation-fragment-ktx:2.7.5")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    kapt("com.github.bumptech.glide:compiler:4.16.0")
 
 }
