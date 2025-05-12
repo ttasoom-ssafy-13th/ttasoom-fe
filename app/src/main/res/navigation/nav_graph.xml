@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/communityFragment"
-        android:name="com.ssafy.feature.community.CommunityFragment"
+        android:name="com.ssafy.feature.community.ui.CommunityFragment"
         android:label="커뮤니티"/>
 
 </navigation>

@@ -1,18 +1,19 @@
-package com.ssafy.feature.community
+package com.ssafy.feature.community.ui
 
-import androidx.fragment.app.viewModels
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.domain.community.model.Board
-import com.ssafy.feature.R
+import com.ssafy.feature.community.CommunityViewModel
 import com.ssafy.feature.community.adapter.CommunityAdapter
 import com.ssafy.feature.databinding.FragmentCommunityBinding
-import com.ssafy.feature.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,7 +22,7 @@ class CommunityFragment : Fragment() {
 
     private var _binding: FragmentCommunityBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: CommunityViewModel by viewModels()
+    private val viewModel: CommunityViewModel by activityViewModels()
 
     private lateinit var recyclerView : RecyclerView
     private lateinit var communityList : MutableList<Board>
@@ -36,7 +37,7 @@ class CommunityFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding=FragmentCommunityBinding.inflate(inflater,container,false)
+        _binding= FragmentCommunityBinding.inflate(inflater, container, false)
         return binding.root
 
     }
@@ -50,11 +51,16 @@ class CommunityFragment : Fragment() {
 
     private fun initRV(){
         recyclerView=binding.communityRv
-        recyclerView.adapter=CommunityAdapter(communityList){ post_id->
+        recyclerView.layoutManager= LinearLayoutManager(requireContext())
+        val adapter= CommunityAdapter{ post_id ->
             //fragmnet넘기는 로직 및 api 호출 로직
         }
-        recyclerView.layoutManager=LinearLayoutManager(requireContext())
+        recyclerView.adapter=adapter
 
+        viewModel.getBoard()
+        viewModel.boardList.observe(viewLifecycleOwner){
+           adapter.submitList(it)
+        }
 
     }
 }

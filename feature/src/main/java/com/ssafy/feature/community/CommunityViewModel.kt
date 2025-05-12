@@ -1,11 +1,47 @@
 package com.ssafy.feature.community
 
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ssafy.domain.boiler.usecase.GetBoilerListUseCase
+import androidx.lifecycle.viewModelScope
+import com.ssafy.domain.community.model.Board
+import com.ssafy.domain.community.usecase.GetBoardByIdUseCase
+import com.ssafy.domain.community.usecase.GetBoardUseCase
+import com.ssafy.domain.community.usecase.PostBoardLikeUseCase
+import com.ssafy.domain.community.usecase.PostBoardUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class CommunityViewModel @Inject constructor(
-    private val communityUseCase : GetBoilerListUseCase
+    private val getBoardUseCase: GetBoardUseCase,
+    private val postBoardUseCase: PostBoardUseCase
 ) : ViewModel() {
-    // TODO: Implement the ViewModel
+
+    private val _boardList = MutableLiveData<MutableList<Board>>()
+    val boardList : LiveData<MutableList<Board>> get() = _boardList
+
+    private val _board = MutableLiveData<Board>()
+    val board : LiveData<Board> get() = _board
+
+    fun getBoard() {
+        viewModelScope.launch {
+            getBoardUseCase().onSuccess {
+                _boardList.value = it.toMutableList()
+            }.onFailure {
+                Log.e("error", "unknown error ${it.message}")
+            }
+        }
+    }
+
+    fun postBoard(title: String, content: String) {
+        viewModelScope.launch {
+            postBoardUseCase(title, content)
+                .onSuccess { _board.value = it }
+                .onFailure{ Log.e("error", "unknown error ${it.message}") }
+        }
+    }
+
 }

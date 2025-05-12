@@ -3,14 +3,14 @@ package com.ssafy.feature.community.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.domain.community.model.Board
 import com.ssafy.feature.databinding.ItemCommunityBinding
 
 class CommunityAdapter(
-    private val items: MutableList<Board>,
     private val listener: (String) -> Unit
-) : RecyclerView.Adapter<CommunityAdapter.ViewHolder>() {
+) : ListAdapter<Board,CommunityAdapter.ViewHolder>(DiffCallback) {
 
     inner class ViewHolder(private val binding : ItemCommunityBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Board){
@@ -27,16 +27,13 @@ class CommunityAdapter(
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommunityAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =ItemCommunityBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: CommunityAdapter.ViewHolder, position: Int) {
-        holder.bind(items[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(getItem(position))
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
 }

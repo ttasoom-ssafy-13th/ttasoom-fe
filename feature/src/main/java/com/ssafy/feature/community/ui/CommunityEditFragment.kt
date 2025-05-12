@@ -1,4 +1,4 @@
-package com.ssafy.feature.community
+package com.ssafy.feature.community.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.ssafy.feature.R
-
 
 class CommunityEditFragment : Fragment() {
     // TODO: Rename and change types of parameters
