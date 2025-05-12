@@ -12,4 +12,6 @@
     <color name="deepGray">#444242</color>
     <color name="middleGray">#808080</color>
     <color name="green1">#F0F6F3</color>
+
+    <color name="lightGray">#EBEBEB</color>
 </resources>

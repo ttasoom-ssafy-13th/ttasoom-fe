@@ -25,8 +25,6 @@ class CommunityFragment : Fragment() {
     private val viewModel: CommunityViewModel by activityViewModels()
 
     private lateinit var recyclerView : RecyclerView
-    private lateinit var communityList : MutableList<Board>
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +42,6 @@ class CommunityFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initRV(); //recyclerView 초기화
     }
 
