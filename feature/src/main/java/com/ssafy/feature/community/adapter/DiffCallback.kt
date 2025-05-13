@@ -3,7 +3,7 @@ package com.ssafy.feature.community.adapter
 import androidx.recyclerview.widget.DiffUtil
 import com.ssafy.domain.community.model.Board
 
-object DiffCallback : DiffUtil.ItemCallback<Board>() {
+class DiffCallback : DiffUtil.ItemCallback<Board>() {
     override fun areItemsTheSame(oldItem: Board, newItem: Board): Boolean {
         return oldItem.id == newItem.id
     }

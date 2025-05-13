@@ -1,9 +1,11 @@
 package com.ssafy.ttasoom
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.ssafy.di.navigation.Navigator
 import com.ssafy.feature.boiler.ui.BoilerFragment
 import com.ssafy.feature.community.ui.CommunityFragment
@@ -21,7 +23,9 @@ class MainActivity : AppCompatActivity(), Navigator {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initBottomNav()
+        binding.root.post {
+            binding.bottomNav.setupWithNavController(navController)
+        } // 하단바 버튼 누르면 버튼 대로 가게 하기
 
     }
 
@@ -45,29 +49,16 @@ class MainActivity : AppCompatActivity(), Navigator {
         }
     }
 
-    private fun initBottomNav() {
-        binding.bottomNav.selectedItemId = R.id.nav_boiler
-
-        binding.bottomNav.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_boiler -> {
-                    loadFragment(BoilerFragment())
-                    true
-                }
-
-                R.id.nav_community -> {
-                    loadFragment(CommunityFragment())
-                    true
-                }
-
-                else -> false
-            }
-        }
-
+    override fun toPrev(){
+        navController.popBackStack()
     }
 
-    private fun loadFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, fragment).commit()
+    override fun hide() {
+        binding.bottomNav.visibility= View.GONE
+    }
+
+    override fun show() {
+        binding.bottomNav.visibility= View.VISIBLE
     }
 
 

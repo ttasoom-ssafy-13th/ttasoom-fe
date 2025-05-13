@@ -9,8 +9,11 @@ interface Navigator {
 
     fun toCommunityBoard() //커뮤니티 리스트 -> 특정 게시글
 
-    //커뮤니티 리스트 or 커뮤니티 게시글 -> 글 작성 및 수정
-    //isBoard가 true면 게시글에서 글 작성으로 이동하는 경우
-    fun toCommunityEdit( isBoard : Boolean = false)
+    fun toCommunityEdit( isBoard : Boolean = false)  //커뮤니티 리스트 or 커뮤니티 게시글 -> 글 작성 및 수정 페이지
 
+    fun hide() //숨길 때
+
+    fun show() // 보일 때
+
+    fun toPrev() //뒤로 가기
 }

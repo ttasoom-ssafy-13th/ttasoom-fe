@@ -12,6 +12,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+
+// 이 viewModel은 viewList하고 글 작성 할 때 사용되는 viewModel
 @HiltViewModel
 class CommunityViewModel @Inject constructor(
     private val getBoardUseCase: GetBoardUseCase,
@@ -27,7 +29,7 @@ class CommunityViewModel @Inject constructor(
     fun getBoard() {
         viewModelScope.launch {
             getBoardUseCase().onSuccess {
-                _boardList.value = it.toMutableList()
+                _boardList.value = ArrayList(it)
             }.onFailure {
                 Log.e("error", "unknown error ${it.message}")
             }

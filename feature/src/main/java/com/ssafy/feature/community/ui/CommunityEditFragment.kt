@@ -4,13 +4,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.ssafy.di.navigation.Navigator
 import com.ssafy.feature.R
+import com.ssafy.feature.community.CommunityViewModel
+import com.ssafy.feature.databinding.FragmentCommunityBinding
+import com.ssafy.feature.databinding.FragmentCommunityEditBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class CommunityEditFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private var _binding: FragmentCommunityEditBinding? = null
+    private val binding get() = _binding!!
+    private val viewModel: CommunityViewModel by activityViewModels()
+
+    @Inject
+    lateinit var navigator: Navigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,8 +35,24 @@ class CommunityEditFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_community_edit, container, false)
+        _binding=FragmentCommunityEditBinding.inflate(inflater,container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        navigator.hide()
+
+        binding.communityEditRegisterBtn.setOnClickListener {
+            val content=binding.communityEditContent.text.toString()
+            val title= binding.communityEditTitle.text.toString()
+            viewModel.postBoard(title,content)
+
+            Toast.makeText(requireContext(),"등록 완료",Toast.LENGTH_LONG).show()
+            navigator.toPrev()
+        }
+
+
     }
 
 

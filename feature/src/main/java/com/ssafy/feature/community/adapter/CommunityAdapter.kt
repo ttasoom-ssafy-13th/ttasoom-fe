@@ -10,7 +10,7 @@ import com.ssafy.feature.databinding.ItemCommunityBinding
 
 class CommunityAdapter(
     private val listener: (String) -> Unit
-) : ListAdapter<Board,CommunityAdapter.ViewHolder>(DiffCallback) {
+) : ListAdapter<Board,CommunityAdapter.ViewHolder>(DiffCallback()) {
 
     inner class ViewHolder(private val binding : ItemCommunityBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Board){
