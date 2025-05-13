@@ -10,15 +10,19 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ssafy.di.navigation.Navigator
 import com.ssafy.domain.community.model.Board
 import com.ssafy.feature.community.CommunityViewModel
 import com.ssafy.feature.community.adapter.CommunityAdapter
 import com.ssafy.feature.databinding.FragmentCommunityBinding
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class CommunityFragment : Fragment() {
 
+    @Inject
+    lateinit var navigator: Navigator
 
     private var _binding: FragmentCommunityBinding? = null
     private val binding get() = _binding!!
@@ -50,6 +54,7 @@ class CommunityFragment : Fragment() {
         recyclerView=binding.communityRv
         recyclerView.layoutManager= LinearLayoutManager(requireContext())
         val adapter= CommunityAdapter{ post_id ->
+            navigator.toCommunityBoard()
             //fragmnet넘기는 로직 및 api 호출 로직
         }
         recyclerView.adapter=adapter

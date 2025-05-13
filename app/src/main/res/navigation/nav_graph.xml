@@ -13,6 +13,7 @@
             app:destination="@id/boilerFragment"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
+
     </fragment>
 
     <fragment
@@ -23,6 +24,27 @@
     <fragment
         android:id="@+id/communityFragment"
         android:name="com.ssafy.feature.community.ui.CommunityFragment"
-        android:label="커뮤니티"/>
+        android:label="커뮤니티">
+        <action
+            android:id="@+id/action_communityFragment_to_communityBoardFragment"
+            app:destination="@id/communityBoardFragment" />
+        <action
+            android:id="@+id/action_communityFragment_to_communityEditFragment"
+            app:destination="@id/communityEditFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/communityBoardFragment"
+        android:name="com.ssafy.feature.community.ui.CommunityBoardFragment"
+        android:label="게시글">
+        <action
+            android:id="@+id/action_communityBoardFragment_to_communityEditFragment"
+            app:destination="@id/communityEditFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/communityEditFragment"
+        android:name="com.ssafy.feature.community.ui.CommunityEditFragment"
+        android:label="글쓰기"/>
 
 </navigation>
