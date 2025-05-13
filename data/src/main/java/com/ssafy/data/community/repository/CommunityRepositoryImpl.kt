@@ -4,13 +4,14 @@ import com.ssafy.data.community.mapper.toDomain
 import com.ssafy.data.community.provider.CommunityRemoteDataSource
 import com.ssafy.domain.community.model.Board
 import com.ssafy.domain.community.repository.CommunityRepository
+import javax.inject.Inject
 
-class CommunityRepositoryImpl(
+class CommunityRepositoryImpl @Inject constructor(
     private val remote: CommunityRemoteDataSource
 ) : CommunityRepository {
 
     override suspend fun getBoard(): Result<MutableList<Board>> {
-        return remote.getBoard().map {mlist->
+        return remote.getBoard().map { mlist->
             mlist.map { it.toDomain() }.toMutableList()
         }
     }

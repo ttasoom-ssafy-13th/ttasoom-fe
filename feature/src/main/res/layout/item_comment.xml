@@ -45,57 +45,74 @@
         </LinearLayout>
 
         <!-- 댓글 내용 -->
-        <TextView
-            android:id="@+id/item_comment_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="This is so inspiring! I've been thinking about installing one in my house too."
-            android:textColor="#000000"
-            android:layout_marginTop="4dp"
-            android:textSize="14sp" />
 
-        <!-- 좋아요 / 리플 -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp">
-
-            <!-- 좋아요 -->
-            <ImageView
-                android:id="@+id/icon_like"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/ic_thumbs_up"
-                app:tint="@color/middleGray" />
+            android:gravity="center_vertical">
 
             <TextView
-                android:id="@+id/text_like_count"
+                android:id="@+id/item_comment_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="34"
-                android:textColor="@color/middleGray"
-                android:textSize="12sp"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="20dp" />
+                android:text="This is so inspiring! I've been thinking about installing one in my house too."
+                android:textColor="#000000"
+                android:layout_weight="9"
+                android:textSize="14sp" />
 
-            <!-- 답글 -->
             <ImageView
-                android:id="@+id/icon_reply"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/ic_thumbs_down"
-                app:tint="@color/middleGray" />
-
-            <TextView
-                android:id="@+id/text_reply_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3"
-                android:textColor="@color/middleGray"
-                android:textSize="12sp"
-                android:layout_marginStart="4dp" />
+                android:layout_weight="1"
+                android:src="@drawable/ic_dot_three"/>
+
         </LinearLayout>
+
+
     </LinearLayout>
 </LinearLayout>
+
+
+    <!--        &lt;!&ndash; 좋아요 / 리플 &ndash;&gt;-->
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:orientation="horizontal"-->
+    <!--            android:layout_marginTop="8dp">-->
+
+    <!--            &lt;!&ndash; 좋아요 &ndash;&gt;-->
+    <!--            <ImageView-->
+    <!--                android:id="@+id/icon_like"-->
+    <!--                android:layout_width="18dp"-->
+    <!--                android:layout_height="18dp"-->
+    <!--                android:src="@drawable/ic_thumbs_up"-->
+    <!--                app:tint="@color/middleGray" />-->
+
+    <!--            <TextView-->
+    <!--                android:id="@+id/text_like_count"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:text="34"-->
+    <!--                android:textColor="@color/middleGray"-->
+    <!--                android:textSize="12sp"-->
+    <!--                android:layout_marginStart="4dp"-->
+    <!--                android:layout_marginEnd="20dp" />-->
+
+    <!--            &lt;!&ndash; 답글 &ndash;&gt;-->
+    <!--            <ImageView-->
+    <!--                android:id="@+id/icon_reply"-->
+    <!--                android:layout_width="18dp"-->
+    <!--                android:layout_height="18dp"-->
+    <!--                android:src="@drawable/ic_thumbs_down"-->
+    <!--                app:tint="@color/middleGray" />-->
+
+    <!--            <TextView-->
+    <!--                android:id="@+id/text_reply_count"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:text="3"-->
+    <!--                android:textColor="@color/middleGray"-->
+    <!--                android:textSize="12sp"-->
+    <!--                android:layout_marginStart="4dp" />-->
+    <!--        </LinearLayout>-->
 

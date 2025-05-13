@@ -1,4 +1,4 @@
-package com.ssafy.domain.community.usecase
+package com.ssafy.domain.community.usecase.community
 
 import com.ssafy.domain.community.model.Board
 import com.ssafy.domain.community.repository.CommunityRepository

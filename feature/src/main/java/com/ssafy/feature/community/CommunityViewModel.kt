@@ -6,10 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ssafy.domain.community.model.Board
-import com.ssafy.domain.community.usecase.GetBoardByIdUseCase
-import com.ssafy.domain.community.usecase.GetBoardUseCase
-import com.ssafy.domain.community.usecase.PostBoardLikeUseCase
-import com.ssafy.domain.community.usecase.PostBoardUseCase
+import com.ssafy.domain.community.usecase.community.GetBoardUseCase
+import com.ssafy.domain.community.usecase.community.PostBoardUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
