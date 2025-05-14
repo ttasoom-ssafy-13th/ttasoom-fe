@@ -1,6 +1,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
@@ -9,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="MissingClass">
 
         <!-- 상단 프로필 -->
         <ImageView
@@ -38,13 +40,12 @@
             android:textAlignment="center" />
 
         <!-- 그래프 or 게이지 -->
-        <ImageView
-            android:id="@+id/imgGraph"
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barChart"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginBottom="24dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_launcher_background" />
+            android:layout_height="200dp"
+            android:layout_marginBottom="24dp" />
+
 
         <!-- 출석 버튼 -->
         <LinearLayout
