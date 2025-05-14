@@ -39,7 +39,15 @@ class CommunityViewModel @Inject constructor(
     fun postBoard(title: String, content: String) {
         viewModelScope.launch {
             postBoardUseCase(title, content)
-                .onSuccess { _board.value = it }
+                .onSuccess {
+                    _board.value = it
+                    getBoardUseCase().onSuccess {
+                        _boardList.value = ArrayList(it)
+                    }
+                    .onFailure {
+                        Log.e("error", "unknown error ${it.message}")
+                    }
+                }
                 .onFailure{ Log.e("error", "unknown error ${it.message}") }
         }
     }
