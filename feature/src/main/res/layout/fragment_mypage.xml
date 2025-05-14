@@ -196,7 +196,6 @@
                 android:layout_marginTop="4dp"
                 android:progress="70"
                 app:indicatorColor="@color/green"
-                app:indicatorCornerRadius="8dp"
                 app:trackColor="@color/light_gray" />
 
 
