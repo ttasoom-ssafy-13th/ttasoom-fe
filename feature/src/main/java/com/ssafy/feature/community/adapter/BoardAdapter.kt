@@ -23,14 +23,25 @@ class BoardAdapter(
     inner class ViewHolderByBoard(private val binding: ItemBoardBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Board) {
-
+            binding.communityUser.text = item.author
+            binding.communityDate.text=item.created_at
+            binding.communityTitle.text=item.title
+            binding.communityContent.text=item.content
+            //binding.communityCommentCnt.text=item.likedUsers.size.toString()
+            binding.communityHeartCnt.text=item.likedUsers.size.toString()
         }
     }
 
     inner class ViewHolderByComment(private val binding: ItemCommentBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Comment) {
+            binding.itemCommentName.text=item.author
+            binding.itemCommentTime.text=item.created_at
+            binding.itemCommentContent.text=item.content
 
+            binding.root.setOnClickListener{
+                listener(item.id)
+            }
         }
     }
 
@@ -57,7 +68,7 @@ class BoardAdapter(
     }
 
     override fun getItemCount(): Int {
-        return list.size+1;
+        return list.size + 1;
     }
 
     override fun getItemViewType(position: Int): Int {

@@ -25,6 +25,7 @@
         android:id="@+id/communityFragment"
         android:name="com.ssafy.feature.community.ui.CommunityFragment"
         android:label="커뮤니티">
+
         <action
             android:id="@+id/action_communityFragment_to_communityBoardFragment"
             app:destination="@id/communityBoardFragment" />
@@ -37,6 +38,7 @@
         android:id="@+id/communityBoardFragment"
         android:name="com.ssafy.feature.community.ui.CommunityBoardFragment"
         android:label="게시글">
+
         <action
             android:id="@+id/action_communityBoardFragment_to_communityEditFragment"
             app:destination="@id/communityEditFragment" />

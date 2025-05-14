@@ -1,6 +1,7 @@
 package com.ssafy.feature.community.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,12 +13,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.di.navigation.Navigator
 import com.ssafy.domain.community.model.Board
+import com.ssafy.feature.community.BoardViewModel
 import com.ssafy.feature.community.CommunityViewModel
 import com.ssafy.feature.community.adapter.CommunityAdapter
 import com.ssafy.feature.databinding.FragmentCommunityBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+private const val TAG = "CommunityFragment_싸피"
 @AndroidEntryPoint
 class CommunityFragment : Fragment() {
 
@@ -27,6 +30,7 @@ class CommunityFragment : Fragment() {
     private var _binding: FragmentCommunityBinding? = null
     private val binding get() = _binding!!
     private val viewModel: CommunityViewModel by activityViewModels()
+    private val boardViewModel : BoardViewModel by activityViewModels()
 
     private lateinit var recyclerView : RecyclerView
     private lateinit var adapter : CommunityAdapter
@@ -58,6 +62,7 @@ class CommunityFragment : Fragment() {
         recyclerView=binding.communityRv
         recyclerView.layoutManager= LinearLayoutManager(requireContext())
         adapter= CommunityAdapter{ post_id ->
+            boardViewModel.post_id=post_id
             navigator.toCommunityBoard()
             //fragmnet넘기는 로직 및 api 호출 로직
         }
@@ -78,6 +83,7 @@ class CommunityFragment : Fragment() {
         super.onResume()
         viewModel.getBoard() // 데이터를 다시 요청
         viewModel.boardList.observe(viewLifecycleOwner) {
+            Log.d(TAG, "onResume ㅇㅇ")
             adapter.submitList(it) // 데이터가 갱신될 때마다 UI를 업데이트
         }
     }

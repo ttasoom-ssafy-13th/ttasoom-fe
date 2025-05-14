@@ -3,12 +3,15 @@ package com.ssafy.ttasoom
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.ssafy.di.navigation.Navigator
 import com.ssafy.feature.boiler.ui.BoilerFragment
+import com.ssafy.feature.community.ui.CommunityBoardFragmentDirections
 import com.ssafy.feature.community.ui.CommunityFragment
+import com.ssafy.feature.community.ui.CommunityFragmentDirections
 import com.ssafy.ttasoom.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
