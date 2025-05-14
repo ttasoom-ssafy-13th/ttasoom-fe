@@ -11,6 +11,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ssafy.di.navigation.Navigator
 import com.ssafy.feature.R
 import com.ssafy.feature.community.CommunityViewModel
+import com.ssafy.feature.community.EditViewModel
 import com.ssafy.feature.databinding.FragmentCommunityBinding
 import com.ssafy.feature.databinding.FragmentCommunityEditBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,7 +22,10 @@ class CommunityEditFragment : Fragment() {
 
     private var _binding: FragmentCommunityEditBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: CommunityViewModel by activityViewModels()
+    private val viewModel: EditViewModel by activityViewModels()
+
+    private lateinit var post_id :String
+    private var isBoard : Boolean = false
 
     @Inject
     lateinit var navigator: Navigator
@@ -43,10 +47,18 @@ class CommunityEditFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         navigator.hide()
 
+        post_id = arguments?.getString("post_id").toString()
+        isBoard = arguments?.getBoolean("isBoard") == true
+
+
         binding.communityEditRegisterBtn.setOnClickListener {
             val content=binding.communityEditContent.text.toString()
             val title= binding.communityEditTitle.text.toString()
-            viewModel.postBoard(title,content)
+
+            if(!isBoard)
+                viewModel.postBoard(title,content)
+            else
+                viewModel.putBoard(post_id,title,content)
 
             Toast.makeText(requireContext(),"등록 완료",Toast.LENGTH_LONG).show()
             navigator.toPrev()
@@ -54,6 +66,12 @@ class CommunityEditFragment : Fragment() {
 
 
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 
 
 }

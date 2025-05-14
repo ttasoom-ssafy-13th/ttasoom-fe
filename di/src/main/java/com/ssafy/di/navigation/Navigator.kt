@@ -7,9 +7,9 @@ interface Navigator {
     /** 로그인 → 메인 화면으로 */
     fun toMain()
 
-    fun toCommunityBoard() //커뮤니티 리스트 -> 특정 게시글
+    fun toCommunityBoard(post_id :String) //커뮤니티 리스트 -> 특정 게시글
 
-    fun toCommunityEdit( isBoard : Boolean = false)  //커뮤니티 리스트 or 커뮤니티 게시글 -> 글 작성 및 수정 페이지
+    fun toCommunityEdit( isBoard : Boolean = false,post_id: String = "")  //커뮤니티 리스트 or 커뮤니티 게시글 -> 글 작성 및 수정 페이지
 
     fun hide() //숨길 때
 

@@ -14,5 +14,7 @@ data class BoardResponseDto(
     @SerializedName("created_at")
     val created_at: String = "",
     @SerializedName("likedUsers")
-    val likedUsers: MutableList<String> = mutableListOf()
+    val likedUsers: MutableList<String> = mutableListOf(),
+    @SerializedName("comment_count")
+    val comment_count : Int =0
 )

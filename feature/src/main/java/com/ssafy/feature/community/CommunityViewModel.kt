@@ -7,26 +7,21 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ssafy.domain.community.model.Board
 import com.ssafy.domain.community.usecase.community.GetBoardUseCase
+import com.ssafy.domain.community.usecase.community.PostBoardLikeUseCase
 import com.ssafy.domain.community.usecase.community.PostBoardUseCase
 import com.ssafy.domain.community.usecase.community.PutBoardByIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
-// 이 viewModel은 viewList하고 글 작성 할 때 사용되는 viewModel
 @HiltViewModel
 class CommunityViewModel @Inject constructor(
     private val getBoardUseCase: GetBoardUseCase,
-    private val postBoardUseCase: PostBoardUseCase,
-    private val putBoardByIdUseCase: PutBoardByIdUseCase
+    private val postBoardLikeUseCase: PostBoardLikeUseCase
 ) : ViewModel() {
 
     private val _boardList = MutableLiveData<MutableList<Board>>()
     val boardList: LiveData<MutableList<Board>> get() = _boardList
-
-    private val _board = MutableLiveData<Board>()
-    val board: LiveData<Board> get() = _board
 
     fun getBoard() {
         viewModelScope.launch {
@@ -38,22 +33,7 @@ class CommunityViewModel @Inject constructor(
         }
     }
 
-    fun postBoard(title: String, content: String) {
-        viewModelScope.launch {
-            val tmpList = _boardList.value
-            postBoardUseCase(title, content)
-                .onSuccess {
-                    tmpList.add(it)
-                    _boardList.value = tmpList
-////                    getBoardUseCase().onSuccess {
-////                        _boardList.value = ArrayList(it)
-////                    }
-//                    .onFailure {
-//                        Log.e("error", "unknown error ${it.message}")
-//                    }
-                }
-                .onFailure { Log.e("error", "unknown error ${it.message}") }
-        }
-    }
+    fun
+
 
 }

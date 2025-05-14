@@ -3,6 +3,7 @@ package com.ssafy.feature.community.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.domain.community.model.Board
 import com.ssafy.domain.community.model.Comment
@@ -27,7 +28,7 @@ class BoardAdapter(
             binding.communityDate.text=item.created_at
             binding.communityTitle.text=item.title
             binding.communityContent.text=item.content
-            //binding.communityCommentCnt.text=item.likedUsers.size.toString()
+            binding.communityCommentCnt.text=item.comment_count.toString()
             binding.communityHeartCnt.text=item.likedUsers.size.toString()
         }
     }
@@ -73,6 +74,26 @@ class BoardAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return if (position == 0) VIEW_TYPE_BOARD else VIEW_TYPE_COMMENT
+    }
+
+    fun updateComments(newComments: List<Comment>) {
+        val diffCallback = object : DiffUtil.Callback() {
+            override fun getOldListSize() = list.size
+            override fun getNewListSize() = newComments.size
+
+            override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+                return list[oldItemPosition].id == newComments[newItemPosition].id
+            }
+
+            override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+                return list[oldItemPosition] == newComments[newItemPosition]
+            }
+        }
+
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        list.clear()
+        list.addAll(newComments)
+        diffResult.dispatchUpdatesTo(this)
     }
 
 }

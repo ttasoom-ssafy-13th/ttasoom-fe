@@ -6,5 +6,6 @@ data class Board(
     val content: String,
     val author: String,
     val created_at: String,
-    val likedUsers: MutableList<String>
+    val likedUsers: MutableList<String>,
+    val comment_count : Int
 )

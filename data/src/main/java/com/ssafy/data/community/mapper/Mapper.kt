@@ -17,7 +17,8 @@ fun BoardResponseDto.toDomain(): Board {
         } else {
             this.created_at
         },
-        likedUsers = this.likedUsers
+        likedUsers = this.likedUsers,
+        comment_count=this.comment_count
     )
 }
 
