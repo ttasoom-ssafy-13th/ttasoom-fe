@@ -15,9 +15,11 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButtonToggleGroup
+import com.ssafy.di.navigation.Navigator
 import com.ssafy.feature.boiler.adapter.BoilerAdapter
 import com.ssafy.feature.boiler.viewmodel.BoilerViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class BoilerFragment : Fragment() {

@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.hilt.android)
+
     kotlin("kapt")
 }
 
@@ -42,6 +43,7 @@ android {
 
 dependencies {
     implementation(project(":domain"))
+    implementation(project(":di"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -61,7 +63,7 @@ dependencies {
     kapt("com.google.dagger:hilt-compiler:2.48")
 
     implementation("androidx.fragment:fragment-ktx:1.6.1") // 최신 버전 확인 필요
-
+    implementation ("androidx.navigation:navigation-fragment-ktx:2.7.5")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     kapt("com.github.bumptech.glide:compiler:4.16.0")
 
