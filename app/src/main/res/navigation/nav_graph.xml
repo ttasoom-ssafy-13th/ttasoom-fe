@@ -13,11 +13,19 @@
             app:destination="@id/boilerFragment"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_mypage_fragment"
+            app:destination="@id/mypage_fragment" />
     </fragment>
 
     <fragment
         android:id="@+id/boilerFragment"
         android:name="com.ssafy.feature.boiler.ui.BoilerFragment"
         android:label="보일러" />
+
+    <fragment
+        android:id="@+id/mypage_fragment"
+        android:name="com.ssafy.feature.mypage.ui.MypageFragment"
+        android:label="마이페이지" />
 
 </navigation>

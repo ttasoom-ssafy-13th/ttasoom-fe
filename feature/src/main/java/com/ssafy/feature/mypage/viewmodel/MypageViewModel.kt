@@ -1,5 +1,6 @@
 package com.ssafy.feature.mypage.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ssafy.domain.mypage.model.MileageHistory
@@ -29,6 +30,7 @@ class MypageViewModel @Inject constructor(
     fun loadMileageStatus() {
         viewModelScope.launch {
             val result = getMileageStatusUseCase()
+            Log.d("MypageViewModel", "loadMileageStatus result: $result")
             result.onSuccess { _mileageStatus.value = it }
         }
     }
@@ -36,6 +38,7 @@ class MypageViewModel @Inject constructor(
     fun loadMileageHistory() {
         viewModelScope.launch {
             val result = getMileageHistoryUseCase()
+            Log.d("MypageViewModel", "loadMileageHistory result: $result")
             result.onSuccess { _mileageHistory.value = it }
         }
     }
@@ -43,6 +46,7 @@ class MypageViewModel @Inject constructor(
     fun checkAttendance(boilerValue: Int) {
         viewModelScope.launch {
             val result = checkAttendanceUseCase(boilerValue)
+            Log.d("MypageViewModel", "checkAttendance result: $result")
             result.onSuccess {
                 loadMileageHistory()
             }

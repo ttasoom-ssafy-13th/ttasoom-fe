@@ -1,5 +1,6 @@
 package com.ssafy.data.remote.interceptor
 
+import android.util.Log
 import com.ssafy.data.local.PreferencesManager
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -14,15 +15,20 @@ class AuthorizationInterceptor @Inject constructor(
         val requestBuilder = originalRequest.newBuilder()
         val path = originalRequest.url.encodedPath
 
-        // 로그인, 회원가입 요청에는 Authorization 헤더 제외
         if (path != "/auth/login" && path != "/auth/signup") {
             val token = preferencesManager.getAccessToken()
             if (!token.isNullOrEmpty()) {
-                requestBuilder.addHeader("Authorization", "Bearer $token")
+                val bearerToken = "Bearer $token"
+                requestBuilder.addHeader("Authorization", bearerToken)
+                Log.d("AuthorizationInterceptor", "➡️ Intercepting: $path")
+                Log.d("AuthorizationInterceptor", "🛡️ Authorization Header: $bearerToken")
+            } else {
+                Log.d("AuthorizationInterceptor", "🛡️ No token found for $path")
             }
         }
 
         val request = requestBuilder.build()
         return chain.proceed(request)
     }
+
 }
