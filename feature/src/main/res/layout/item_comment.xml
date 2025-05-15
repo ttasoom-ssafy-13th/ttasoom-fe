@@ -14,7 +14,7 @@
             android:id="@+id/item_comment_profile"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:scaleType="centerCrop"
+            android:scaleType="fitXY"
             android:src="@drawable/tmpimg"
             app:shapeAppearanceOverlay="@style/CircleImageView" />
 
@@ -65,12 +65,14 @@
                     android:textSize="14sp" />
 
                 <ImageView
+                    android:id="@+id/item_comment_modify"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:src="@drawable/ic_edit"/>
 
                 <ImageView
+                    android:id="@+id/item_comment_delete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -85,6 +87,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/item_comment_editLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/edittext_background"
@@ -93,7 +96,7 @@
         android:padding="8dp">
 
         <EditText
-            android:id="@+id/item_comment_modifyComment"
+            android:id="@+id/item_comment_editText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -104,7 +107,7 @@
             android:textStyle="bold" />
 
         <ImageButton
-            android:id="@+id/item_comment_sendModifyComment"
+            android:id="@+id/item_comment_sendText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_send"

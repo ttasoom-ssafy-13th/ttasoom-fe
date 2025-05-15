@@ -18,7 +18,7 @@
             android:id="@+id/item_community_profile_img"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:scaleType="centerCrop"
+            android:scaleType="fitXY"
             android:src="@drawable/tmpimg"
             app:shapeAppearanceOverlay="@style/CircleImageView" />
 

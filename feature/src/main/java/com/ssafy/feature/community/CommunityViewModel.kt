@@ -11,29 +11,32 @@ import com.ssafy.domain.community.usecase.community.PostBoardLikeUseCase
 import com.ssafy.domain.community.usecase.community.PostBoardUseCase
 import com.ssafy.domain.community.usecase.community.PutBoardByIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+private const val TAG = "CommunityViewModel_싸피"
 
 @HiltViewModel
 class CommunityViewModel @Inject constructor(
     private val getBoardUseCase: GetBoardUseCase,
-    private val postBoardLikeUseCase: PostBoardLikeUseCase
 ) : ViewModel() {
 
-    private val _boardList = MutableLiveData<MutableList<Board>>()
-    val boardList: LiveData<MutableList<Board>> get() = _boardList
+    private val _boardList = MutableStateFlow((mutableListOf<Board>()))
+    val boardList: StateFlow<MutableList<Board>> get() = _boardList
 
     fun getBoard() {
         viewModelScope.launch {
+
             getBoardUseCase().onSuccess {
-                _boardList.value = ArrayList(it)
+                _boardList.value = it
             }.onFailure {
                 Log.e("error", "unknown error ${it.message}")
             }
+
         }
     }
-
-    fun
 
 
 }

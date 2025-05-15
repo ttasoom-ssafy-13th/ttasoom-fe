@@ -9,7 +9,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.di.navigation.Navigator
@@ -19,6 +22,8 @@ import com.ssafy.feature.community.CommunityViewModel
 import com.ssafy.feature.community.adapter.CommunityAdapter
 import com.ssafy.feature.databinding.FragmentCommunityBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 private const val TAG = "CommunityFragment_싸피"
@@ -57,7 +62,6 @@ class CommunityFragment : Fragment() {
         Log.d(TAG, "onViewCreated: ")
     }
 
-
     private fun initUI(){
 
         navigator.show()
@@ -73,19 +77,13 @@ class CommunityFragment : Fragment() {
         recyclerView.adapter=adapter
 
         viewModel.getBoard() //list api 호출
-        viewModel.boardList.observe(viewLifecycleOwner){
-           adapter.submitList(it)
-        }
 
-
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.getBoard()
-        viewModel.boardList.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.boardList.collectLatest {
+                    adapter.submitList(it)
+                }
+            }
         }
     }
 

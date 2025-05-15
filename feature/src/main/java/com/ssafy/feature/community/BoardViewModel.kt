@@ -18,6 +18,9 @@ import com.ssafy.domain.community.usecase.community.GetBoardByIdUseCase
 import com.ssafy.domain.community.usecase.community.PostBoardLikeUseCase
 import com.ssafy.domain.community.usecase.community.PutBoardByIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 import javax.inject.Inject
@@ -28,7 +31,6 @@ private const val TAG = "BoardViewModel"
 @HiltViewModel
 class BoardViewModel @Inject constructor(
     private val getBoardByIdUseCase: GetBoardByIdUseCase,
-    private val putBoardByIdUseCase: PutBoardByIdUseCase,
     private val deleteBoardByIdUseCase: DeleteBoardByIdUseCase,
     private val getCommentUseCase: GetCommentUseCase,
     private val postCommentUseCase: PostCommentUseCase,
@@ -43,11 +45,16 @@ class BoardViewModel @Inject constructor(
             field = value
         }
 
-    private val _board = MutableLiveData<Board>()
-    val board: LiveData<Board> get() = _board
+    private val _board = MutableStateFlow(Board())
+    val board: StateFlow<Board> get() = _board
 
-    private val _commentsList = MutableLiveData<MutableList<Comment>>()
-    val commentsList: LiveData<MutableList<Comment>> get() = _commentsList
+    private val _commentsList = MutableStateFlow(mutableListOf<Comment>())
+    val commentsList: StateFlow<MutableList<Comment>> get() = _commentsList
+
+//    fun updateBoard(title : String, content : String){
+//        _board.value.title = title
+//        _board.value.content=content
+//    }
 
     fun getBoardById() {
         viewModelScope.launch {
@@ -59,15 +66,6 @@ class BoardViewModel @Inject constructor(
         }
     } //게시글 호출
 
-    fun putBoardById(title: String, content: String) {
-        viewModelScope.launch {
-            putBoardByIdUseCase(post_id, title, content).onSuccess {
-                _board.value = it
-            }.onFailure {
-                Log.e("error", "unknown error ${it.message}")
-            }
-        }
-    }//게시글 수정 --> 얘는 fragment안나간다
 
     fun deleteBoardById() {
         viewModelScope.launch {
@@ -82,7 +80,7 @@ class BoardViewModel @Inject constructor(
     fun getComments() {
         viewModelScope.launch {
             getCommentUseCase(post_id).onSuccess {
-                _commentsList.value = ArrayList(it)
+                _commentsList.value =it
             }.onFailure {
                 Log.e(TAG, "unknown error ${it.message}")
             }
@@ -91,12 +89,10 @@ class BoardViewModel @Inject constructor(
 
     fun postComment(content: String) {
         viewModelScope.launch {
-            val currentList = _commentsList.value
-            val newList = currentList.toMutableList()
-
-            postCommentUseCase(post_id, content).onSuccess {
-                newList.add(it)
-                _commentsList.value = newList
+            postCommentUseCase(post_id, content).onSuccess {newComment ->
+                _commentsList.update { currentList ->
+                    (currentList + newComment).toMutableList()
+                }
             }.onFailure {
                 Log.e(TAG, "unknown error ${it.message}")
             }
@@ -106,14 +102,12 @@ class BoardViewModel @Inject constructor(
 
     fun putComment(content_id: String, new_content: String) {
         val currentList = _commentsList.value
-        val newList = currentList.toMutableList()
 
         viewModelScope.launch {
             putCommentUseCase(post_id, content_id, new_content).onSuccess {
-                val index = newList.indexOfFirst { it.id == post_id }
+                val index = currentList.indexOfFirst { it.id == content_id }
                 if (index != -1) {
-                    newList[index] = newList[index].copy(content = new_content)
-                    _commentsList.value = newList
+                    _commentsList.value.get(index).content=new_content
                 }
             }.onFailure {
                 Log.e(TAG, "unknown error ${it.message}")
@@ -121,22 +115,30 @@ class BoardViewModel @Inject constructor(
         }
     } // 댓글 변경
 
-    fun deleteComment(content_id: String) {
+    fun deleteComment(comment_id: String) {
         viewModelScope.launch {
             val currentList = _commentsList.value
-            val newList = currentList.toMutableList()
 
-            deleteCommentUseCase(post_id, content_id).onSuccess {
-                val index = newList.indexOfFirst { it.id == post_id }
+            deleteCommentUseCase(post_id, comment_id).onSuccess {
+                val index = currentList.indexOfFirst { it.id == comment_id }
                 if (index != -1) {
-                    newList.removeAt(index)
-                    _commentsList.value = newList
+                    _commentsList.value.removeAt(index)
                 }
             }.onFailure {
                 Log.e(TAG, "unknown error ${it.message}")
             }
         }
     }//댓글 삭제
+
+    fun postLikeEmoji(){
+        viewModelScope.launch {
+            postBoardLikeUseCase(post_id).onSuccess {
+                Log.d(TAG, "postLikeEmoji: success")
+            }.onFailure {
+                Log.e(TAG, "unknown error ${it.message}")
+            }
+        }
+    } //하트추가
 
 
 }
