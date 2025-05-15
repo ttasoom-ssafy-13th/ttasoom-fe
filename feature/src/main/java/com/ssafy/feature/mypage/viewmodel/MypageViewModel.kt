@@ -9,6 +9,7 @@ import com.ssafy.domain.mypage.usecase.CheckAttendanceUseCase
 import com.ssafy.domain.mypage.usecase.GetMileageHistoryUseCase
 import com.ssafy.domain.mypage.usecase.GetMileageStatusUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -31,25 +32,29 @@ class MypageViewModel @Inject constructor(
         viewModelScope.launch {
             val result = getMileageStatusUseCase()
             Log.d("MypageViewModel", "loadMileageStatus result: $result")
-            result.onSuccess { _mileageStatus.value = it }
+            result.onSuccess { _mileageStatus.value = it}
         }
     }
 
     fun loadMileageHistory() {
         viewModelScope.launch {
             val result = getMileageHistoryUseCase()
-            Log.d("MypageViewModel", "loadMileageHistory result: $result")
-            result.onSuccess { _mileageHistory.value = it }
-        }
-    }
-
-    fun checkAttendance(boilerValue: Int) {
-        viewModelScope.launch {
-            val result = checkAttendanceUseCase(boilerValue)
-            Log.d("MypageViewModel", "checkAttendance result: $result")
-            result.onSuccess {
-                loadMileageHistory()
+            result.onSuccess { list ->
+                _mileageHistory.value = list.toList() // ✅ 새 객체 강제 할당
             }
         }
     }
+
+
+    fun checkAttendance(boilerValue: Int) {
+        viewModelScope.launch {
+            val result = checkAttendanceUseCase(boilerValue).also { Log.d("TAG", "checkAttendance: $it") }
+            result.onSuccess {
+                delay(300) // ✅ 서버 처리 시간 고려
+                loadMileageHistory()
+                loadMileageStatus()
+            }
+        }
+    }
+
 }

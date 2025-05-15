@@ -19,16 +19,6 @@ import javax.inject.Singleton
 object MileageModule {
 
     @Provides
-    @Singleton
-    fun provideMileageApiService(): MileageApiService {
-        return Retrofit.Builder()
-            .baseUrl("http://3.34.3.125")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(MileageApiService::class.java)
-    }
-
-    @Provides
     fun provideMileageRepository(apiService: MileageApiService): MileageRepository {
         return MileageRepositoryImpl(apiService)
     }
@@ -48,3 +38,4 @@ object MileageModule {
         return CheckAttendanceUseCase(repository)
     }
 }
+

@@ -2,6 +2,7 @@ package com.ssafy.feature.mypage.ui
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +12,9 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ssafy.feature.R
@@ -22,7 +23,6 @@ import com.ssafy.feature.mypage.viewmodel.MypageViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @AndroidEntryPoint
@@ -45,10 +45,9 @@ class MypageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.loadMileageStatus()
+        viewModel.loadMileageStatus().also { Log.d("TAG", "onViewCreated: load called") }
         viewModel.loadMileageHistory()
 
-        // mileageStatus 관찰
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.mileageStatus.collectLatest { status ->
                 status?.let {
@@ -59,37 +58,47 @@ class MypageFragment : Fragment() {
             }
         }
 
-        // mileageHistory 관찰
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.mileageHistory.collectLatest { history ->
-                val attendanceDates = history
+                val attendanceHistory = history
                     .filter { it.type == "attendance" }
-                    .map { LocalDateTime.parse(it.createdAt).toLocalDate() }
-                    .toSet()
-
-                val streakCount = attendanceDates.size
-                binding.tvStreak.text = "$streakCount 일"
+                    .sortedBy { it.createdAt }
 
                 val formatter = DateTimeFormatter.ofPattern("MM/dd")
 
-                val grouped = history
-                    .filter { it.type == "attendance" }
-                    .groupBy {
-                        LocalDateTime.parse(it.createdAt).toLocalDate()
-                    }
-                    .toSortedMap()
+                var cumulativeSum = 0
+                val grouped = attendanceHistory.groupBy { it.createdAt.toLocalDate() }
+                val sortedDates = grouped.keys.sorted()
 
-                val entries = grouped.entries.mapIndexed { index, entry ->
-                    BarEntry(index.toFloat(), entry.value.sumOf { it.amount }.toFloat())
+                val entries = mutableListOf<Entry>()
+                val labels = mutableListOf<String>()
+
+                sortedDates.forEachIndexed { index, date ->
+                    val daySum = grouped[date]?.sumOf { it.amount } ?: 0
+                    cumulativeSum += daySum
+                    entries.add(Entry(index.toFloat(), cumulativeSum.toFloat()))
+                    runCatching {
+                        labels.add(date.format(formatter))
+                    }.onFailure {
+                        Log.d("TAG", "onViewCreated: $it")
+                    }.onSuccess {
+                        Log.d("TAG", "onViewCreated: $it $labels")
+                    }
                 }
 
-                val labels = grouped.keys.map { it.format(formatter) }
+                val dataSet = LineDataSet(entries, "총 마일리지 추이").apply {
+                    setDrawFilled(true)
+                    setDrawCircles(true)
+                    circleRadius = 4f
+                    lineWidth = 2f
+                    mode = LineDataSet.Mode.LINEAR
+                }
 
-                val dataSet = BarDataSet(entries, "일별 적립 마일리지")
-                val barData = BarData(dataSet)
+                val lineData = LineData(dataSet)
 
                 binding.barChart.apply {
-                    data = barData
+                    clear() // ✅ 기존 데이터 제거
+                    data = lineData
                     xAxis.valueFormatter = IndexAxisValueFormatter(labels)
                     xAxis.granularity = 1f
                     xAxis.setDrawGridLines(false)
@@ -98,12 +107,14 @@ class MypageFragment : Fragment() {
                     axisRight.isEnabled = false
                     description.isEnabled = false
                     legend.isEnabled = false
-                    invalidate()
+                    notifyDataSetChanged() // ✅ 데이터 갱신 알림
+                    invalidate() // ✅ 차트 다시 그리기
                 }
+
             }
+
         }
 
-        // 자가 검침 입력 다이얼로그
         binding.btnAttendance.setOnClickListener {
             val dialogView = layoutInflater.inflate(R.layout.dialog_attendance, null)
             val editText = dialogView.findViewById<EditText>(R.id.etBoilerValue)
