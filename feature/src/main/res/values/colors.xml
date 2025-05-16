@@ -9,9 +9,14 @@
     <color name="white">#FFFFFFFF</color>
     <color name="my_stroke_color">#DFDFDF</color>
 
+
     <color name="deepGray">#444242</color>
     <color name="middleGray">#808080</color>
     <color name="green1">#F0F6F3</color>
 
     <color name="lightGray">#EBEBEB</color>
+
+    <color name="green">#55CC77</color>
+    <color name="light_gray">#E0E0E0</color>
+
 </resources>
