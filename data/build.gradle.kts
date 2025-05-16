@@ -47,8 +47,10 @@ dependencies {
 
     // ✅ Hilt
     implementation("com.google.dagger:hilt-android:2.48")
-    implementation(libs.firebase.auth.ktx)
     kapt("com.google.dagger:hilt-compiler:2.48")
+
+    implementation(libs.firebase.auth.ktx)
+
 
     // ✅ 테스트
     testImplementation(libs.junit)

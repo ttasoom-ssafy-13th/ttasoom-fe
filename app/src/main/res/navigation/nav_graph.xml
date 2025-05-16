@@ -24,8 +24,37 @@
         android:label="보일러" />
 
     <fragment
+        android:id="@+id/communityFragment"
+        android:name="com.ssafy.feature.community.ui.CommunityFragment"
+        android:label="커뮤니티">
+
+        <action
+            android:id="@+id/action_communityFragment_to_communityBoardFragment"
+            app:destination="@id/communityBoardFragment" />
+        <action
+            android:id="@+id/action_communityFragment_to_communityEditFragment"
+            app:destination="@id/communityEditFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/communityBoardFragment"
+        android:name="com.ssafy.feature.community.ui.CommunityBoardFragment"
+        android:label="게시글">
+
+        <action
+            android:id="@+id/action_communityBoardFragment_to_communityEditFragment"
+            app:destination="@id/communityEditFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/communityEditFragment"
+        android:name="com.ssafy.feature.community.ui.CommunityEditFragment"
+        android:label="글쓰기"/>
+ </fragment>
+    <fragment
         android:id="@+id/mypage_fragment"
         android:name="com.ssafy.feature.mypage.ui.MypageFragment"
         android:label="마이페이지" />
+ </fragment>
 
 </navigation>

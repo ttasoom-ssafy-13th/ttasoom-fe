@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_marginHorizontal="15dp"
+    android:layout_marginVertical="10dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/item_community_profile_img"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/tmpimg"
+            app:shapeAppearanceOverlay="@style/CircleImageView" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/item_community_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="5dp"
+                    android:text="서현호,"
+                    android:textColor="@color/deepGray"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/item_community_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1일 전"
+                    android:textColor="@color/deepGray"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/item_community_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="제목입니다. 제목을 입력해주세요\nsfs"
+                android:paddingHorizontal="5dp"
+                android:textColor="@color/middleGray"
+                android:lineSpacingExtra="4dp"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:maxLines="2"
+                android:ellipsize="end"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/item_community_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="10dp"
+        android:text="테스트 글자다. 테스트 글자\n글자 수 제한을 하긴 해야할 것이다.\nrmfwktn wmfmsm으아아.ㄴㄹㄴ\nㄴㄴ "
+        android:maxLines="3"
+        android:textStyle="bold"
+        android:ellipsize="end"
+        android:textColor="@color/deepGray"
+        android:lineSpacingExtra="1dp"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <ImageView
+            android:id="@+id/item_community_heart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_heart"
+            app:tint="@color/middleGray"
+            tools:ignore="MissingConstraints" />
+
+
+        <TextView
+            android:id="@+id/item_community_heartCnt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="5dp"
+            android:text='23'
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/item_community_heart"
+            tools:ignore="MissingConstraints"/>
+
+        <ImageView
+            android:id="@+id/item_community_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_comment"
+            app:layout_constraintEnd_toStartOf="@+id/item_community_commentCnt"
+            app:tint="@color/middleGray"
+            tools:layout_editor_absoluteY="0dp"
+            tools:ignore="MissingConstraints"/>
+
+        <TextView
+            android:id="@+id/item_community_commentCnt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="5dp"
+            android:text='23'
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:layout_editor_absoluteY="0dp"
+            tools:ignore="MissingConstraints"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</LinearLayout>
+
+
+
+

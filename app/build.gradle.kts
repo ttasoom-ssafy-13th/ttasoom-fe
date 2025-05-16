@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.hilt.android)
     id("com.google.gms.google-services")
     kotlin("kapt")
+    id("androidx.navigation.safeargs.kotlin")
+
 }
 
 android {

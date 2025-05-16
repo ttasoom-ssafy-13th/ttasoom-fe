@@ -1,6 +1,7 @@
 package com.ssafy.data.local
 
 import android.content.Context
+import android.util.Log
 import javax.inject.Inject
 
 class PreferencesManager @Inject constructor(
@@ -21,6 +22,7 @@ class PreferencesManager @Inject constructor(
     }
 
     fun getAccessToken(): String? {
+        Log.d("myToken", "getAccessToken: ${prefs.getString("access_token", null)}")
         return prefs.getString("access_token", null)
     }
 

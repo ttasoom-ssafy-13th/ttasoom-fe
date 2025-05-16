@@ -19,4 +19,5 @@ object NavigationModule {
             ?: throw IllegalStateException("Navigator는 MainActivity에서만 사용하세요")
         return mainActivity
     }
+
 }

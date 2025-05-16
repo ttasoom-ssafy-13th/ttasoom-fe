@@ -30,4 +30,12 @@
     </string-array>
 
 
+    <string name="test_community">
+        <item>
+           다 맞짱까자.
+
+        </item>
+    </string>
+
+
 </resources>

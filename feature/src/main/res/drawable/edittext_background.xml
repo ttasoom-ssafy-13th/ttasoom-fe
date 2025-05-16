@@ -1,15 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
-
-    <solid android:color="#E8F5E9" /> <!-- 연한 초록 배경 -->
-
-    <corners android:radius="12dp" />
-
-    <padding
-        android:left="12dp"
-        android:top="12dp"
-        android:right="12dp"
-        android:bottom="12dp" />
-
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#EBEBEB" /> <!-- 회색 (middleGray 비슷) -->
+    <corners android:radius="12dp" /> <!-- 라운드 정도 -->
 </shape>

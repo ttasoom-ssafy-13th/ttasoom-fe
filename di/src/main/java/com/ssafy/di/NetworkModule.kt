@@ -3,6 +3,9 @@ package com.ssafy.di
 
 import com.ssafy.data.auth.api.AuthApi
 import com.ssafy.data.boiler.provider.BoilerApiService
+
+import com.ssafy.data.community.api.CommentApiService
+import com.ssafy.data.community.api.CommunityApiService
 import com.ssafy.data.mypage.provider.MileageApiService
 import com.ssafy.data.remote.interceptor.AuthorizationInterceptor
 import dagger.Module
@@ -55,6 +58,15 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    fun provideCommunityApiService(retrofit: Retrofit) : CommunityApiService {
+        return retrofit.create(CommunityApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCommentApiService(retrofit: Retrofit) :CommentApiService{
+        return retrofit.create(CommentApiService::class.java)
+
     fun provideMileageApiService(retrofit: Retrofit): MileageApiService {
         return retrofit.create(MileageApiService::class.java)
     }
