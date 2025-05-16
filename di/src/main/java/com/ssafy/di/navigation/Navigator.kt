@@ -7,4 +7,5 @@ interface Navigator {
     /** 로그인 → 메인 화면으로 */
     fun toMain()
 
+    fun toMyPage()
 }

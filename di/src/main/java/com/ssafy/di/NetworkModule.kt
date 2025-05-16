@@ -3,6 +3,7 @@ package com.ssafy.di
 
 import com.ssafy.data.auth.api.AuthApi
 import com.ssafy.data.boiler.provider.BoilerApiService
+import com.ssafy.data.mypage.provider.MileageApiService
 import com.ssafy.data.remote.interceptor.AuthorizationInterceptor
 import dagger.Module
 import dagger.Provides
@@ -50,5 +51,11 @@ object NetworkModule {
     @Singleton
     fun provideAuthApi(retrofit: Retrofit): AuthApi {
         return retrofit.create(AuthApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMileageApiService(retrofit: Retrofit): MileageApiService {
+        return retrofit.create(MileageApiService::class.java)
     }
 }
