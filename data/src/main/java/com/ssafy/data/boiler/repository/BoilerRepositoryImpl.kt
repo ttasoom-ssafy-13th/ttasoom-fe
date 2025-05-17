@@ -1,11 +1,17 @@
 package com.ssafy.data.boiler.repository
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.ssafy.data.boiler.mapper.toDomain
 import com.ssafy.data.boiler.provider.BoilerRemoteDataSource
 import com.ssafy.domain.boiler.model.Boiler
+import com.ssafy.domain.boiler.model.BoilerCheckHistory
+import com.ssafy.domain.boiler.model.BoilerRecommendation
+import com.ssafy.domain.boiler.model.BoilerUsagePrediction
 import com.ssafy.domain.boiler.repository.BoilerRepository
+import javax.inject.Inject
 
-class BoilerRepositoryImpl(
+class BoilerRepositoryImpl @Inject constructor(
     private val remote: BoilerRemoteDataSource
 ) : BoilerRepository {
 
@@ -30,4 +36,19 @@ class BoilerRepositoryImpl(
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    override suspend fun getUsagePrediction(): Result<BoilerUsagePrediction> {
+        return remote.getUsagePrediction().map { it.toDomain() }
+    }
+
+    override suspend fun getUsageRecommendations(): Result<BoilerRecommendation> {
+        return remote.getUsageRecommendations().map { it.toDomain() }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override suspend fun getCheckHistory(): Result<List<BoilerCheckHistory>> {
+        return remote.getCheckHistory().map { list ->
+            list.map { it.toDomain() }
+        }
+    }
 }
