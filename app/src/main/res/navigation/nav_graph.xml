@@ -54,8 +54,16 @@
     <fragment
         android:id="@+id/mypage_fragment"
         android:name="com.ssafy.feature.mypage.ui.MypageFragment"
-        android:label="마이페이지" />
+        android:label="마이페이지">
+        <action
+            android:id="@+id/action_mypageFragment_to_weatherFragment"
+            app:destination="@id/weatherFragment" />
+    </fragment>
 
+    <fragment
+        android:id="@+id/weatherFragment"
+        android:name="com.ssafy.feature.weather.ui.WeatherFragment"
+        android:label="날씨" />
 
 
 

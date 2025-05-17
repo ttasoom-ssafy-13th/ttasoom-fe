@@ -8,6 +8,7 @@ import com.ssafy.data.community.api.CommentApiService
 import com.ssafy.data.community.api.CommunityApiService
 import com.ssafy.data.mypage.provider.MileageApiService
 import com.ssafy.data.remote.interceptor.AuthorizationInterceptor
+import com.ssafy.data.weather.provider.WeatherApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -71,5 +72,11 @@ object NetworkModule {
     @Singleton
     fun provideMileageApiService(retrofit: Retrofit): MileageApiService {
         return retrofit.create(MileageApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideWeatherApi(retrofit: Retrofit): WeatherApi {
+        return retrofit.create(WeatherApi::class.java)
     }
 }

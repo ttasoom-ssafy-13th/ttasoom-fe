@@ -11,6 +11,12 @@
         android:title="Community"
         android:icon="@drawable/ic_launcher_foreground"/>
 
+    <!-- bottom_nav_menu.xml -->
+    <item
+        android:id="@+id/weatherFragment"
+        android:title="Weather"
+        android:icon="@drawable/baseline_wb_sunny_24" />
+
     <!-- id이름 바꿈-->
 
     <item

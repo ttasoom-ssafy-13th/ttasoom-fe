@@ -82,7 +82,7 @@ class MypageFragment : Fragment() {
                     }.onFailure {
                         Log.d("TAG", "onViewCreated: $it")
                     }.onSuccess {
-                        Log.d("TAG", "onViewCreated: $it $labels")
+//                        Log.d("TAG", "onViewCreated: $it $labels")
                     }
                 }
 

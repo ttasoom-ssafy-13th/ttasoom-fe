@@ -7,6 +7,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.ssafy.di.navigation.Navigator
 
@@ -24,11 +25,21 @@ class MainActivity : AppCompatActivity(), Navigator {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
 
-        binding.root.post {
-            binding.bottomNav.setupWithNavController(navController)
-        } // 하단바 버튼 누르면 버튼 대로 가게 하기
+        binding.bottomNav.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            binding.bottomNav.visibility = when (destination.id) {
+                R.id.loginFragment -> View.GONE
+                else -> View.VISIBLE
+            }
+        }
     }
+
+
 
 
 
@@ -83,5 +94,7 @@ class MainActivity : AppCompatActivity(), Navigator {
         binding.bottomNav.visibility = View.VISIBLE
     }
 
-
+    override fun toWeather() {
+        navController.navigate(R.id.action_mypageFragment_to_weatherFragment)
+    }
 }

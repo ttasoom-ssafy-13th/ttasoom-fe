@@ -31,19 +31,28 @@ class MypageViewModel @Inject constructor(
     fun loadMileageStatus() {
         viewModelScope.launch {
             val result = getMileageStatusUseCase()
-            Log.d("MypageViewModel", "loadMileageStatus result: $result")
-            result.onSuccess { _mileageStatus.value = it}
+            result.onSuccess {
+                _mileageStatus.value = it
+            }
+            result.onFailure {
+                Log.e("MypageViewModel", "❌ Failed to load mileage status", it)
+            }
         }
     }
+
 
     fun loadMileageHistory() {
         viewModelScope.launch {
             val result = getMileageHistoryUseCase()
             result.onSuccess { list ->
-                _mileageHistory.value = list.toList() // ✅ 새 객체 강제 할당
+                _mileageHistory.value = list.toList()
+            }
+            result.onFailure {
+                Log.e("MypageViewModel", "❌ Failed to load mileage history", it)
             }
         }
     }
+
 
 
     fun checkAttendance(boilerValue: Int) {
