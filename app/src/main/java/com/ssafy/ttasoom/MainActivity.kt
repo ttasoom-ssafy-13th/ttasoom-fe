@@ -10,6 +10,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.ssafy.di.navigation.Navigator
+import com.ssafy.feature.boiler.ui.BoilerSolutionFragment
 
 import com.ssafy.ttasoom.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -96,5 +97,8 @@ class MainActivity : AppCompatActivity(), Navigator {
 
     override fun toWeather() {
         navController.navigate(R.id.action_mypageFragment_to_weatherFragment)
+    }
+    override fun toBoilerSolution() {
+        navController.navigate(R.id.action_mypage_fragment_to_boiler_solution_fragment)
     }
 }

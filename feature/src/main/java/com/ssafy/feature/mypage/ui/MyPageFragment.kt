@@ -20,10 +20,12 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ssafy.feature.R
 import com.ssafy.feature.databinding.FragmentMypageBinding
 import com.ssafy.feature.mypage.viewmodel.MyPageViewModel
+import com.ssafy.di.navigation.Navigator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.time.format.DateTimeFormatter
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MyPageFragment : Fragment() {
@@ -32,6 +34,9 @@ class MyPageFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: MyPageViewModel by viewModels()
+
+    @Inject
+    lateinit var navigator: Navigator
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -143,6 +148,10 @@ class MyPageFragment : Fragment() {
                 }
                 .setNegativeButton("취소", null)
                 .show()
+        }
+
+        binding.btnAiSolution.setOnClickListener {
+            navigator.toBoilerSolution()
         }
     }
 

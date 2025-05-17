@@ -168,15 +168,31 @@
                     android:textColor="@color/text_secondary"
                     android:textSize="14sp" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnAttendance"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="자가 검침하기"
-                    android:textColor="@color/white"
-                    app:backgroundTint="@color/primary"
-                    app:cornerRadius="8dp" />
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnAttendance"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="자가검침하기"
+                        android:layout_marginEnd="8dp"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnAiSolution"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="AI 솔루션 받기"
+                        android:layout_marginStart="8dp"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+
+                </LinearLayout>
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

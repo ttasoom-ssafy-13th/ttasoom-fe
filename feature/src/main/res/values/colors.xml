@@ -31,6 +31,7 @@
     <color name="warning">#FFC107</color>
     <color name="error">#F44336</color>
     <color name="divider">#E0E0E0</color>
+    <color name="surface_variant">#E7E0EC</color>
 
 
 </resources>
