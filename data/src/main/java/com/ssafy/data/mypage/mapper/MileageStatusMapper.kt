@@ -9,6 +9,9 @@ fun MileageStatusDto.toDomain(): MileageStatus {
         grade = this.grade,
         lastAttendance = this.lastAttendance.toLocalDateTime(),
         totalMileage = this.totalMileage,
-        userId = this.userId
+        userId = this.userId,
+        mileageToNextGrade = this.mileageToNextGrade,
+        currentGradeMaxMileage = this.currentGradeMaxMileage,
+        nextGrade = this.nextGrade
     )
 }

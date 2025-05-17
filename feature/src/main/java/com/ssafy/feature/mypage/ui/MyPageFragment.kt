@@ -51,9 +51,16 @@ class MyPageFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.mileageStatus.collectLatest { status ->
                 status?.let {
-                    binding.tvName.text = "안녕하세요 ${it.userId}님"
-                    binding.tvGrade.text = it.grade
+                    binding.tvName.text = "안녕하세요\n${it.userId}님"
+                    binding.tvGrade.text = "${it.grade} (다음 등급: ${it.nextGrade})"
                     binding.tvGreeting.text = "다시 오신 것을 환영합니다! 자가검침을 하고 보상을 받으세요\n총 마일리지 포인트: ${it.totalMileage}"
+                    
+                    // 다음 등급까지 남은 마일리지 표시
+                    binding.tvNextGrade.text = "다음 등급까지 ${it.mileageToNextGrade}마일리지 남았습니다."
+                    
+                    // 프로그레스바 업데이트
+                    val progress = ((it.totalMileage.toFloat() / it.currentGradeMaxMileage) * 100).toInt()
+                    binding.progressBar.progress = progress
                 }
             }
         }
