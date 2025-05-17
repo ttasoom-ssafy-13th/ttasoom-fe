@@ -53,7 +53,7 @@
 
     <fragment
         android:id="@+id/mypage_fragment"
-        android:name="com.ssafy.feature.mypage.ui.MypageFragment"
+        android:name="com.ssafy.feature.mypage.ui.MyPageFragment"
         android:label="마이페이지">
         <action
             android:id="@+id/action_mypageFragment_to_weatherFragment"

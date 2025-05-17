@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -15,30 +13,47 @@
         android:layout_height="match_parent"
         android:padding="16dp">
 
-        <!-- 로딩 중 표시 -->
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:id="@+id/progressBar"
+        <!-- 로딩 중 메시지 + 인디케이터 -->
+        <LinearLayout
+            android:id="@+id/loadingLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:visibility='@{viewModel.isLoading ? View.VISIBLE : View.GONE}'
+            android:gravity="center"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/weatherCard"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:indicatorSize="48dp"
-            app:trackThickness="4dp" />
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:trackThickness="4dp"
+                app:indicatorSize="48dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/loading_message"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                android:layout_marginTop="12dp" />
+        </LinearLayout>
 
         <!-- 날씨 정보 카드 -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/weatherCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/progressBar"
+            android:visibility='@{viewModel.isLoading ? View.GONE : View.VISIBLE}'
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             app:cardCornerRadius="16dp"
-            app:cardElevation="6dp">
+            app:cardElevation="8dp"
+            app:strokeColor="?attr/colorOutline"
+            app:strokeWidth="1dp">
 
             <LinearLayout
                 android:orientation="vertical"
@@ -48,21 +63,20 @@
 
                 <TextView
                     android:text="@string/weather_title"
-                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                    android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="12dp" />
 
                 <TextView
                     android:text='@{viewModel.weather != null ? viewModel.weather.minTemp + " ~ " + viewModel.weather.maxTemp + @string/temperature_unit : "-"}'
-                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_height="wrap_content" />
 
                 <TextView
-                    android:text='@{viewModel.weather != null ? "습도 : " + viewModel.weather.humidity + @string/humidity_unit : "-"}'
-                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                    android:text='@{viewModel.weather != null ? @string/humidity_prefix + viewModel.weather.humidity + @string/humidity_unit : "-"}'
+                    android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp" />
@@ -82,6 +96,5 @@
                     android:lineSpacingExtra="4dp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

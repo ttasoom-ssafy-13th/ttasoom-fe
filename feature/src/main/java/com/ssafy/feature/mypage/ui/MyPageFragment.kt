@@ -19,19 +19,19 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ssafy.feature.R
 import com.ssafy.feature.databinding.FragmentMypageBinding
-import com.ssafy.feature.mypage.viewmodel.MypageViewModel
+import com.ssafy.feature.mypage.viewmodel.MyPageViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.time.format.DateTimeFormatter
 
 @AndroidEntryPoint
-class MypageFragment : Fragment() {
+class MyPageFragment : Fragment() {
 
     private var _binding: FragmentMypageBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: MypageViewModel by viewModels()
+    private val viewModel: MyPageViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,6 +65,10 @@ class MypageFragment : Fragment() {
                     .sortedBy { it.createdAt }
 
                 val formatter = DateTimeFormatter.ofPattern("MM/dd")
+
+                val streak = viewModel.calculateAttendanceStreak(attendanceHistory)
+                binding.tvStreak.text = "$streak 일 연속 출석 중"
+
 
                 var cumulativeSum = 0
                 val grouped = attendanceHistory.groupBy { it.createdAt.toLocalDate() }

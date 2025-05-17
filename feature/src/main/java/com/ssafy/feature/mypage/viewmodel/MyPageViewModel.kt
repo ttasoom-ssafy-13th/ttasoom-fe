@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MypageViewModel @Inject constructor(
+class MyPageViewModel @Inject constructor(
     private val getMileageStatusUseCase: GetMileageStatusUseCase,
     private val getMileageHistoryUseCase: GetMileageHistoryUseCase,
     private val checkAttendanceUseCase: CheckAttendanceUseCase
@@ -64,6 +64,30 @@ class MypageViewModel @Inject constructor(
                 loadMileageStatus()
             }
         }
+    }
+
+    fun calculateAttendanceStreak(attendanceHistory: List<MileageHistory>): Int {
+        if (attendanceHistory.isEmpty()) return 0
+
+        val dates = attendanceHistory
+            .map { it.createdAt.toLocalDate() }
+            .distinct()
+            .sortedDescending()
+
+        var streak = 1
+        var prevDate = dates[0]
+
+        for (i in 1 until dates.size) {
+            val expected = prevDate.minusDays(1)
+            if (dates[i] == expected) {
+                streak++
+                prevDate = dates[i]
+            } else if (dates[i].isBefore(expected)) {
+                break // 연속이 끊긴 경우
+            }
+        }
+
+        return streak
     }
 
 }

@@ -41,6 +41,9 @@
     <string name="advice_title">🌱 에너지 절약 조언</string>
     <string name="temperature_unit">℃</string>
     <string name="humidity_unit">%</string>
+    <string name="humidity_prefix">💧 습도: </string>
+    <string name="loading_message">최신 정보를 받아오는 중입니다...</string>
+
 
 
 
