@@ -19,6 +19,7 @@ class CommunityAdapter(
             binding.itemCommunityTitle.text = item.title
             binding.itemCommunityContent.text = item.content
             binding.itemCommunityDate.text = item.created_at //여기까지는 server data
+            binding.itemCommunityCommentCnt.text = item.comment_count.toString() // 댓글 개수 표시
 
             binding.root.setOnClickListener {
                 listener(item.id.toString())
