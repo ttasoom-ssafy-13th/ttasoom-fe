@@ -22,4 +22,6 @@ interface Navigator {
     fun toPrev() //뒤로 가기
 
     fun toMyPage()
+
+    fun toWeather()
 }

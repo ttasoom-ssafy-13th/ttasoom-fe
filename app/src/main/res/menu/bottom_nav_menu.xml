@@ -3,18 +3,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/boilerFragment"
-        android:title="Boiler"
-        android:icon="@drawable/ic_launcher_foreground" />
+        android:title="보일러"
+        android:icon="@drawable/water_heater_24px" />
 
     <item
         android:id="@+id/communityFragment"
-        android:title="Community"
-        android:icon="@drawable/ic_launcher_foreground"/>
+        android:title="게시판"
+        android:icon="@drawable/forum_24px"/>
+
+    <!-- bottom_nav_menu.xml -->
+    <item
+        android:id="@+id/weatherFragment"
+        android:title="날씨정보"
+        android:icon="@drawable/device_thermostat_24px" />
 
     <!-- id이름 바꿈-->
 
     <item
         android:id="@+id/mypage_fragment"
-        android:title="Profile"
+        android:title="내정보"
         android:icon="@drawable/person_24px" />
 </menu>
