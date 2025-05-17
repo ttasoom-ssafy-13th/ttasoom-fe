@@ -26,4 +26,6 @@ interface Navigator {
     fun toRegister()
 
     fun toLogin()
+
+    fun toWeather()
 }
