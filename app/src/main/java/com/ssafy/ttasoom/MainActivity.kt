@@ -3,13 +3,9 @@ package com.ssafy.ttasoom
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
-import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.ssafy.di.navigation.Navigator
-
 import com.ssafy.ttasoom.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -83,5 +79,12 @@ class MainActivity : AppCompatActivity(), Navigator {
         binding.bottomNav.visibility = View.VISIBLE
     }
 
+    override fun toRegister() {
+        navController.navigate(R.id.registerFragment)
+    }
+
+    override fun toLogin() {
+        navController.navigate(R.id.loginFragment)
+    }
 
 }

@@ -16,6 +16,10 @@
         <action
             android:id="@+id/action_loginFragment_to_mypage_fragment"
             app:destination="@id/mypage_fragment" />
+
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
     </fragment>
 
     <fragment
@@ -56,7 +60,10 @@
         android:name="com.ssafy.feature.mypage.ui.MypageFragment"
         android:label="마이페이지" />
 
-
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.ssafy.feature.auth.ui.RegisterFragment"
+        android:label="회원가입" />
 
 
 </navigation>
