@@ -1,10 +1,13 @@
 package com.ssafy.di
 
 import android.content.Context
+import com.ssafy.data.auth.api.AuthApi
+import com.ssafy.data.auth.provider.AuthRemoteDataSource
 import com.ssafy.data.auth.repository.AuthRepositoryImpl
 import com.ssafy.data.local.PreferencesManager
 import com.ssafy.domain.auth.repository.AuthRepository
 import com.ssafy.domain.auth.usecase.LoginUseCase
+import com.ssafy.domain.auth.usecase.RegisterUserUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,4 +39,18 @@ object AuthModule {
     ): PreferencesManager {
         return PreferencesManager(context)
     }
+
+    @Provides
+    @Singleton
+    fun provideAuthRemoteDataSource(
+        authApi: AuthApi
+    ): AuthRemoteDataSource {
+        return AuthRemoteDataSource(authApi)
+    }
+
+    @Provides
+    fun provideRegisterUserUseCase(authRepository: AuthRepository): RegisterUserUseCase {
+        return RegisterUserUseCase(authRepository)
+    }
+
 }
