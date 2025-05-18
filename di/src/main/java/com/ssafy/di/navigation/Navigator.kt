@@ -23,6 +23,10 @@ interface Navigator {
 
     fun toMyPage()
 
+    fun toRegister()
+
+    fun toLogin()
+
     fun toWeather()
 
     fun toBoilerSolution() // AI 솔루션 화면으로 이동
