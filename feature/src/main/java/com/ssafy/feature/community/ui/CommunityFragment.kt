@@ -73,19 +73,21 @@ class CommunityFragment : Fragment() {
 
         recyclerView=binding.communityRv
         recyclerView.layoutManager= LinearLayoutManager(requireContext())
-        adapter= CommunityAdapter{ post_id ->
-            navigator.toCommunityBoard(post_id)
+        adapter= CommunityAdapter{ post_id,flag ->
+            navigator.toCommunityBoard(post_id,flag)
         }
         recyclerView.adapter=adapter
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.boardList.collectLatest {
+                    Log.d("DEBUG", "boardList updated: $it")
                     adapter.submitList(it)
                 }
             }
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

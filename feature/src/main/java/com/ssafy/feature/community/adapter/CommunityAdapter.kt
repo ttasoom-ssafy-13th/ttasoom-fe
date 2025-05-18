@@ -1,5 +1,6 @@
 package com.ssafy.feature.community.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -9,13 +10,13 @@ import com.ssafy.feature.databinding.ItemCommunityBinding
 import com.ssafy.feature.R
 
 class CommunityAdapter(
-    private val listener: (String) -> Unit,
+    private val listener: (String,Boolean) -> Unit,
 ) : ListAdapter<Board, CommunityAdapter.ViewHolder>(DiffCallback()) {
 
     inner class ViewHolder(private val binding: ItemCommunityBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Board) {
-
+            Log.d("HeartTest", "likedUsers: ${item.likedUsers}")
             //val isLiked=  item.likedUsers.contains() //토큰인지 뭔지 봐야할듯 ;;
             binding.itemCommunityUser.text = item.author
             binding.itemCommunityHeartCnt.text = item.likedUsers.size.toString()
@@ -30,7 +31,7 @@ class CommunityAdapter(
             else
                 binding.itemCommunityHeart.setImageResource(R.drawable.ic_heart)
             binding.root.setOnClickListener {
-                listener(item.id.toString())
+                listener(item.id.toString(),item.likedUsers.contains("sungjun@gmail.com"))
             } // 이벤트 처리
 
 

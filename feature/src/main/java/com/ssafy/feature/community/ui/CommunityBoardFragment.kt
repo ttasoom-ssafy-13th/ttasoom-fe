@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
@@ -43,11 +44,11 @@ class CommunityBoardFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CommentAdapter
-    private  var isLike = false
-    private var currentCommentId : String? = null
+    private var currentCommentId: String? = null
 
     private lateinit var post_id: String //게시글 아이디.
-    private lateinit var prefManager : LikedSharedPref
+    private var isHeart : Boolean = false
+    private lateinit var prefManager: LikedSharedPref
 
     @Inject
     lateinit var navigator: Navigator
@@ -67,62 +68,65 @@ class CommunityBoardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         post_id = arguments?.getString("post_id").toString() // bundle에서 id획득
+        isHeart= arguments?.getBoolean("flag") == true
         viewModel.post_id = post_id //viewModel에 post_id 넘겨주기
         navigator.hide()
+        requireActivity().window.setSoftInputMode(
+            WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN
+        )
 
         viewModel.getBoardById() // 게시글 api
         viewModel.getComments() //댓글 api
 
         prefManager = LikedSharedPref(requireContext())
-        isLike= prefManager.getFlagForId(post_id)
+
         initUi()
         initEvent()
 
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.commentsList.collectLatest { comments ->
-                    adapter.submitList(comments)
+        viewLifecycleOwnerLiveData.observe(viewLifecycleOwner) { lifecycleOwner ->
+            viewLifecycleOwner.lifecycleScope.launch {
+                repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    viewModel.commentsList.collectLatest { comments ->
+                        adapter.submitList(comments)
+                    }
                 }
             }
         }
+
 
     }
 
     private fun initUi() {
+        Log.d(TAG, "initUi: ${isHeart}")
+        if(isHeart)
+            binding.communityHeart.setImageResource(R.drawable.ic_heart_click)
+        else
+            binding.communityHeart.setImageResource(R.drawable.ic_heart)
+
 
         viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.board.collectLatest { board ->
-                    binding.communityTitle.text=board.title
-                    binding.communityUser.text=board.author
-                    binding.communityDate.text=board.created_at
-                    binding.communityContent.text=board.content
-                    binding.communityCommentCnt.text=board.comment_count.toString()
-                    binding.communityHeartCnt.text=board.likedUsers.size.toString()
-                    if(isLike)binding.communityHeart.setImageResource(R.drawable.ic_heart_click)
-                }
-            }
-        }
-
-
-        Log.d(TAG, "initUi: ${isLike}")
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.likeCnt.collectLatest {
-                    binding.communityHeartCnt.text = viewModel.likeCnt.value.toString()
-                }
+            viewModel.board.collectLatest { board ->
+                binding.communityTitle.text = board.title
+                binding.communityUser.text = board.author
+                binding.communityDate.text = board.created_at
+                binding.communityContent.text = board.content
+                binding.communityCommentCnt.text = board.comment_count.toString()
+                binding.communityHeartCnt.text = board.likedUsers.size.toString()
             }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.commentCnt.collectLatest {
-                    binding.communityCommentCnt.text=viewModel.commentCnt.value.toString()
-                }
-            }
+            viewModel.likeCnt.collectLatest {
 
+                binding.communityHeartCnt.text = viewModel.likeCnt.value.toString()
+            }
+        }
+
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.commentCnt.collectLatest {
+                binding.communityCommentCnt.text = viewModel.commentCnt.value.toString()
+            }
         }
 
 
@@ -130,16 +134,22 @@ class CommunityBoardFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         adapter = CommentAdapter(
-            btnListener = { view, comment_id->
-                showEditDeletePopupComment(view,comment_id)
+            btnListener = { view, comment_id ->
+                showEditDeletePopupComment(view, comment_id)
             }
         )
 
         recyclerView.adapter = adapter
 
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.commentsList.collectLatest {
+                adapter.submitList(it)
+            }
+        }
+
     }
 
-   private fun  initEvent(){
+    private fun initEvent() {
 
         binding.communityEditOrDeleteBtn.setOnClickListener {
             showEditDeletePopup(it)
@@ -148,44 +158,41 @@ class CommunityBoardFragment : Fragment() {
         binding.communityCommentSendBtn.setOnClickListener {
             val commentText = binding.communityCommentEditText.text.toString()
 
-            if(currentCommentId==null){
+            if (currentCommentId == null) {
                 viewModel.postComment(commentText)
-            }else{
+            } else {
                 viewModel.putComment(currentCommentId!!, commentText)
-                currentCommentId=null
+                currentCommentId = null
             }
 
             binding.communityCommentEditText.setText("")
             // 키보드 숨기기
-            val imm = binding.communityCommentEditText.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val imm =
+                binding.communityCommentEditText.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(binding.communityCommentEditText.windowToken, 0)
         }//댓 달기
 
-       binding.communityHeart.setOnClickListener{
-           isLike = !isLike
+        binding.communityHeart.setOnClickListener {
+            isHeart = !isHeart
 
-           if(isLike){
-               prefManager.setFlagForId(post_id, true)
-               binding.communityHeart.setImageResource(R.drawable.ic_heart_click)
-           }else{
-               prefManager.setFlagForId(post_id, false)
-               binding.communityHeart.setImageResource(R.drawable.ic_heart)
-           }
+            if(isHeart)
+                binding.communityHeart.setImageResource(R.drawable.ic_heart_click)
+            else
+                binding.communityHeart.setImageResource(R.drawable.ic_heart)
 
-           viewModel.postLikeEmoji()
-       }// 이모티콘 누르기
+            viewModel.postLikeEmoji()
+
+        }// 이모티콘 누르기
 
 
-       binding.communityCommentEditText.post{
-           showKeyboard(binding.communityCommentEditText)
-       }
-       binding.communityCommentEditText.setOnFocusChangeListener { _, hasFocus ->
+        binding.communityCommentEditText.post {
+            showKeyboard(binding.communityCommentEditText)
+        }
+        binding.communityCommentEditText.setOnFocusChangeListener { _, hasFocus ->
 //           if (!hasFocus) {
 //               currentCommentId = null
 //           }
-       } // 키보드 닫으면 currentCommentId ==null
-
-
+        } // 키보드 닫으면 currentCommentId ==null
 
 
     }
@@ -201,6 +208,8 @@ class CommunityBoardFragment : Fragment() {
                     navigator.toCommunityEdit(
                         true,
                         post_id,
+                        binding.communityTitle.text.toString(),
+                        binding.communityContent.text.toString()
                     )
                     true
                 }
@@ -221,7 +230,7 @@ class CommunityBoardFragment : Fragment() {
         popup.show()
     }// 본인 아이디일 때 삭제 및 수정 하는 버튼.
 
-    private fun showEditDeletePopupComment(anchorView: View,comment_id : String) {
+    private fun showEditDeletePopupComment(anchorView: View, comment_id: String) {
 
         val popup = PopupMenu(requireContext(), anchorView)
         popup.menuInflater.inflate(R.menu.edit_comment_menu, popup.menu)
@@ -229,7 +238,7 @@ class CommunityBoardFragment : Fragment() {
         popup.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.menu_edit -> {
-                    currentCommentId=comment_id
+                    currentCommentId = comment_id
                     showKeyboard(binding.communityCommentEditText)
                     true
                 }
@@ -247,14 +256,26 @@ class CommunityBoardFragment : Fragment() {
     }
 
     fun showKeyboard(view: View) {
+        view.requestFocus()
         view.post {
-            view.requestFocus()
-            val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val imm =
+                view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
         }
     }
 
 
+    override fun onResume() {
+        super.onResume()
+        val board = viewModel.board.value.copy()
+        binding.communityTitle.text = board.title
+        binding.communityUser.text = board.author
+        binding.communityDate.text = board.created_at
+        binding.communityContent.text = board.content
+        binding.communityCommentCnt.text = board.comment_count.toString()
+        binding.communityHeartCnt.text = board.likedUsers.size.toString()
+
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

@@ -61,17 +61,15 @@ class BoardViewModel @Inject constructor(
     private val _commentCnt= MutableStateFlow(0)
     val commentCnt :  StateFlow<Int> get()=_commentCnt
 
-    private val _likedList = MutableStateFlow(mutableListOf<String>())
-    val likedList : StateFlow<MutableList<String>> get() =_likedList
+    private val _likedFlag = MutableStateFlow(false)
+    val likedFlag : StateFlow<Boolean> get() =_likedFlag
 
 
 
     fun getBoardById() {
-
-
         viewModelScope.launch {
             getBoardByIdUseCase(post_id).onSuccess {
-                _board.value = it
+                _board.value = it.copy()
             }.onFailure {
                 Log.e("error", "unknown error ${it.message}")
             }
@@ -152,8 +150,8 @@ class BoardViewModel @Inject constructor(
             postBoardLikeUseCase(post_id).onSuccess {
                 Log.d(TAG, "postLikeEmoji: ${it}")
                 Log.d(TAG, "postLikeEmoji: ${_board.value}")
+                _likedFlag.value=if(it.liked_users.contains("sungjun@gmail.com"))true else false
                 _likeCnt.value=it.like_count
-                _likedList.value=it.liked_users.toMutableList()
 
             }.onFailure {
                 Log.e(TAG, "unknown error ${it.message}")

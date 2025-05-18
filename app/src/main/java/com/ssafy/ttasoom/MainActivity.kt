@@ -51,8 +51,11 @@ class MainActivity : AppCompatActivity(), Navigator {
         TODO("Not yet implemented")
     }
 
-    override fun toCommunityBoard(post_id: String) {
-        val bundle = Bundle().apply { putString("post_id", post_id) }
+    override fun toCommunityBoard(post_id: String ,flag :Boolean) {
+        val bundle = Bundle().apply {
+            putString("post_id", post_id)
+            putBoolean("flag", flag)
+        }
         navController.navigate(R.id.action_communityFragment_to_communityBoardFragment, bundle)
     }
 

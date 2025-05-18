@@ -10,10 +10,12 @@ import com.ssafy.domain.community.usecase.community.GetBoardUseCase
 import com.ssafy.domain.community.usecase.community.PostBoardUseCase
 import com.ssafy.domain.community.usecase.community.PutBoardByIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.milliseconds
 
 private const val TAG = "EditViewModel_싸피"
 
@@ -32,18 +34,15 @@ class EditViewModel @Inject constructor(
 
     fun postBoard(title: String, content: String) {
         viewModelScope.launch {
-
             postBoardUseCase(title, content)
                 .onSuccess {
-                    getBoardUseCase().onSuccess {
-                        Log.d(TAG, "postBoard: success")
-                    }.onFailure {
-                        Log.e("error", "unknown error ${it.message}")
-                    }
+
                 }
-                .onFailure { 
-                    Log.e("error", "unknown error ${it.message}") 
+                .onFailure {
+                    Log.e("error", "unknown error ${it.message}")
                 }
+
+            delay(200)
         }
     }
 
@@ -52,16 +51,18 @@ class EditViewModel @Inject constructor(
 
             putBoardUseCase(post_id, title, content)
                 .onSuccess {
-                    postBoardUseCase(title,content).onSuccess {
-                        _board.value = it // 수정할 때 필요한 부분
-                    }.onFailure {
-                        Log.e("error", "unknown error ${it.message}")
-                    }
+                    _board.value=Board()
+                    _board.value=it
+
+
                 }
                 .onFailure {
                     Log.e("error", "unknown error ${it.message}")
                 }
+
+            delay(200)
         }
+
     }
 
 }
