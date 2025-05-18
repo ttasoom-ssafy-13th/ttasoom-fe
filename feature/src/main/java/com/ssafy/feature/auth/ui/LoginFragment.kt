@@ -35,6 +35,7 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        navigator.hide()  // 바텀 네비게이션 숨기기
         viewModel.verifyToken()
 
         binding.apply {
@@ -46,7 +47,6 @@ class LoginFragment : Fragment() {
                         navigator.toMain()
                     },
                     onFailure = { e ->
-                        tv.text = "로그인 실패: ${e.message ?: "알 수 없는 오류"}"
                         Toast.makeText(requireContext(), e.message ?: "로그인 실패", Toast.LENGTH_SHORT).show()
                     }
                 )

@@ -19,19 +19,24 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ssafy.feature.R
 import com.ssafy.feature.databinding.FragmentMypageBinding
-import com.ssafy.feature.mypage.viewmodel.MypageViewModel
+import com.ssafy.feature.mypage.viewmodel.MyPageViewModel
+import com.ssafy.di.navigation.Navigator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.time.format.DateTimeFormatter
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class MypageFragment : Fragment() {
+class MyPageFragment : Fragment() {
 
     private var _binding: FragmentMypageBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: MypageViewModel by viewModels()
+    private val viewModel: MyPageViewModel by viewModels()
+
+    @Inject
+    lateinit var navigator: Navigator
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,9 +56,16 @@ class MypageFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.mileageStatus.collectLatest { status ->
                 status?.let {
-                    binding.tvName.text = "안녕하세요 ${it.userId}님"
-                    binding.tvGrade.text = it.grade
-                    binding.tvGreeting.text = "다시 오신 것을 환영합니다! 자가검침을 하고 보상을 받으세요\n총 마일리지 포인트: ${it.totalMileage}"
+                    binding.tvName.text = "안녕하세요\n${it.userId}님"
+                    binding.tvGrade.text = "${it.grade} (다음 등급: ${it.nextGrade})"
+                    binding.tvGreeting.text = "다시 오신 것을 환영합니다!\n자가검침을 하고 보상을 받으세요"
+                    binding.tvTotalMileage.text = "총 마일리지 포인트: ${it.totalMileage}"
+                    // 다음 등급까지 남은 마일리지 표시
+                    binding.tvNextGrade.text = "다음 등급까지 ${it.mileageToNextGrade}마일리지 남았습니다."
+                    
+                    // 프로그레스바 업데이트
+                    val progress = ((it.totalMileage.toFloat() / it.currentGradeMaxMileage) * 100).toInt()
+                    binding.progressBar.progress = progress
                 }
             }
         }
@@ -65,6 +77,10 @@ class MypageFragment : Fragment() {
                     .sortedBy { it.createdAt }
 
                 val formatter = DateTimeFormatter.ofPattern("MM/dd")
+
+                val streak = viewModel.calculateAttendanceStreak(attendanceHistory)
+                binding.tvStreak.text = "$streak 일 연속 출석 중"
+
 
                 var cumulativeSum = 0
                 val grouped = attendanceHistory.groupBy { it.createdAt.toLocalDate() }
@@ -82,7 +98,7 @@ class MypageFragment : Fragment() {
                     }.onFailure {
                         Log.d("TAG", "onViewCreated: $it")
                     }.onSuccess {
-                        Log.d("TAG", "onViewCreated: $it $labels")
+//                        Log.d("TAG", "onViewCreated: $it $labels")
                     }
                 }
 
@@ -132,6 +148,10 @@ class MypageFragment : Fragment() {
                 }
                 .setNegativeButton("취소", null)
                 .show()
+        }
+
+        binding.btnAiSolution.setOnClickListener {
+            navigator.toBoilerSolution()
         }
     }
 

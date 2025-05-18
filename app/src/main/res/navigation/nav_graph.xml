@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_loginFragment_to_mypage_fragment"
             app:destination="@id/mypage_fragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_communityFragment"
+            app:destination="@id/communityFragment" />
     </fragment>
 
     <fragment
@@ -53,7 +56,7 @@
 
     <fragment
         android:id="@+id/mypage_fragment"
-        android:name="com.ssafy.feature.mypage.ui.MypageFragment"
+        android:name="com.ssafy.feature.mypage.ui.MyPageFragment"
         android:label="마이페이지" />
 
 </navigation>

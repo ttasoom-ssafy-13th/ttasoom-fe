@@ -5,6 +5,8 @@ import com.ssafy.data.mypage.model.MileageHistoryDto
 import com.ssafy.domain.mypage.model.MileageHistory
 import java.time.LocalDateTime
 import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 
 fun MileageHistoryDto.toDomain(): MileageHistory {
     return MileageHistory(
@@ -18,5 +20,13 @@ fun MileageHistoryDto.toDomain(): MileageHistory {
 }
 
 fun String.toLocalDateTime(): LocalDateTime {
-    return OffsetDateTime.parse(this).toLocalDateTime()
+    return try {
+        OffsetDateTime.parse(this).toLocalDateTime()
+    } catch (e: DateTimeParseException) {
+        try {
+            LocalDateTime.parse(this, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+        } catch (ex: Exception) {
+            throw IllegalArgumentException("날짜 파싱 실패: $this", ex)
+        }
+    }
 }

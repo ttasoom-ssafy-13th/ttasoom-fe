@@ -20,7 +20,7 @@
             style="@style/TitleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="15dp"
+            android:padding="10dp"
             android:text="Bulletin Board"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -60,8 +60,9 @@
                 android:paddingHorizontal="15dp"
                 android:paddingTop="10dp"
                 android:text="Title"
-                android:textColor="@color/black"
-                android:textSize="21sp"
+                android:gravity="center_vertical"
+                android:textColor="@color/deepGray"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -74,8 +75,8 @@
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/community_profile_img"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/tmpimg"
                     app:shapeAppearanceOverlay="@style/CircleImageView" />
@@ -92,6 +93,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="User"
+                        android:paddingVertical="2dp"
                         android:textColor="@color/deepGray"
                         android:textSize="15sp"
                         android:textStyle="bold" />
@@ -115,8 +117,7 @@
                 android:padding="15dp"
                 android:text="@string/test_community"
                 android:textColor="@color/deepGray"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textSize="15sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -132,7 +133,8 @@
                         android:id="@+id/community_comment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_comment" />
+                        android:src="@drawable/ic_comment"
+                        app:tint="@color/middleGray"/>
 
                     <TextView
                         android:id="@+id/community_commentCnt"

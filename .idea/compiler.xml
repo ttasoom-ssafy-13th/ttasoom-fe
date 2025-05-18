@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="17" />
+    <bytecodeTargetLevel target="17">
+      <module name="Ttasoom.app" target="22" />
+      <module name="Ttasoom.data" target="22" />
+      <module name="Ttasoom.di" target="22" />
+      <module name="Ttasoom.feature" target="22" />
+    </bytecodeTargetLevel>
   </component>
 </project>

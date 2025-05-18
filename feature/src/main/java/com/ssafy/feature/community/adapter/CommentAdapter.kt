@@ -13,8 +13,7 @@ import com.ssafy.feature.databinding.ItemCommentBinding
 import com.ssafy.feature.databinding.ItemCommunityBinding
 
 class CommentAdapter(
-    val editListener: (String) -> Unit,
-    val removeListener: (String) -> Unit,
+    val btnListener: (View,String) -> Unit,
 ) : ListAdapter<Comment, CommentAdapter.ViewHolder>(DiffCallbackCom()) {
 
     private var openedCommentId: String? = null
@@ -27,15 +26,9 @@ class CommentAdapter(
             binding.itemCommentTime.text = item.created_at
             binding.itemCommentContent.text = item.content
 
-            binding.itemCommentModify.setOnClickListener {
-                editListener(item.id)
-            } // 수정버튼
-
-
-            binding.itemCommentDelete.setOnClickListener {
-                removeListener(item.id)
-            } //삭제 버튼
-
+            binding.itemCommentModifyDelete.setOnClickListener {
+                btnListener(it,item.id)
+            } // 수정버튼, 삭제버튼
         }
     }
 

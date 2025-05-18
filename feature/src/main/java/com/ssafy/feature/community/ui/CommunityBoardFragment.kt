@@ -130,14 +130,8 @@ class CommunityBoardFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         adapter = CommentAdapter(
-            editListener = { comment_id->
-                currentCommentId=comment_id
-                showKeyboard(binding.communityCommentEditText)
-
-            },
-            removeListener = { comment_id ->
-                Log.d(TAG, "initUi: remove")
-                viewModel.deleteComment(comment_id)
+            btnListener = { view, comment_id->
+                showEditDeletePopupComment(view,comment_id)
             }
         )
 
@@ -207,7 +201,6 @@ class CommunityBoardFragment : Fragment() {
                     navigator.toCommunityEdit(
                         true,
                         post_id,
-
                     )
                     true
                 }
@@ -227,6 +220,31 @@ class CommunityBoardFragment : Fragment() {
 
         popup.show()
     }// 본인 아이디일 때 삭제 및 수정 하는 버튼.
+
+    private fun showEditDeletePopupComment(anchorView: View,comment_id : String) {
+
+        val popup = PopupMenu(requireContext(), anchorView)
+        popup.menuInflater.inflate(R.menu.edit_comment_menu, popup.menu)
+
+        popup.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.menu_edit -> {
+                    currentCommentId=comment_id
+                    showKeyboard(binding.communityCommentEditText)
+                    true
+                }
+
+                R.id.menu_delete -> {
+                    viewModel.deleteComment(comment_id)
+                    true
+                }
+
+                else -> false
+            }
+        }
+
+        popup.show()
+    }
 
     fun showKeyboard(view: View) {
         view.post {

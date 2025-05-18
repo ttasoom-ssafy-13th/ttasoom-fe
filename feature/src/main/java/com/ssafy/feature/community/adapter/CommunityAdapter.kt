@@ -23,6 +23,7 @@ class CommunityAdapter(
             binding.itemCommunityContent.text = item.content
             binding.itemCommunityCommentCnt.text=item.comment_count.toString()
             binding.itemCommunityDate.text = item.created_at //여기까지는 server data
+            binding.itemCommunityCommentCnt.text = item.comment_count.toString() // 댓글 개수 표시
 
             if(item.likedUsers.contains("sungjun@gmail.com"))
                 binding.itemCommunityHeart.setImageResource(R.drawable.ic_heart_click)

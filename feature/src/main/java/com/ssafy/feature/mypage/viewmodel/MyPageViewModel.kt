@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MypageViewModel @Inject constructor(
+class MyPageViewModel @Inject constructor(
     private val getMileageStatusUseCase: GetMileageStatusUseCase,
     private val getMileageHistoryUseCase: GetMileageHistoryUseCase,
     private val checkAttendanceUseCase: CheckAttendanceUseCase
@@ -31,19 +31,28 @@ class MypageViewModel @Inject constructor(
     fun loadMileageStatus() {
         viewModelScope.launch {
             val result = getMileageStatusUseCase()
-            Log.d("MypageViewModel", "loadMileageStatus result: $result")
-            result.onSuccess { _mileageStatus.value = it}
+            result.onSuccess {
+                _mileageStatus.value = it
+            }
+            result.onFailure {
+                Log.e("MypageViewModel", "❌ Failed to load mileage status", it)
+            }
         }
     }
+
 
     fun loadMileageHistory() {
         viewModelScope.launch {
             val result = getMileageHistoryUseCase()
             result.onSuccess { list ->
-                _mileageHistory.value = list.toList() // ✅ 새 객체 강제 할당
+                _mileageHistory.value = list.toList()
+            }
+            result.onFailure {
+                Log.e("MypageViewModel", "❌ Failed to load mileage history", it)
             }
         }
     }
+
 
 
     fun checkAttendance(boilerValue: Int) {
@@ -55,6 +64,30 @@ class MypageViewModel @Inject constructor(
                 loadMileageStatus()
             }
         }
+    }
+
+    fun calculateAttendanceStreak(attendanceHistory: List<MileageHistory>): Int {
+        if (attendanceHistory.isEmpty()) return 0
+
+        val dates = attendanceHistory
+            .map { it.createdAt.toLocalDate() }
+            .distinct()
+            .sortedDescending()
+
+        var streak = 1
+        var prevDate = dates[0]
+
+        for (i in 1 until dates.size) {
+            val expected = prevDate.minusDays(1)
+            if (dates[i] == expected) {
+                streak++
+                prevDate = dates[i]
+            } else if (dates[i].isBefore(expected)) {
+                break // 연속이 끊긴 경우
+            }
+        }
+
+        return streak
     }
 
 }

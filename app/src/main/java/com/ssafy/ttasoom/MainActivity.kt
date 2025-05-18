@@ -36,11 +36,19 @@ class MainActivity : AppCompatActivity(), Navigator {
     }
 
     override fun toMain() {
-        navController.navigate(R.id.action_loginFragment_to_boilerFragment)
+        navController.navigate(R.id.action_loginFragment_to_communityFragment)
     }
 
     override fun toMyPage() {
 //        navController.navigate()
+    }
+
+    override fun toWeather() {
+        TODO("Not yet implemented")
+    }
+
+    override fun toBoilerSolution() {
+        TODO("Not yet implemented")
     }
 
     override fun toCommunityBoard(post_id: String) {

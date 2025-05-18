@@ -1,139 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:background="@color/background">
 
-    <!-- 타이틀 -->
+    <!-- 상단 타이틀 -->
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Boilers"
+        android:text="보일러 목록"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:layout_marginBottom="8dp" />
+        android:textColor="@color/primary"
+        android:layout_margin="16dp"/>
 
-    <!-- 필터 제목 -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Filter"
-        android:textStyle="bold"
-        android:layout_marginBottom="8dp" />
-
-    <!-- 필터 버튼들 -->
-    <LinearLayout
+    <!-- 필터 섹션 -->
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@color/surface">
 
-        <com.google.android.material.button.MaterialButton
-            style="@style/CustomOutlinedButton"
-            android:id="@+id/btn_companyName"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:text="기업명" />
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <com.google.android.material.button.MaterialButton
-            style="@style/CustomOutlinedButton"
-            android:id="@+id/btn_certificationType"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:text="인증 종류" />
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:id="@+id/btn_companyName"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:text="기업명"
+                    android:textColor="@color/text_primary"
+                    app:strokeColor="@color/divider" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:id="@+id/btn_certificationType"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:text="인증 종류"
+                    android:textColor="@color/text_primary"
+                    app:strokeColor="@color/divider" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:id="@+id/btn_circulationMethod"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:text="순환 방식"
+                    android:textColor="@color/text_primary"
+                    app:strokeColor="@color/divider" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:id="@+id/btn_fuelType"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:text="사용 연료"
+                    android:textColor="@color/text_primary"
+                    app:strokeColor="@color/divider" />
+            </LinearLayout>
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup_filters"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:chipSpacing="8dp"
+                app:singleLine="false" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_search"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="검색"
+                android:textColor="@color/text_primary"
+                app:strokeColor="@color/divider" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- 정렬 섹션 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="8dp">
+        android:padding="16dp"
+        android:gravity="center_vertical">
 
-        <com.google.android.material.button.MaterialButton
-            style="@style/CustomOutlinedButton"
-            android:id="@+id/btn_circulationMethod"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:text="순환 방식" />
+            android:text="정렬"
+            android:textColor="@color/text_primary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginEnd="16dp"/>
 
-        <com.google.android.material.button.MaterialButton
-            style="@style/CustomOutlinedButton"
-            android:id="@+id/btn_fuelType"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/toggle_sort_group"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:text="사용 연료" />
+            app:singleSelection="true"
+            app:selectionRequired="true">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_sort_asc"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="오름차순"
+                android:textColor="@color/text_primary"
+                app:strokeColor="@color/divider" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_sort_desc"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="내림차순"
+                android:textColor="@color/text_primary"
+                app:strokeColor="@color/divider" />
+        </com.google.android.material.button.MaterialButtonToggleGroup>
     </LinearLayout>
 
-    <!-- 선택된 필터 Chips -->
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/chipGroup_filters"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        app:chipSpacing="8dp"
-        app:singleLine="false"
-        app:singleSelection="false" />
-
-    <!-- 정렬 -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sort By"
-        android:textStyle="bold"
-        android:layout_marginBottom="4dp" />
-
-    <com.google.android.material.button.MaterialButtonToggleGroup
-        android:id="@+id/toggle_sort_group"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        app:singleSelection="true"
-        app:selectionRequired="true">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_sort_asc"
-            style="@style/Widget.Material3.Button.OutlinedButton"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="오름차순" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_sort_desc"
-            style="@style/Widget.Material3.Button.OutlinedButton"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="내림차순" />
-    </com.google.android.material.button.MaterialButtonToggleGroup>
-
-
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_search"
-        style="@style/CustomOutlinedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="8dp"
-        android:text="조회" />
-
-    <!-- 🔽 보일러 리스트 -->
+    <!-- 보일러 리스트 -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerBoiler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:nestedScrollingEnabled="true" />
+        android:padding="16dp"
+        android:clipToPadding="false" />
 
 </LinearLayout>

@@ -20,6 +20,9 @@ import com.ssafy.feature.boiler.adapter.BoilerAdapter
 import com.ssafy.feature.boiler.viewmodel.BoilerViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.ssafy.feature.databinding.BottomSheetFilterBinding
+import com.ssafy.feature.boiler.adapter.FilterOptionAdapter
 
 @AndroidEntryPoint
 class BoilerFragment : Fragment() {
@@ -48,10 +51,10 @@ class BoilerFragment : Fragment() {
         chipGroup = view.findViewById(R.id.chipGroup_filters)
 
         // 드롭다운 설정
-        setupDropdown(companyButton, R.array.company_names)
-        setupDropdown(certButton, R.array.certificate_types)
-        setupDropdown(circButton, R.array.circulation_types)
-        setupDropdown(fuelButton, R.array.fuel_types)
+        setupFilterButton(companyButton, R.array.company_names, "회사명")
+        setupFilterButton(certButton, R.array.certificate_types, "인증 종류")
+        setupFilterButton(circButton, R.array.circulation_types, "순환 방식")
+        setupFilterButton(fuelButton, R.array.fuel_types, "연료 종류")
 
         val searchButton = view.findViewById<Button>(R.id.btn_search)
         searchButton.setOnClickListener {
@@ -127,18 +130,43 @@ class BoilerFragment : Fragment() {
     }
 
 
-    private fun setupDropdown(button: MaterialButton, arrayResId: Int) {
+    private fun setupFilterButton(button: MaterialButton, arrayResId: Int, title: String) {
         button.setOnClickListener {
-            val items = resources.getStringArray(arrayResId)
-            AlertDialog.Builder(requireContext())
-                .setTitle("선택하세요")
-                .setItems(items) { _, which ->
-                    val selected = items[which]
-                    addChip(selected)
-                }
-                .show()
+            showFilterBottomSheet(arrayResId, title) { selected ->
+                addChip(selected)
+            }
         }
     }
+
+    private fun showFilterBottomSheet(arrayResId: Int, title: String, onOptionSelected: (String) -> Unit) {
+        val dialog = BottomSheetDialog(requireContext())
+        val binding = BottomSheetFilterBinding.inflate(layoutInflater)
+        
+        binding.tvFilterTitle.text = title
+        
+        val options = resources.getStringArray(arrayResId).toList()
+        val adapter = FilterOptionAdapter(options) { selected ->
+            onOptionSelected(selected)
+            dialog.dismiss()
+        }
+        
+        binding.recyclerFilterOptions.apply {
+            this.adapter = adapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+        
+        binding.btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+        
+        binding.btnApply.setOnClickListener {
+            dialog.dismiss()
+        }
+        
+        dialog.setContentView(binding.root)
+        dialog.show()
+    }
+
     fun getSelectedFilters(): Map<String, List<String>> {
         val filters = mutableMapOf<String, MutableList<String>>()
 
@@ -163,11 +191,6 @@ class BoilerFragment : Fragment() {
         return filters
     }
 
-// ViewModel 호출 방식도 리스트 타입을 받을 수 있도록 수정 필요
-// 예: suspend fun invoke(companyName: List<String>?, ...) 형태로 변경
-
-
-
     private fun addChip(text: String) {
         // 중복 방지
         for (i in 0 until chipGroup.childCount) {
@@ -184,13 +207,7 @@ class BoilerFragment : Fragment() {
         }
         chipGroup.addView(chip)
     }
-//
-//    <item>경동나비엔</item>
-//    <item>귀뚜라미</item>
-//    <item>알토엔대우</item>
-//    <item>임코보일러</item>
-//    <item>대성쎌틱</item>
-//    <item>린나이</item>
+
     val companyNameMap = mapOf(
         "경동나비엔" to "(주)경동나비엔",
         "귀뚜라미" to "(주)귀뚜라미",

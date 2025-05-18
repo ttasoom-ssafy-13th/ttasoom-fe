@@ -13,5 +13,14 @@ data class MileageStatusDto(
     val totalMileage: Int,
 
     @SerializedName("user_id")
-    val userId: String
+    val userId: String,
+
+    @SerializedName("mileage_to_next_grade")
+    val mileageToNextGrade: Int,
+
+    @SerializedName("current_grade_max_mileage")
+    val currentGradeMaxMileage: Int,
+
+    @SerializedName("next_grade")
+    val nextGrade: String
 )

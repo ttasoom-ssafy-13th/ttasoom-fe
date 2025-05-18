@@ -1,28 +1,41 @@
 package com.ssafy.data.boiler.provider
 
+import com.ssafy.data.boiler.model.BoilerCheckHistoryDto
 import com.ssafy.data.boiler.model.BoilerItemDto
+import com.ssafy.data.boiler.model.BoilerRecommendationDto
+import com.ssafy.data.boiler.model.BoilerUsagePredictionDto
+import javax.inject.Inject
 
 // BoilerRemoteDataSourceImpl.kt
-class BoilerRemoteDataSourceImpl(
-    private val api: BoilerApiService
+class BoilerRemoteDataSourceImpl @Inject constructor(
+    private val boilerApiService: BoilerApiService
 ) : BoilerRemoteDataSource {
 
     override suspend fun getBoilerList(
-        companyName: List<String>?,
-        certificationType: List<String>?,
-        circulationType: List<String>?,
-        fuelType: List<String>?
-    ): Result<List<BoilerItemDto>> {
-        return try {
-            val response = api.getFilteredBoilers(companyName, certificationType, circulationType, fuelType)
-            if (response.isSuccessful) {
-                Result.success(response.body() ?: emptyList())
-            } else {
-                Result.failure(Exception("응답 실패: ${response.code()}"))
-            }
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
+        companyNames: List<String>?,
+        certificationTypes: List<String>?,
+        circulationTypes: List<String>?,
+        fuelTypes: List<String>?
+    ): Result<List<BoilerItemDto>> = runCatching {
+        boilerApiService.getFilteredBoilers(
+            companyName = companyNames,
+            certificationType = certificationTypes,
+            circulationType = circulationTypes,
+            fuelType = fuelTypes
+        ).body() ?: throw Exception("응답이 null입니다.")
+    }
+
+
+    override suspend fun getUsagePrediction(): Result<BoilerUsagePredictionDto> = runCatching {
+        boilerApiService.getUsagePrediction().body() ?: throw Exception("응답이 null입니다.")
+    }
+
+    override suspend fun getUsageRecommendations(): Result<BoilerRecommendationDto> = runCatching {
+        boilerApiService.getUsageRecommendations().body() ?: throw Exception("응답이 null입니다.")
+    }
+
+    override suspend fun getCheckHistory(): Result<List<BoilerCheckHistoryDto>> = runCatching {
+        boilerApiService.getCheckHistory().body() ?: throw Exception("응답이 null입니다.")
     }
 }
 

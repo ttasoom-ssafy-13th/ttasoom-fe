@@ -22,4 +22,8 @@ interface Navigator {
     fun toPrev() //뒤로 가기
 
     fun toMyPage()
+
+    fun toWeather()
+
+    fun toBoilerSolution() // AI 솔루션 화면으로 이동
 }
