@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity(), Navigator {
         binding.root.post {
             binding.bottomNav.setupWithNavController(navController)
         } // 하단바 버튼 누르면 버튼 대로 가게 하기
-
+    }
 
 
     private val navController by lazy {
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity(), Navigator {
     }
 
     override fun toMain() {
-        navController.navigate(R.id.action_loginFragment_to_mypage_fragment)
+        navController.navigate(R.id.action_loginFragment_to_boilerFragment)
     }
 
     override fun toMyPage() {

@@ -64,9 +64,12 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideCommentApiService(retrofit: Retrofit) :CommentApiService{
+    fun provideCommentApiService(retrofit: Retrofit) :CommentApiService {
         return retrofit.create(CommentApiService::class.java)
+    }
 
+    @Provides
+    @Singleton
     fun provideMileageApiService(retrofit: Retrofit): MileageApiService {
         return retrofit.create(MileageApiService::class.java)
     }

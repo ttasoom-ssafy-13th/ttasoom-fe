@@ -50,11 +50,10 @@
         android:id="@+id/communityEditFragment"
         android:name="com.ssafy.feature.community.ui.CommunityEditFragment"
         android:label="글쓰기"/>
- </fragment>
+
     <fragment
         android:id="@+id/mypage_fragment"
         android:name="com.ssafy.feature.mypage.ui.MypageFragment"
         android:label="마이페이지" />
- </fragment>
 
 </navigation>

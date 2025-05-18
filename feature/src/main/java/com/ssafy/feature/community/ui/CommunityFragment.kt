@@ -65,6 +65,8 @@ class CommunityFragment : Fragment() {
     private fun initUI(){
 
         navigator.show()
+        viewModel.getBoard() //list api 호출
+
         binding.communityCreatePost.setOnClickListener{
             navigator.toCommunityEdit()
         } // 글쓰는 버튼
@@ -75,8 +77,6 @@ class CommunityFragment : Fragment() {
             navigator.toCommunityBoard(post_id)
         }
         recyclerView.adapter=adapter
-
-        viewModel.getBoard() //list api 호출
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {

@@ -3,6 +3,7 @@ package com.ssafy.data.community.provider
 import android.util.Log
 import com.ssafy.data.community.api.CommunityApiService
 import com.ssafy.data.community.model.BoardResponseDto
+import com.ssafy.data.community.model.LikeResponseDto
 import javax.inject.Inject
 
 private const val TAG = "CommunityRemoteDataSour_싸피"
@@ -54,9 +55,7 @@ class CommunityRemoteDataSourceImpl @Inject constructor(private val api: Communi
         content: String
     ): Result<BoardResponseDto> {
         return try{
-            Log.d(TAG, "putBoardById: ${post_id}, ${title}, ${content}")
             val response=api.putBoardById(post_id,title,content)
-            Log.d(TAG, "putBoardById!!!!!!: $response")
             if (response.isSuccessful) {
                 Result.success(response.body() ?: BoardResponseDto())
             } else {
@@ -80,11 +79,11 @@ class CommunityRemoteDataSourceImpl @Inject constructor(private val api: Communi
         }
     }
 
-    override suspend fun postBoardLike(post_id: String): Result<Unit> {
+    override suspend fun postBoardLike(post_id: String): Result<LikeResponseDto> {
         return try {
             val response = api.postBoardLike(post_id)
             if(response.isSuccessful){
-                Result.success(Unit)
+                Result.success(response.body() ?: LikeResponseDto("",0, mutableListOf()))
             }else {
                 Result.failure(Exception("unknown error : ${response.code()}"))
             }

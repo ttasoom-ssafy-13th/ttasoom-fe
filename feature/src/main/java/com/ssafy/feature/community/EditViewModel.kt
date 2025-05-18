@@ -21,10 +21,11 @@ private const val TAG = "EditViewModel_싸피"
 class EditViewModel @Inject constructor(
     private val postBoardUseCase: PostBoardUseCase,
     private val putBoardUseCase: PutBoardByIdUseCase,
+    private val getBoardUseCase: GetBoardUseCase
 ) : ViewModel() {
 
-    private val _boardList = MutableStateFlow(mutableListOf<Board>())
-    val boardList: StateFlow<MutableList<Board>> get() = _boardList
+//    private val _boardList = MutableStateFlow(mutableListOf<Board>())
+//    val boardList: StateFlow<MutableList<Board>> get() = _boardList
 
     private val _board = MutableStateFlow(Board())
     val board: StateFlow<Board> get() = _board
@@ -34,16 +35,15 @@ class EditViewModel @Inject constructor(
 
             postBoardUseCase(title, content)
                 .onSuccess {
-                    _board.value = it
-
-//                    getBoardUseCase().onSuccess {
-//                        _boardList.value = ArrayList(it)
-//                    }
-//                        .onFailure {
-//                            Log.e("error", "unknown error ${it.message}")
-//                        }
+                    getBoardUseCase().onSuccess {
+                        Log.d(TAG, "postBoard: success")
+                    }.onFailure {
+                        Log.e("error", "unknown error ${it.message}")
+                    }
                 }
-                .onFailure { Log.e("error", "unknown error ${it.message}") }
+                .onFailure { 
+                    Log.e("error", "unknown error ${it.message}") 
+                }
         }
     }
 
@@ -52,14 +52,11 @@ class EditViewModel @Inject constructor(
 
             putBoardUseCase(post_id, title, content)
                 .onSuccess {
-                    _board.value = it
-
-//                    getBoardUseCase().onSuccess {
-//                        _boardList.value = ArrayList(it)
-//                    }
-//                        .onFailure {
-//                            Log.e("error", "unknown error ${it.message}")
-//                        }
+                    postBoardUseCase(title,content).onSuccess {
+                        _board.value = it // 수정할 때 필요한 부분
+                    }.onFailure {
+                        Log.e("error", "unknown error ${it.message}")
+                    }
                 }
                 .onFailure {
                     Log.e("error", "unknown error ${it.message}")
