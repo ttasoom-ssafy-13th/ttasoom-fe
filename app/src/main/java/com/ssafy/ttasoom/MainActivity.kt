@@ -4,12 +4,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.ssafy.di.navigation.Navigator
-
 import com.ssafy.feature.boiler.ui.BoilerSolutionFragment
-
 import com.ssafy.ttasoom.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,10 +21,10 @@ class MainActivity : AppCompatActivity(), Navigator {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
 
+        binding.root.post {
+            binding.bottomNav.setupWithNavController(navController)
+        } // 하단바 버튼 누르면 버튼 대로 가게 하기
         binding.bottomNav.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -40,23 +37,31 @@ class MainActivity : AppCompatActivity(), Navigator {
     }
 
 
-
-
-
     private val navController by lazy {
         findNavController(R.id.nav_host_fragment)
     }
 
     override fun toMain() {
-        navController.navigate(R.id.action_loginFragment_to_mypage_fragment)
+        navController.navigate(R.id.action_loginFragment_to_communityFragment)
     }
 
     override fun toMyPage() {
 //        navController.navigate()
     }
 
-    override fun toCommunityBoard(post_id: String) {
-        val bundle = Bundle().apply { putString("post_id", post_id) }
+    override fun toWeather() {
+        TODO("Not yet implemented")
+    }
+
+    override fun toBoilerSolution() {
+        TODO("Not yet implemented")
+    }
+
+    override fun toCommunityBoard(post_id: String ,flag :Boolean) {
+        val bundle = Bundle().apply {
+            putString("post_id", post_id)
+            putBoolean("flag", flag)
+        }
         navController.navigate(R.id.action_communityFragment_to_communityBoardFragment, bundle)
     }
 

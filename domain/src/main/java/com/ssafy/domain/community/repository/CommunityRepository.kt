@@ -1,6 +1,7 @@
 package com.ssafy.domain.community.repository
 
 import com.ssafy.domain.community.model.Board
+import com.ssafy.domain.community.model.Like
 
 interface CommunityRepository {
     suspend fun getBoard(): Result<MutableList<Board>>
@@ -17,5 +18,5 @@ interface CommunityRepository {
 
     suspend fun deleteBoardById(post_id: String): Result<Unit>
 
-    suspend fun postBoardLike(post_id: String): Result<Unit>
+    suspend fun postBoardLike(post_id: String): Result<Like>
 }

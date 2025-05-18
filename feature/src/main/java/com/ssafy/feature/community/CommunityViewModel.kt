@@ -30,7 +30,7 @@ class CommunityViewModel @Inject constructor(
         viewModelScope.launch {
 
             getBoardUseCase().onSuccess {
-                _boardList.value = it
+                _boardList.value=it.toMutableList()
             }.onFailure {
                 Log.e("error", "unknown error ${it.message}")
             }

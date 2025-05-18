@@ -10,10 +10,12 @@ import com.ssafy.domain.community.usecase.community.GetBoardUseCase
 import com.ssafy.domain.community.usecase.community.PostBoardUseCase
 import com.ssafy.domain.community.usecase.community.PutBoardByIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.milliseconds
 
 private const val TAG = "EditViewModel_싸피"
 
@@ -21,29 +23,26 @@ private const val TAG = "EditViewModel_싸피"
 class EditViewModel @Inject constructor(
     private val postBoardUseCase: PostBoardUseCase,
     private val putBoardUseCase: PutBoardByIdUseCase,
+    private val getBoardUseCase: GetBoardUseCase
 ) : ViewModel() {
 
-    private val _boardList = MutableStateFlow(mutableListOf<Board>())
-    val boardList: StateFlow<MutableList<Board>> get() = _boardList
+//    private val _boardList = MutableStateFlow(mutableListOf<Board>())
+//    val boardList: StateFlow<MutableList<Board>> get() = _boardList
 
     private val _board = MutableStateFlow(Board())
     val board: StateFlow<Board> get() = _board
 
     fun postBoard(title: String, content: String) {
         viewModelScope.launch {
-
             postBoardUseCase(title, content)
                 .onSuccess {
-                    _board.value = it
 
-//                    getBoardUseCase().onSuccess {
-//                        _boardList.value = ArrayList(it)
-//                    }
-//                        .onFailure {
-//                            Log.e("error", "unknown error ${it.message}")
-//                        }
                 }
-                .onFailure { Log.e("error", "unknown error ${it.message}") }
+                .onFailure {
+                    Log.e("error", "unknown error ${it.message}")
+                }
+
+            delay(200)
         }
     }
 
@@ -52,19 +51,18 @@ class EditViewModel @Inject constructor(
 
             putBoardUseCase(post_id, title, content)
                 .onSuccess {
-                    _board.value = it
+                    _board.value=Board()
+                    _board.value=it
 
-//                    getBoardUseCase().onSuccess {
-//                        _boardList.value = ArrayList(it)
-//                    }
-//                        .onFailure {
-//                            Log.e("error", "unknown error ${it.message}")
-//                        }
+
                 }
                 .onFailure {
                     Log.e("error", "unknown error ${it.message}")
                 }
+
+            delay(200)
         }
+
     }
 
 }

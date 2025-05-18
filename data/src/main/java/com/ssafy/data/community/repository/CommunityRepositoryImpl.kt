@@ -3,6 +3,7 @@ package com.ssafy.data.community.repository
 import com.ssafy.data.community.mapper.toDomain
 import com.ssafy.data.community.provider.CommunityRemoteDataSource
 import com.ssafy.domain.community.model.Board
+import com.ssafy.domain.community.model.Like
 import com.ssafy.domain.community.repository.CommunityRepository
 import javax.inject.Inject
 
@@ -42,8 +43,10 @@ class CommunityRepositoryImpl @Inject constructor(
         return remote.deleteBoardById(post_id)
     }
 
-    override suspend fun postBoardLike(post_id: String): Result<Unit> {
-        return remote.postBoardLike(post_id)
+    override suspend fun postBoardLike(post_id: String): Result<Like> {
+        return remote.postBoardLike(post_id).map{like->
+            like.toDomain()
+        }
     }
 
 }

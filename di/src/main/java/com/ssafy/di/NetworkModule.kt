@@ -22,7 +22,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    private const val BASE_URL = "http://3.34.3.125/"
+    private const val BASE_URL = "http://3.34.188.191/"
 
     @Provides
     @Singleton
@@ -68,15 +68,17 @@ object NetworkModule {
     fun provideCommentApiService(retrofit: Retrofit) :CommentApiService {
         return retrofit.create(CommentApiService::class.java)
     }
+
     @Provides
     @Singleton
     fun provideMileageApiService(retrofit: Retrofit): MileageApiService {
         return retrofit.create(MileageApiService::class.java)
     }
-
+    
     @Provides
     @Singleton
-    fun provideWeatherApi(retrofit: Retrofit): WeatherApi {
+    fun provideWeatherApiService(retrofit: Retrofit) : WeatherApi{
         return retrofit.create(WeatherApi::class.java)
     }
+
 }
