@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_loginFragment_to_communityFragment"
             app:destination="@id/communityFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
     </fragment>
 
     <fragment
@@ -57,6 +60,28 @@
     <fragment
         android:id="@+id/mypage_fragment"
         android:name="com.ssafy.feature.mypage.ui.MyPageFragment"
-        android:label="마이페이지" />
+        android:label="마이페이지">
+        <action
+            android:id="@+id/action_mypageFragment_to_weatherFragment"
+            app:destination="@id/weatherFragment" />
+        <action
+            android:id="@+id/action_mypage_fragment_to_boiler_solution_fragment"
+            app:destination="@id/boiler_solution_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.ssafy.feature.auth.ui.RegisterFragment"
+        android:label="회원가입" />
+    <fragment
+        android:id="@+id/weatherFragment"
+        android:name="com.ssafy.feature.weather.ui.WeatherFragment"
+        android:label="날씨" />
+
+    <fragment
+        android:id="@+id/boiler_solution_fragment"
+        android:name="com.ssafy.feature.mypage.ui.BoilerSolutionFragment"
+        android:label="ai솔루션" />
+
 
 </navigation>

@@ -3,13 +3,10 @@ package com.ssafy.ttasoom
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
-import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.ssafy.di.navigation.Navigator
-
+import com.ssafy.feature.boiler.ui.BoilerSolutionFragment
 import com.ssafy.ttasoom.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,6 +25,15 @@ class MainActivity : AppCompatActivity(), Navigator {
         binding.root.post {
             binding.bottomNav.setupWithNavController(navController)
         } // 하단바 버튼 누르면 버튼 대로 가게 하기
+        binding.bottomNav.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            binding.bottomNav.visibility = when (destination.id) {
+                R.id.loginFragment,
+                R.id.registerFragment -> View.GONE
+                else -> View.VISIBLE
+            }
+        }
     }
 
 
@@ -93,5 +99,20 @@ class MainActivity : AppCompatActivity(), Navigator {
         binding.bottomNav.visibility = View.VISIBLE
     }
 
+    override fun toWeather() {
+        navController.navigate(R.id.action_mypageFragment_to_weatherFragment)
+    }
+
+    override fun toRegister() {
+        navController.navigate(R.id.registerFragment)
+    }
+
+    override fun toLogin() {
+        navController.navigate(R.id.loginFragment)
+    }
+
+    override fun toBoilerSolution() {
+        navController.navigate(R.id.action_mypage_fragment_to_boiler_solution_fragment)
+    }
 
 }

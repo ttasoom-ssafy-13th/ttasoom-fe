@@ -28,30 +28,49 @@ class MyPageViewModel @Inject constructor(
     private val _mileageHistory = MutableStateFlow<List<MileageHistory>>(emptyList())
     val mileageHistory: StateFlow<List<MileageHistory>> = _mileageHistory
 
+    private val _errorMessage = MutableStateFlow<String?>(null)
+    val errorMessage: StateFlow<String?> = _errorMessage
+
     fun loadMileageStatus() {
         viewModelScope.launch {
             val result = getMileageStatusUseCase()
             result.onSuccess {
                 _mileageStatus.value = it
             }
-            result.onFailure {
-                Log.e("MypageViewModel", "❌ Failed to load mileage status", it)
+            result.onFailure { e ->
+                val message = when {
+                    e.message?.contains("403") == true || e.message?.contains("404") == true ->
+                        "아직 마일리지 정보가 없습니다."
+                    else ->
+                        "마일리지 상태를 불러올 수 없습니다.\n(${e.message})"
+                }
+                _errorMessage.value = message
+                Log.e("MypageViewModel", "❌ Failed to load mileage status", e)
             }
         }
     }
+
 
 
     fun loadMileageHistory() {
         viewModelScope.launch {
             val result = getMileageHistoryUseCase()
-            result.onSuccess { list ->
-                _mileageHistory.value = list.toList()
+            result.onSuccess {
+                _mileageHistory.value = it
             }
-            result.onFailure {
-                Log.e("MypageViewModel", "❌ Failed to load mileage history", it)
+            result.onFailure { e ->
+                val message = when {
+                    e.message?.contains("403") == true || e.message?.contains("404") == true ->
+                        "마일리지 내역이 아직 없습니다."
+                    else ->
+                        "마일리지 내역을 불러올 수 없습니다.\n(${e.message})"
+                }
+                _errorMessage.value = message
+                Log.e("MypageViewModel", "❌ Failed to load mileage history", e)
             }
         }
     }
+
 
 
 
@@ -88,6 +107,9 @@ class MyPageViewModel @Inject constructor(
         }
 
         return streak
+    }
+    fun clearErrorMessage() {
+        _errorMessage.value = null
     }
 
 }

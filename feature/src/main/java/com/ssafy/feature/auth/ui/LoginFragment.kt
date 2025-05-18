@@ -63,6 +63,11 @@ class LoginFragment : Fragment() {
 
                 viewModel.loginWithEmail(email, password)
             }
+
+            binding.tvSignUp.setOnClickListener {
+                (activity as? Navigator)?.toRegister()
+            }
+
         }
     }
 
