@@ -111,6 +111,9 @@ class MainActivity : AppCompatActivity(), Navigator {
     }
 
     override fun toLogin() {
-        navController.navigate(R.id.loginFragment)
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.nav_graph, true)
+            .build()
+        navController.navigate(R.id.loginFragment, null, navOptions)
     }
 }
