@@ -1,5 +1,6 @@
 package com.ssafy.feature.community.adapter
 
+import android.preference.PreferenceManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.domain.community.model.Board
 import com.ssafy.feature.databinding.ItemCommunityBinding
 import com.ssafy.feature.R
+import javax.inject.Inject
 
 class CommunityAdapter(
     private val listener: (String,Boolean) -> Unit,

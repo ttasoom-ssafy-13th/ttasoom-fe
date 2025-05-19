@@ -1,5 +1,6 @@
 package com.ssafy.feature.community.ui
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -17,9 +18,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ssafy.data.auth.provider.AuthLocalDataSource
+import com.ssafy.data.local.PreferencesManager
 import com.ssafy.di.navigation.Navigator
 import com.ssafy.domain.community.model.Board
-import com.ssafy.feature.LikedSharedPref
 import com.ssafy.feature.R
 import com.ssafy.feature.community.BoardViewModel
 import com.ssafy.feature.community.adapter.CommentAdapter
@@ -48,7 +50,7 @@ class CommunityBoardFragment : Fragment() {
 
     private lateinit var post_id: String //게시글 아이디.
     private var isHeart : Boolean = false
-    private lateinit var prefManager: LikedSharedPref
+ 
 
     @Inject
     lateinit var navigator: Navigator
@@ -67,18 +69,17 @@ class CommunityBoardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         post_id = arguments?.getString("post_id").toString() // bundle에서 id획득
         isHeart= arguments?.getBoolean("flag") == true
         viewModel.post_id = post_id //viewModel에 post_id 넘겨주기
         navigator.hide()
         requireActivity().window.setSoftInputMode(
-            WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN
+            WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
         )
 
         viewModel.getBoardById() // 게시글 api
         viewModel.getComments() //댓글 api
-
-        prefManager = LikedSharedPref(requireContext())
 
         initUi()
         initEvent()
@@ -96,16 +97,14 @@ class CommunityBoardFragment : Fragment() {
 
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initUi() {
         Log.d(TAG, "initUi: ${isHeart}")
-        if(isHeart)
-            binding.communityHeart.setImageResource(R.drawable.ic_heart_click)
-        else
-            binding.communityHeart.setImageResource(R.drawable.ic_heart)
-
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.board.collectLatest { board ->
+                binding.communityEditOrDeleteBtn.visibility=if(board.author=="sungjun@gmail.com")View.VISIBLE else View.INVISIBLE
+
                 binding.communityTitle.text = board.title
                 binding.communityUser.text = board.author
                 binding.communityDate.text = board.created_at
@@ -118,7 +117,13 @@ class CommunityBoardFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.likeCnt.collectLatest {
 
+                Log.d(TAG, "initUi: ${viewModel.likeCnt.value}")
                 binding.communityHeartCnt.text = viewModel.likeCnt.value.toString()
+                if(isHeart)
+                    binding.communityHeart.setImageResource(R.drawable.ic_heart_click)
+                else
+                    binding.communityHeart.setImageResource(R.drawable.ic_heart)
+
             }
         }
 
@@ -134,8 +139,8 @@ class CommunityBoardFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         adapter = CommentAdapter(
-            btnListener = { view, comment_id ->
-                showEditDeletePopupComment(view, comment_id)
+            btnListener = { view, comment_id,comment ->
+                showEditDeletePopupComment(view, comment_id,comment)
             }
         )
 
@@ -156,13 +161,19 @@ class CommunityBoardFragment : Fragment() {
         }//게시글 삭제 및 수정 버튼
 
         binding.communityCommentSendBtn.setOnClickListener {
-            val commentText = binding.communityCommentEditText.text.toString()
+            val commentText = binding.communityCommentEditText.text.toString().trim()
+            if(commentText.isBlank()){
+                Toast.makeText(requireContext(),"텍스트를 입력해주세요",Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
             if (currentCommentId == null) {
                 viewModel.postComment(commentText)
+                Toast.makeText(requireContext(),"댓글 등록 완료",Toast.LENGTH_SHORT).show()
             } else {
                 viewModel.putComment(currentCommentId!!, commentText)
                 currentCommentId = null
+                Toast.makeText(requireContext(),"댓글 수정 완료",Toast.LENGTH_SHORT).show()
             }
 
             binding.communityCommentEditText.setText("")
@@ -173,27 +184,30 @@ class CommunityBoardFragment : Fragment() {
         }//댓 달기
 
         binding.communityHeart.setOnClickListener {
+
             isHeart = !isHeart
 
-            if(isHeart)
-                binding.communityHeart.setImageResource(R.drawable.ic_heart_click)
+            if(viewModel.isUpdate)
+                viewModel.postLikeEmoji()
             else
-                binding.communityHeart.setImageResource(R.drawable.ic_heart)
+                Toast.makeText(requireContext(),"UI 생성 중...",Toast.LENGTH_SHORT).show()
 
-            viewModel.postLikeEmoji()
+
+            it.animate()
+                .scaleX(1.5f)
+                .scaleY(1.5f)
+                .setDuration(150)
+                .withEndAction {
+                    it.animate().scaleX(1f).scaleY(1f).setDuration(150).start()
+                }
+                .start()
 
         }// 이모티콘 누르기
 
 
         binding.communityCommentEditText.post {
-            showKeyboard(binding.communityCommentEditText)
+            showKeyboard(binding.communityCommentEditText,"")
         }
-        binding.communityCommentEditText.setOnFocusChangeListener { _, hasFocus ->
-//           if (!hasFocus) {
-//               currentCommentId = null
-//           }
-        } // 키보드 닫으면 currentCommentId ==null
-
 
     }
 
@@ -230,7 +244,7 @@ class CommunityBoardFragment : Fragment() {
         popup.show()
     }// 본인 아이디일 때 삭제 및 수정 하는 버튼.
 
-    private fun showEditDeletePopupComment(anchorView: View, comment_id: String) {
+    private fun showEditDeletePopupComment(anchorView: View, comment_id: String,comment : String) {
 
         val popup = PopupMenu(requireContext(), anchorView)
         popup.menuInflater.inflate(R.menu.edit_comment_menu, popup.menu)
@@ -239,12 +253,13 @@ class CommunityBoardFragment : Fragment() {
             when (item.itemId) {
                 R.id.menu_edit -> {
                     currentCommentId = comment_id
-                    showKeyboard(binding.communityCommentEditText)
+                    showKeyboard(binding.communityCommentEditText,comment)
                     true
                 }
 
                 R.id.menu_delete -> {
                     viewModel.deleteComment(comment_id)
+                    Toast.makeText(requireContext(),"댓글 삭제 완료",Toast.LENGTH_SHORT).show()
                     true
                 }
 
@@ -255,7 +270,8 @@ class CommunityBoardFragment : Fragment() {
         popup.show()
     }
 
-    fun showKeyboard(view: View) {
+    private fun showKeyboard(view: View,comment :String) {
+        if(currentCommentId!=null)binding.communityCommentEditText.setText(comment)
         view.requestFocus()
         view.post {
             val imm =
@@ -265,6 +281,7 @@ class CommunityBoardFragment : Fragment() {
     }
 
 
+    @SuppressLint("SetTextI18n")
     override fun onResume() {
         super.onResume()
         val board = viewModel.board.value.copy()

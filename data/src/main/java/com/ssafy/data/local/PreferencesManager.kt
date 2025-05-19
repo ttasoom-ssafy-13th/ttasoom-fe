@@ -33,4 +33,6 @@ class PreferencesManager @Inject constructor(
     fun clear() {
         prefs.edit().clear().apply()
     }
+
+
 }

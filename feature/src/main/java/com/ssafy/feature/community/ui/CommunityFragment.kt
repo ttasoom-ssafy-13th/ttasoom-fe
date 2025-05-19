@@ -15,6 +15,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ssafy.data.auth.provider.AuthLocalDataSource
+import com.ssafy.data.local.PreferencesManager
+import com.ssafy.di.AuthModule
+import com.ssafy.di.NetworkModule
 import com.ssafy.di.navigation.Navigator
 import com.ssafy.domain.community.model.Board
 import com.ssafy.feature.community.BoardViewModel
@@ -33,14 +37,17 @@ class CommunityFragment : Fragment() {
 
     @Inject
     lateinit var navigator: Navigator
+    @Inject
+    lateinit var authLocalDataSource : AuthLocalDataSource
 
 
     private var _binding: FragmentCommunityBinding? = null
     private val binding get() = _binding!!
     private val viewModel: CommunityViewModel by activityViewModels()
 
-    private lateinit var recyclerView : RecyclerView
-    private lateinit var adapter : CommunityAdapter
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: CommunityAdapter
+    private lateinit var userAuthor: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,32 +58,35 @@ class CommunityFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding= FragmentCommunityBinding.inflate(inflater, container, false)
+        _binding = FragmentCommunityBinding.inflate(inflater, container, false)
         return binding.root
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        userAuthor= authLocalDataSource.getUserId().toString()
         initUI(); //UI 초기화
         Log.d(TAG, "onViewCreated: ")
     }
 
-    private fun initUI(){
+    private fun initUI() {
 
         navigator.show()
         viewModel.getBoard() //list api 호출
 
-        binding.communityCreatePost.setOnClickListener{
+
+        binding.communityCreatePost.setOnClickListener {
             navigator.toCommunityEdit()
         } // 글쓰는 버튼
 
-        recyclerView=binding.communityRv
-        recyclerView.layoutManager= LinearLayoutManager(requireContext())
-        adapter= CommunityAdapter{ post_id,flag ->
-            navigator.toCommunityBoard(post_id,flag)
+        recyclerView = binding.communityRv
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        adapter = CommunityAdapter { post_id, flag ->
+            navigator.toCommunityBoard(post_id, flag)
         }
-        recyclerView.adapter=adapter
+        recyclerView.adapter = adapter
+
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -95,3 +105,4 @@ class CommunityFragment : Fragment() {
     }
 
 }
+

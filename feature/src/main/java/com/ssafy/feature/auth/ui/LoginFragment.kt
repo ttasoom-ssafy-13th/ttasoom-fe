@@ -1,12 +1,14 @@
 package com.ssafy.feature.auth.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.ssafy.data.auth.provider.AuthLocalDataSource
 import com.ssafy.di.navigation.Navigator
 import com.ssafy.feature.auth.viewmodel.AuthViewModel
 import com.ssafy.feature.databinding.FragmentLoginBinding
@@ -18,6 +20,9 @@ class LoginFragment : Fragment() {
 
     @Inject
     lateinit var navigator: Navigator
+
+    @Inject
+    lateinit var authLocalDataSource : AuthLocalDataSource
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
@@ -43,6 +48,8 @@ class LoginFragment : Fragment() {
                 result.fold(
                     onSuccess = { user ->
                         Toast.makeText(requireContext(), "환영합니다! ${user.email}", Toast.LENGTH_SHORT).show()
+
+                        authLocalDataSource.setUserId(user.email) // 유저 등록
                         // Navigator 호출
                         navigator.toMain()
                     },

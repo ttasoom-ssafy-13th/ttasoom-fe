@@ -13,6 +13,7 @@ import com.ssafy.domain.community.usecase.community.PutBoardByIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,13 +25,15 @@ class CommunityViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _boardList = MutableStateFlow((mutableListOf<Board>()))
-    val boardList: StateFlow<MutableList<Board>> get() = _boardList
+    val boardList: StateFlow<MutableList<Board>> = _boardList.asStateFlow()
+
 
     fun getBoard() {
         viewModelScope.launch {
 
             getBoardUseCase().onSuccess {
                 _boardList.value=it.toMutableList()
+
             }.onFailure {
                 Log.e("error", "unknown error ${it.message}")
             }

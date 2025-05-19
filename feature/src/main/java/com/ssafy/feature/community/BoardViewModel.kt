@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.viewModelFactory
+import com.ssafy.di.navigation.Navigator
 import com.ssafy.domain.community.model.Board
 import com.ssafy.domain.community.model.Comment
 import com.ssafy.domain.community.usecase.comment.DeleteCommentUseCase
@@ -19,8 +20,8 @@ import com.ssafy.domain.community.usecase.community.DeleteBoardByIdUseCase
 import com.ssafy.domain.community.usecase.community.GetBoardByIdUseCase
 import com.ssafy.domain.community.usecase.community.PostBoardLikeUseCase
 import com.ssafy.domain.community.usecase.community.PutBoardByIdUseCase
-import com.ssafy.feature.LikedSharedPref
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -49,6 +50,7 @@ class BoardViewModel @Inject constructor(
             field = value
         } // 게시글 ID 따오기
 
+
     private val _board = MutableStateFlow(Board())
     val board: StateFlow<Board> = _board // 게시글 정보
 
@@ -64,12 +66,19 @@ class BoardViewModel @Inject constructor(
     private val _likedFlag = MutableStateFlow(false)
     val likedFlag : StateFlow<Boolean> get() =_likedFlag
 
+    var isUpdate : Boolean = false
+        get() = field
+        set(value) {
+            field = value
+        }
+
 
 
     fun getBoardById() {
         viewModelScope.launch {
             getBoardByIdUseCase(post_id).onSuccess {
                 _board.value = it.copy()
+                isUpdate=true
             }.onFailure {
                 Log.e("error", "unknown error ${it.message}")
             }
@@ -156,6 +165,8 @@ class BoardViewModel @Inject constructor(
             }.onFailure {
                 Log.e(TAG, "unknown error ${it.message}")
             }
+
+            delay(200)
         }
     } //하트추가
 

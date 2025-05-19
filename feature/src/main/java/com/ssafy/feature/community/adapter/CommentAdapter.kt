@@ -13,10 +13,9 @@ import com.ssafy.feature.databinding.ItemCommentBinding
 import com.ssafy.feature.databinding.ItemCommunityBinding
 
 class CommentAdapter(
-    val btnListener: (View,String) -> Unit,
+    val btnListener: (View,String,String) -> Unit,
 ) : ListAdapter<Comment, CommentAdapter.ViewHolder>(DiffCallbackCom()) {
 
-    private var openedCommentId: String? = null
 
     inner class ViewHolder(val binding: ItemCommentBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -25,9 +24,10 @@ class CommentAdapter(
             binding.itemCommentName.text = item.author
             binding.itemCommentTime.text = item.created_at
             binding.itemCommentContent.text = item.content
+            binding.itemCommentModifyDelete.visibility=if(item.author=="sungjun@gmail.com")View.VISIBLE else View.INVISIBLE
 
             binding.itemCommentModifyDelete.setOnClickListener {
-                btnListener(it,item.id)
+                btnListener(it,item.id,item.content)
             } // 수정버튼, 삭제버튼
         }
     }
