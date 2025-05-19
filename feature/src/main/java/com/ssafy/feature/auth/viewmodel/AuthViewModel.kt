@@ -25,6 +25,13 @@ class AuthViewModel @Inject constructor(
         }
     }
 
+    fun logout() {
+        viewModelScope.launch {
+            loginUseCase.logout()
+            _loginResult.value = Result.failure(Exception("Logged out"))
+        }
+    }
+
     fun verifyToken() {
         viewModelScope.launch {
             val result = loginUseCase.verifyToken()

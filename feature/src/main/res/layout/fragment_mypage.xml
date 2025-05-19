@@ -317,5 +317,17 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
+        <!-- 로그아웃 버튼 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="로그아웃"
+            android:textColor="@color/error"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            app:strokeColor="@color/error"/>
+
     </LinearLayout>
 </ScrollView>

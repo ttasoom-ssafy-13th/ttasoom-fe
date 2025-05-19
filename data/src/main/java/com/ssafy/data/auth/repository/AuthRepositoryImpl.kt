@@ -65,4 +65,19 @@ class AuthRepositoryImpl @Inject constructor(
             Result.failure(e)
         }
     }
+
+    override suspend fun logout(): Result<Unit> {
+        return try {
+            // 1️⃣ Firebase 로그아웃
+            firebaseAuth.signOut()
+
+            // 2️⃣ 로컬 저장소에서 access, refresh token 삭제
+            authLocalDataSource.clearTokens()
+
+            // 3️⃣ 성공 결과 리턴
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
 }
