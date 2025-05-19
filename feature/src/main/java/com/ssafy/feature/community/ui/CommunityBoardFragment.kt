@@ -49,11 +49,14 @@ class CommunityBoardFragment : Fragment() {
     private var currentCommentId: String? = null
 
     private lateinit var post_id: String //게시글 아이디.
+    private lateinit var userAuthor : String
     private var isHeart : Boolean = false
- 
+    private var isFirstHeartUpdate = true
 
     @Inject
     lateinit var navigator: Navigator
+    @Inject
+    lateinit var authLocalDataSource : AuthLocalDataSource
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,6 +73,7 @@ class CommunityBoardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        userAuthor=authLocalDataSource.getUserId().toString()
         post_id = arguments?.getString("post_id").toString() // bundle에서 id획득
         isHeart= arguments?.getBoolean("flag") == true
         viewModel.post_id = post_id //viewModel에 post_id 넘겨주기
@@ -103,7 +107,7 @@ class CommunityBoardFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.board.collectLatest { board ->
-                binding.communityEditOrDeleteBtn.visibility=if(board.author=="sungjun@gmail.com")View.VISIBLE else View.INVISIBLE
+                binding.communityEditOrDeleteBtn.visibility=if(board.author==userAuthor)View.VISIBLE else View.INVISIBLE
 
                 binding.communityTitle.text = board.title
                 binding.communityUser.text = board.author
@@ -116,9 +120,9 @@ class CommunityBoardFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.likeCnt.collectLatest {
+                binding.communityHeartCnt.text = it.toString()
 
                 Log.d(TAG, "initUi: ${viewModel.likeCnt.value}")
-                binding.communityHeartCnt.text = viewModel.likeCnt.value.toString()
                 if(isHeart)
                     binding.communityHeart.setImageResource(R.drawable.ic_heart_click)
                 else
@@ -130,7 +134,7 @@ class CommunityBoardFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.commentCnt.collectLatest {
-                binding.communityCommentCnt.text = viewModel.commentCnt.value.toString()
+                binding.communityCommentCnt.text = it.toString()
             }
         }
 

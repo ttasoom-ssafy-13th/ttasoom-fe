@@ -12,6 +12,7 @@ import com.ssafy.feature.R
 import javax.inject.Inject
 
 class CommunityAdapter(
+    private val userAuthor : String,
     private val listener: (String,Boolean) -> Unit,
 ) : ListAdapter<Board, CommunityAdapter.ViewHolder>(DiffCallback()) {
 
@@ -28,12 +29,12 @@ class CommunityAdapter(
             binding.itemCommunityDate.text = item.created_at //여기까지는 server data
             binding.itemCommunityCommentCnt.text = item.comment_count.toString() // 댓글 개수 표시
 
-            if(item.likedUsers.contains("sungjun@gmail.com"))
+            if(item.likedUsers.contains(userAuthor))
                 binding.itemCommunityHeart.setImageResource(R.drawable.ic_heart_click)
             else
                 binding.itemCommunityHeart.setImageResource(R.drawable.ic_heart)
             binding.root.setOnClickListener {
-                listener(item.id.toString(),item.likedUsers.contains("sungjun@gmail.com"))
+                listener(item.id.toString(),item.likedUsers.contains(userAuthor))
             } // 이벤트 처리
 
 

@@ -17,11 +17,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.data.auth.provider.AuthLocalDataSource
 import com.ssafy.data.local.PreferencesManager
-import com.ssafy.di.AuthModule
-import com.ssafy.di.NetworkModule
+
 import com.ssafy.di.navigation.Navigator
-import com.ssafy.domain.community.model.Board
-import com.ssafy.feature.community.BoardViewModel
+
 import com.ssafy.feature.community.CommunityViewModel
 import com.ssafy.feature.community.adapter.CommunityAdapter
 import com.ssafy.feature.databinding.FragmentCommunityBinding
@@ -82,7 +80,7 @@ class CommunityFragment : Fragment() {
 
         recyclerView = binding.communityRv
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        adapter = CommunityAdapter { post_id, flag ->
+        adapter = CommunityAdapter(userAuthor) { post_id, flag->
             navigator.toCommunityBoard(post_id, flag)
         }
         recyclerView.adapter = adapter

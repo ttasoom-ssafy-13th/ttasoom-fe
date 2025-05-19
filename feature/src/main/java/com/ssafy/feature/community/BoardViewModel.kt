@@ -63,8 +63,6 @@ class BoardViewModel @Inject constructor(
     private val _commentCnt= MutableStateFlow(0)
     val commentCnt :  StateFlow<Int> get()=_commentCnt
 
-    private val _likedFlag = MutableStateFlow(false)
-    val likedFlag : StateFlow<Boolean> get() =_likedFlag
 
     var isUpdate : Boolean = false
         get() = field
@@ -159,14 +157,12 @@ class BoardViewModel @Inject constructor(
             postBoardLikeUseCase(post_id).onSuccess {
                 Log.d(TAG, "postLikeEmoji: ${it}")
                 Log.d(TAG, "postLikeEmoji: ${_board.value}")
-                _likedFlag.value=if(it.liked_users.contains("sungjun@gmail.com"))true else false
                 _likeCnt.value=it.like_count
 
             }.onFailure {
                 Log.e(TAG, "unknown error ${it.message}")
             }
 
-            delay(200)
         }
     } //하트추가
 
