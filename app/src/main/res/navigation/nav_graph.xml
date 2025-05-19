@@ -14,10 +14,14 @@
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
         <action
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true"
             android:id="@+id/action_loginFragment_to_mypage_fragment"
             app:destination="@id/mypage_fragment" />
 
         <action
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true"
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
     </fragment>
@@ -61,7 +65,14 @@
         android:label="마이페이지">
         <action
             android:id="@+id/action_mypageFragment_to_weatherFragment"
-            app:destination="@id/weatherFragment" />
+            app:destination="@id/weatherFragment"
+            app:popUpTo="@id/mypage_fragment"
+            app:popUpToInclusive="true"/>
+
+        <action
+            android:id="@+id/action_mypage_fragment_to_communityFragment"
+            app:destination="@id/communityFragment"
+            app:popUpTo="@id/mypage_fragment"/>
         <action
             android:id="@+id/action_mypage_fragment_to_boiler_solution_fragment"
             app:destination="@id/boiler_solution_fragment" />
@@ -71,10 +82,34 @@
         android:id="@+id/registerFragment"
         android:name="com.ssafy.feature.auth.ui.RegisterFragment"
         android:label="회원가입" />
+
     <fragment
         android:id="@+id/weatherFragment"
         android:name="com.ssafy.feature.weather.ui.WeatherFragment"
-        android:label="날씨" />
+        android:label="날씨">
+
+        <!-- 날씨 → 보일러 -->
+        <action
+            android:id="@+id/action_weatherFragment_to_boilerFragment"
+            app:destination="@id/boilerFragment"
+            app:popUpTo="@id/weatherFragment"
+            app:popUpToInclusive="true" />
+
+        <!-- 날씨 → 마이페이지 -->
+        <action
+            android:id="@+id/action_weatherFragment_to_mypage_fragment"
+            app:destination="@id/mypage_fragment"
+            app:popUpTo="@id/weatherFragment"
+            app:popUpToInclusive="true" />
+
+        <!-- 날씨 → 커뮤니티 -->
+        <action
+            android:id="@+id/action_weatherFragment_to_communityFragment"
+            app:destination="@id/communityFragment"
+            app:popUpTo="@id/weatherFragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/boiler_solution_fragment"

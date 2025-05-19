@@ -15,7 +15,7 @@ import com.ssafy.feature.boiler.ui.BoilerSolutionFragment
 import com.ssafy.ttasoom.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-
+// 난 허지명
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), Navigator {
 
@@ -41,10 +41,13 @@ class MainActivity : AppCompatActivity(), Navigator {
         }
     }
 
+    // 삼성 라이온즈
+    override fun onBackPressed() {
+        super.onBackPressed()
 
-
-
-
+    }
+    
+    // 한화 이글스
     private val navController by lazy {
         findNavController(R.id.nav_host_fragment)
     }
