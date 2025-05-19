@@ -24,6 +24,7 @@ import com.ssafy.di.navigation.Navigator
 import com.ssafy.domain.community.model.Board
 import com.ssafy.feature.R
 import com.ssafy.feature.community.BoardViewModel
+import com.ssafy.feature.community.ProfileImg
 import com.ssafy.feature.community.adapter.CommentAdapter
 import com.ssafy.feature.databinding.FragmentCommunityBoardBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,7 +52,6 @@ class CommunityBoardFragment : Fragment() {
     private lateinit var post_id: String //게시글 아이디.
     private lateinit var userAuthor : String
     private var isHeart : Boolean = false
-    private var isFirstHeartUpdate = true
 
     @Inject
     lateinit var navigator: Navigator
@@ -115,6 +115,8 @@ class CommunityBoardFragment : Fragment() {
                 binding.communityContent.text = board.content
                 binding.communityCommentCnt.text = board.comment_count.toString()
                 binding.communityHeartCnt.text = board.likedUsers.size.toString()
+                binding.communityProfileImg.setImageResource(ProfileImg.setImg(board.author))
+                binding.communityProfileImg2.setImageResource(ProfileImg.setImg(board.author))
             }
         }
 
@@ -142,11 +144,9 @@ class CommunityBoardFragment : Fragment() {
         recyclerView = binding.communityCommentRv
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        adapter = CommentAdapter(
-            btnListener = { view, comment_id,comment ->
-                showEditDeletePopupComment(view, comment_id,comment)
-            }
-        )
+        adapter = CommentAdapter({ view, comment_id, comment ->
+            showEditDeletePopupComment(view, comment_id, comment)
+        }, userAuthor)
 
         recyclerView.adapter = adapter
 
@@ -194,7 +194,7 @@ class CommunityBoardFragment : Fragment() {
             if(viewModel.isUpdate)
                 viewModel.postLikeEmoji()
             else
-                Toast.makeText(requireContext(),"UI 생성 중...",Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(),"로딩중...",Toast.LENGTH_SHORT).show()
 
 
             it.animate()

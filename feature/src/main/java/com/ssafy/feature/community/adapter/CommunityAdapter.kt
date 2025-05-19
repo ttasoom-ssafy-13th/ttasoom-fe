@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.domain.community.model.Board
 import com.ssafy.feature.databinding.ItemCommunityBinding
 import com.ssafy.feature.R
+import com.ssafy.feature.community.ProfileImg
 import javax.inject.Inject
 
 class CommunityAdapter(
@@ -28,6 +29,7 @@ class CommunityAdapter(
             binding.itemCommunityCommentCnt.text=item.comment_count.toString()
             binding.itemCommunityDate.text = item.created_at //여기까지는 server data
             binding.itemCommunityCommentCnt.text = item.comment_count.toString() // 댓글 개수 표시
+            binding.itemCommunityProfileImg.setImageResource(ProfileImg.setImg(item.author))
 
             if(item.likedUsers.contains(userAuthor))
                 binding.itemCommunityHeart.setImageResource(R.drawable.ic_heart_click)

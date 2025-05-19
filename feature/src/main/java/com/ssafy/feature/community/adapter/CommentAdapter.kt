@@ -9,11 +9,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.domain.community.model.Board
 import com.ssafy.domain.community.model.Comment
+import com.ssafy.feature.community.ProfileImg
 import com.ssafy.feature.databinding.ItemCommentBinding
 import com.ssafy.feature.databinding.ItemCommunityBinding
 
 class CommentAdapter(
     val btnListener: (View,String,String) -> Unit,
+    val userAuthor : String
 ) : ListAdapter<Comment, CommentAdapter.ViewHolder>(DiffCallbackCom()) {
 
 
@@ -24,7 +26,8 @@ class CommentAdapter(
             binding.itemCommentName.text = item.author
             binding.itemCommentTime.text = item.created_at
             binding.itemCommentContent.text = item.content
-            binding.itemCommentModifyDelete.visibility=if(item.author=="sungjun@gmail.com")View.VISIBLE else View.INVISIBLE
+            binding.itemCommentModifyDelete.visibility=if(item.author==userAuthor)View.VISIBLE else View.INVISIBLE
+            binding.itemCommentProfile.setImageResource(ProfileImg.setImg(item.author))
 
             binding.itemCommentModifyDelete.setOnClickListener {
                 btnListener(it,item.id,item.content)

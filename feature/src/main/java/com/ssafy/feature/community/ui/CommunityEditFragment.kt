@@ -10,12 +10,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.ssafy.data.auth.provider.AuthLocalDataSource
 import com.ssafy.di.navigation.Navigator
 import com.ssafy.domain.community.model.Board
 import com.ssafy.feature.R
 import com.ssafy.feature.community.BoardViewModel
 import com.ssafy.feature.community.CommunityViewModel
 import com.ssafy.feature.community.EditViewModel
+import com.ssafy.feature.community.ProfileImg
 import com.ssafy.feature.databinding.FragmentCommunityBinding
 import com.ssafy.feature.databinding.FragmentCommunityEditBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,6 +39,8 @@ class CommunityEditFragment : Fragment() {
 
     @Inject
     lateinit var navigator: Navigator
+    @Inject
+    lateinit var authLocalDataSource : AuthLocalDataSource
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,10 +66,12 @@ class CommunityEditFragment : Fragment() {
         val content = arguments?.getString("content") ?: ""
 
         if (isBoard) initUIModifyVersion(title, content)
+        binding.communityProfileImg.setImageResource(ProfileImg.setImg(authLocalDataSource.getUserId()!!))
 
         binding.communityEditRegisterBtn.setOnClickListener {
             val content = binding.communityEditContent.text.toString().trim()
             val title = binding.communityEditTitle.text.toString().trim()
+
 
             if (content.isBlank() || title.isBlank()) {
                 Toast.makeText(requireContext(), "텍스트를 입력해주세요", Toast.LENGTH_SHORT).show()

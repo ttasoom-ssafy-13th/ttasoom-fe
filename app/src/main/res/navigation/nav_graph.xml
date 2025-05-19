@@ -38,10 +38,18 @@
 
         <action
             android:id="@+id/action_communityFragment_to_communityBoardFragment"
-            app:destination="@id/communityBoardFragment" />
+            app:destination="@id/communityBoardFragment"
+            app:enterAnim="@anim/none"
+            app:exitAnim="@anim/none"
+            app:popEnterAnim="@anim/none"
+            app:popExitAnim="@anim/none"/>
         <action
             android:id="@+id/action_communityFragment_to_communityEditFragment"
-            app:destination="@id/communityEditFragment" />
+            app:destination="@id/communityEditFragment"
+            app:enterAnim="@anim/none"
+            app:exitAnim="@anim/none"
+            app:popEnterAnim="@anim/none"
+            app:popExitAnim="@anim/none"/>
     </fragment>
 
     <fragment

@@ -18,7 +18,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:scaleType="fitXY"
-            android:src="@drawable/tmpimg"
+            android:src="@drawable/profile1"
             app:shapeAppearanceOverlay="@style/CircleImageView" />
 
         <LinearLayout

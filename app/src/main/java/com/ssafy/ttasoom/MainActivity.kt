@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.ssafy.di.navigation.Navigator
 
@@ -22,6 +23,10 @@ class MainActivity : AppCompatActivity(), Navigator {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
 
         binding.bottomNav.setupWithNavController(navController)
 
@@ -47,7 +52,7 @@ class MainActivity : AppCompatActivity(), Navigator {
     }
 
     override fun toMain() {
-        navController.navigate(R.id.action_loginFragment_to_communityFragment)
+        navController.navigate(R.id.action_loginFragment_to_mypage_fragment)
     }
 
     override fun toMyPage() {
