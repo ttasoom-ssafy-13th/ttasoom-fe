@@ -52,7 +52,7 @@
                             android:id="@+id/tvName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="안녕하세요 지명님"
+                            android:text="안녕하세요"
                             android:textColor="@color/text_primary"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -62,7 +62,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="나무 3"
+                            android:text="bronze"
                             android:textColor="@color/primary"
                             android:textSize="16sp" />
 
@@ -83,7 +83,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="총 마일리지 포인트: 2000"
+                    android:text="총 마일리지 포인트: 0"
                     android:textColor="@color/primary"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -120,7 +120,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="다음 등급까지 30마일리지 남았습니다."
+                    android:text="다음 등급까지 300마일리지 남았습니다."
                     android:textColor="@color/text_secondary"
                     android:textSize="14sp" />
 
@@ -164,7 +164,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="3일 연속 출석 중"
+                    android:text="0일 연속 출석 중"
                     android:textColor="@color/text_secondary"
                     android:textSize="14sp" />
 

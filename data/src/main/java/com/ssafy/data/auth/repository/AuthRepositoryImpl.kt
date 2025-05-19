@@ -6,7 +6,9 @@ import com.ssafy.data.auth.mapper.toDomain
 import com.ssafy.data.auth.model.LoginRequest
 import com.ssafy.data.auth.api.AuthApi
 import com.ssafy.data.auth.provider.AuthLocalDataSource
+import com.ssafy.data.auth.provider.AuthRemoteDataSource
 import com.ssafy.domain.auth.model.User
+import com.ssafy.domain.auth.model.UserRegisterInfo
 import com.ssafy.domain.auth.repository.AuthRepository
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -14,7 +16,8 @@ import javax.inject.Inject
 class AuthRepositoryImpl @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
     private val authApi: AuthApi,
-    private val authLocalDataSource: AuthLocalDataSource
+    private val authLocalDataSource: AuthLocalDataSource,
+    private val remoteDataSource: AuthRemoteDataSource
 ) : AuthRepository {
 
     override suspend fun login(email: String, password: String): Result<User> {
@@ -43,8 +46,8 @@ class AuthRepositoryImpl @Inject constructor(
     }
 
 
-    override suspend fun register(email: String, password: String): Result<Unit> {
-        TODO("Not yet implemented")
+    override suspend fun register(user: UserRegisterInfo): Result<Unit> {
+        return remoteDataSource.registerUser(user)
     }
 
     override suspend fun getCurrentUser(): User? {

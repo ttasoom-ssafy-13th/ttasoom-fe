@@ -26,4 +26,8 @@ interface Navigator {
     fun toWeather()
 
     fun toBoilerSolution() // AI 솔루션 화면으로 이동
+
+    fun toRegister()
+
+    fun toLogin()
 }

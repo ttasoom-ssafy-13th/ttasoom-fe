@@ -101,4 +101,12 @@ class MainActivity : AppCompatActivity(), Navigator {
     override fun toBoilerSolution() {
         navController.navigate(R.id.action_mypage_fragment_to_boiler_solution_fragment)
     }
+
+    override fun toRegister() {
+        navController.navigate(R.id.registerFragment)
+    }
+
+    override fun toLogin() {
+        navController.navigate(R.id.loginFragment)
+    }
 }
