@@ -4,13 +4,10 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="10dp"
-    android:clickable="false"
-    android:focusable="false"
-    android:descendantFocusability="afterDescendants">
+    android:padding="10dp">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <com.google.android.material.imageview.ShapeableImageView
@@ -37,8 +34,7 @@
                     android:id="@+id/item_comment_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="User"
-                    android:paddingVertical="3dp"
+                    android:text="서현호"
                     android:textStyle="bold"
                     android:textColor="@color/black" />
 
@@ -55,7 +51,7 @@
             <!-- 댓글 내용 -->
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical">
 
@@ -63,20 +59,25 @@
                     android:id="@+id/item_comment_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Too."
+                    android:text="This is so inspiring! I've been thinking about installing one in my house too."
                     android:textColor="#000000"
-                    android:layout_weight="12"
+                    android:layout_weight="9"
                     android:textSize="14sp" />
 
                 <ImageView
-                    android:id="@+id/item_comment_modifyDelete"
-                    android:layout_width="10dp"
+                    android:id="@+id/item_comment_modify"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:src="@drawable/ic_edit"/>
 
-                    app:tint="@color/deepGray"
-                    android:src="@drawable/ic_dot_three"/>
-<!--invisible 써야 한다-->
+                <ImageView
+                    android:id="@+id/item_comment_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="5dp"
+                    android:src="@drawable/baseline_clear_24"/>
 
             </LinearLayout>
 
@@ -85,8 +86,81 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/item_comment_editLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edittext_background"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="8dp">
 
+        <EditText
+            android:id="@+id/item_comment_editText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:hint="내용을 입력하세요"
+            android:textColor="@color/middleGray"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/item_comment_sendText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_send"
+            android:scaleType="fitXY"
+            android:layout_marginStart="5dp"
+            android:background="@android:color/transparent" />
+
+
+    </LinearLayout>
 
 </LinearLayout>
 
+
+    <!--        &lt;!&ndash; 좋아요 / 리플 &ndash;&gt;-->
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:orientation="horizontal"-->
+    <!--            android:layout_marginTop="8dp">-->
+
+    <!--            &lt;!&ndash; 좋아요 &ndash;&gt;-->
+    <!--            <ImageView-->
+    <!--                android:id="@+id/icon_like"-->
+    <!--                android:layout_width="18dp"-->
+    <!--                android:layout_height="18dp"-->
+    <!--                android:src="@drawable/ic_thumbs_up"-->
+    <!--                app:tint="@color/middleGray" />-->
+
+    <!--            <TextView-->
+    <!--                android:id="@+id/text_like_count"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:text="34"-->
+    <!--                android:textColor="@color/middleGray"-->
+    <!--                android:textSize="12sp"-->
+    <!--                android:layout_marginStart="4dp"-->
+    <!--                android:layout_marginEnd="20dp" />-->
+
+    <!--            &lt;!&ndash; 답글 &ndash;&gt;-->
+    <!--            <ImageView-->
+    <!--                android:id="@+id/icon_reply"-->
+    <!--                android:layout_width="18dp"-->
+    <!--                android:layout_height="18dp"-->
+    <!--                android:src="@drawable/ic_thumbs_down"-->
+    <!--                app:tint="@color/middleGray" />-->
+
+    <!--            <TextView-->
+    <!--                android:id="@+id/text_reply_count"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:text="3"-->
+    <!--                android:textColor="@color/middleGray"-->
+    <!--                android:textSize="12sp"-->
+    <!--                android:layout_marginStart="4dp" />-->
+    <!--        </LinearLayout>-->
 

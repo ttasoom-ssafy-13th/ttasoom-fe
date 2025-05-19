@@ -65,29 +65,27 @@ class CommunityFragment : Fragment() {
     private fun initUI(){
 
         navigator.show()
-        viewModel.getBoard() //list api 호출
-
         binding.communityCreatePost.setOnClickListener{
             navigator.toCommunityEdit()
         } // 글쓰는 버튼
 
         recyclerView=binding.communityRv
         recyclerView.layoutManager= LinearLayoutManager(requireContext())
-        adapter= CommunityAdapter{ post_id,flag ->
-            navigator.toCommunityBoard(post_id,flag)
+        adapter= CommunityAdapter{ post_id ->
+            navigator.toCommunityBoard(post_id)
         }
         recyclerView.adapter=adapter
+
+        viewModel.getBoard() //list api 호출
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.boardList.collectLatest {
-                    Log.d("DEBUG", "boardList updated: $it")
                     adapter.submitList(it)
                 }
             }
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

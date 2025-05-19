@@ -1,7 +1,6 @@
 package com.ssafy.data.community.api
 
 import com.ssafy.data.community.model.BoardResponseDto
-import com.ssafy.data.community.model.LikeResponseDto
 import retrofit2.Response
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -41,6 +40,6 @@ interface CommunityApiService {
     @POST("/board/{post_id}/like")
     suspend fun postBoardLike(
         @Path("post_id") post_id: String
-    ): Response<LikeResponseDto>
+    ): Response<Unit>
 
 }

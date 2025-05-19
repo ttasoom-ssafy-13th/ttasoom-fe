@@ -3,10 +3,8 @@ package com.ssafy.data.community.mapper
 import android.os.Build
 import com.ssafy.data.community.model.BoardResponseDto
 import com.ssafy.data.community.model.CommentsResponseDto
-import com.ssafy.data.community.model.LikeResponseDto
 import com.ssafy.domain.community.model.Board
 import com.ssafy.domain.community.model.Comment
-import com.ssafy.domain.community.model.Like
 
 fun BoardResponseDto.toDomain(): Board {
     return Board(
@@ -36,13 +34,5 @@ fun CommentsResponseDto.toDomain(): Comment {
         } else {
             this.created_at
         }
-    )
-}
-
-fun LikeResponseDto.toDomain() : Like {
-    return Like(
-        detail=this.detail,
-        like_count=this.like_count,
-        liked_users=this.liked_users
     )
 }

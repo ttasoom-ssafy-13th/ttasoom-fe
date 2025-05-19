@@ -31,15 +31,14 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/item_community_user"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:paddingHorizontal="5dp"
-                    android:text="User,"
+                    android:text="서현호,"
                     android:textColor="@color/deepGray"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -51,21 +50,20 @@
                     android:text="1일 전"
                     android:textColor="@color/deepGray"
                     android:textStyle="bold"
-                    android:textSize="14sp" />
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/item_community_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="It is Title"
+                android:text="제목입니다. 제목을 입력해주세요\nsfs"
                 android:paddingHorizontal="5dp"
                 android:textColor="@color/middleGray"
-                android:lineSpacingExtra="2dp"
+                android:lineSpacingExtra="4dp"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:maxLines="2"
-                android:maxWidth="250dp"
                 android:ellipsize="end"/>
 
         </LinearLayout>
@@ -76,13 +74,13 @@
         android:id="@+id/item_community_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:lineSpacingExtra="1dp"
-        android:maxLines="3"
         android:paddingVertical="10dp"
-        android:textSize="14sp"
-        android:text="it is Text \nit is TextLine \nit is Text "
-        android:textColor="@color/deepGray" />
+        android:text="테스트 글자다. 테스트 글자\n글자 수 제한을 하긴 해야할 것이다.\nrmfwktn wmfmsm으아아.ㄴㄹㄴ\nㄴㄴ "
+        android:maxLines="3"
+        android:textStyle="bold"
+        android:ellipsize="end"
+        android:textColor="@color/deepGray"
+        android:lineSpacingExtra="1dp"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -94,6 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_heart"
+            app:tint="@color/middleGray"
             tools:ignore="MissingConstraints" />
 
 
@@ -104,10 +103,8 @@
             android:paddingHorizontal="5dp"
             android:text='23'
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/item_community_heart"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="MissingConstraints"/>
 
         <ImageView
             android:id="@+id/item_community_comment"
@@ -126,10 +123,9 @@
             android:paddingHorizontal="5dp"
             android:text='23'
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints" />
+            tools:layout_editor_absoluteY="0dp"
+            tools:ignore="MissingConstraints"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

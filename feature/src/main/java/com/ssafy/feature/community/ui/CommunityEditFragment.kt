@@ -18,7 +18,6 @@ import com.ssafy.feature.community.EditViewModel
 import com.ssafy.feature.databinding.FragmentCommunityBinding
 import com.ssafy.feature.databinding.FragmentCommunityEditBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.time.delay
 import javax.inject.Inject
 
 private const val TAG = "CommunityEditFragment_싸피"
