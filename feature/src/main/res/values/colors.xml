@@ -19,10 +19,10 @@
     <color name="green">#55CC77</color>
     <color name="light_gray">#E0E0E0</color>
 
-    <color name="primary">#2E7D32</color>
-    <color name="primary_light">#60AD5E</color>
-    <color name="primary_dark">#005005</color>
-    <color name="accent">#81C784</color>
+    <color name="primary">#4CAF50</color>
+    <color name="primary_light">#80E27E</color>
+    <color name="primary_dark">#087F23</color>
+    <color name="accent">#A5D6A7</color>
     <color name="background">#FFFFFF</color>
     <color name="surface">#F5F5F5</color>
     <color name="text_primary">#212121</color>
