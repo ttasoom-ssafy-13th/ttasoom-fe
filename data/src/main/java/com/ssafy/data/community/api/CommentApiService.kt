@@ -22,14 +22,14 @@ interface CommentApiService {
     @PUT("/board/{post_id}/comments/{comment_id}")
     suspend fun putComments(
         @Path("post_id") post_id: String,
-        @Path("comment_id") comment_id: String,
+        @Path("content_id") content_id: String,
         @Query("new_content") new_content: String
     ): Response<CommentsResponseDto>
 
     @DELETE("/board/{post_id}/comments/{comment_id}")
     suspend fun deleteComments(
         @Path("post_id") post_id: String,
-        @Path("comment_id") comment_id: String,
+        @Path("content_id") content_id: String,
     ): Response<Unit>
 
 }

@@ -1,7 +1,6 @@
 package com.ssafy.data.community.provider
 
 import com.ssafy.data.community.model.BoardResponseDto
-import com.ssafy.data.community.model.LikeResponseDto
 import retrofit2.Response
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -22,5 +21,5 @@ interface CommunityRemoteDataSource {
 
     suspend fun deleteBoardById(post_id: String): Result<Unit>
 
-    suspend fun postBoardLike(post_id: String): Result<LikeResponseDto>
+    suspend fun postBoardLike(post_id: String): Result<Unit>
 }
