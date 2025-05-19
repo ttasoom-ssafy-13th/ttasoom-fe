@@ -9,6 +9,10 @@ class LoginUseCase(private val repository: AuthRepository) {
         return repository.login(email, password)
     }
 
+    suspend fun logout() {
+        repository.logout()
+    }
+
     suspend fun verifyToken(): Result<User> {
         return repository.verifyToken()
     }

@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.github.mikephil.charting.data.Entry
@@ -21,6 +22,7 @@ import com.ssafy.feature.R
 import com.ssafy.feature.databinding.FragmentMypageBinding
 import com.ssafy.feature.mypage.viewmodel.MyPageViewModel
 import com.ssafy.di.navigation.Navigator
+import com.ssafy.feature.auth.viewmodel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -34,6 +36,7 @@ class MyPageFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: MyPageViewModel by viewModels()
+    private val userViewModel: AuthViewModel by activityViewModels()
 
     @Inject
     lateinit var navigator: Navigator
@@ -152,6 +155,19 @@ class MyPageFragment : Fragment() {
 
         binding.btnAiSolution.setOnClickListener {
             navigator.toBoilerSolution()
+        }
+
+        binding.btnLogout.setOnClickListener {
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle("로그아웃")
+                .setMessage("정말 로그아웃 하시겠습니까?")
+                .setPositiveButton("확인") { _, _ ->
+                    // TODO: 로그아웃 처리
+                    userViewModel.logout()
+                    navigator.toLogin()
+                }
+                .setNegativeButton("취소", null)
+                .show()
         }
     }
 

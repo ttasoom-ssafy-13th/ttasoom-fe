@@ -8,7 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ActivityCompat
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -27,6 +27,18 @@ class WeatherFragment : Fragment() {
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            // 권한이 허용된 경우 → 위치 다시 요청
+            getCurrentLocation()  // ✅ 이것만 해도 충분
+        } else {
+            Log.d("WeatherFragment", "📛 위치 권한 거부됨")
+        }
+    }
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,14 +54,13 @@ class WeatherFragment : Fragment() {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
 
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED
+        // ✅ 위치 권한 확인 및 요청
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
         ) {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                REQUEST_LOCATION_PERMISSION
-            )
+            requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         } else {
             getCurrentLocation()
         }
@@ -59,29 +70,15 @@ class WeatherFragment : Fragment() {
     private fun getCurrentLocation() {
         fusedLocationClient.lastLocation.addOnSuccessListener { location ->
             if (location != null) {
-                Log.d("WeatherFragment", "📍 lat=${location.latitude}, lon=${location.longitude}")
+//                Log.d("WeatherFragment", "📍 lat=${location.latitude}, lon=${location.longitude}")
                 viewModel.loadData(location.latitude, location.longitude)
             } else {
-                Log.d("WeatherFragment", "📍 location is null, using fallback")
+//                Log.d("WeatherFragment", "📍 location is null, using fallback")
                 viewModel.loadData(37.5665, 126.9780) // fallback: 서울시청
             }
         }.addOnFailureListener {
-            Log.d("WeatherFragment", "📍 location fetch failed, using fallback", it)
+//            Log.d("WeatherFragment", "📍 location fetch failed, using fallback", it)
             viewModel.loadData(37.5665, 126.9780)
-        }
-    }
-
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        if (requestCode == REQUEST_LOCATION_PERMISSION &&
-            grantResults.isNotEmpty() &&
-            grantResults[0] == PackageManager.PERMISSION_GRANTED
-        ) {
-            getCurrentLocation()
         }
     }
 
@@ -89,9 +86,4 @@ class WeatherFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-    companion object {
-        private const val REQUEST_LOCATION_PERMISSION = 1001
-    }
 }
-
